@@ -29,7 +29,7 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/managers', [ManagersController::class, 'index'])->name('managers.index');
-Route::post('/managers',[ManagersController::class, 'store'])->name('managers.store');
+Route::post('/managers', [ManagersController::class, 'store'])->name('managers.store');
 
 Route::get('/managers/create', [ManagersController::class, 'create'])->name('managers.create');
 
@@ -42,9 +42,14 @@ Route::delete('/managers/{manager}', [ManagersController::class, 'destroy'])->na
 //Admin OR manager can........................
 
 Route::get('/receptionists', [ReceptionistsController::class, 'index'])->name('receptionists.index');
+Route::post('/receptionists', [ReceptionistsController::class, 'store'])->name('receptionists.store');
+
 Route::get('/receptionists/create', [ReceptionistsController::class, 'create'])->name('receptionists.create');
 
-Route::get('/receptionists/edit', [ReceptionistsController::class, 'edit'])->name('receptionists.edit');
+Route::get('/receptionists/{receptionist}/edit', [ReceptionistsController::class, 'edit'])->name('receptionists.edit');
 
-Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+Route::put('/receptionists/{receptionist}', [ReceptionistsController::class, 'update'])->name('receptionists.update');
+
+Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+
 

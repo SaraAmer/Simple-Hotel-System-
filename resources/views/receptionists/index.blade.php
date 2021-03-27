@@ -1,41 +1,66 @@
 
-@extends('layouts.app')
-
+@extends('layouts.page')
+@section('title')Index Page
+@endsection
 @section('content')
+<a href="{{route('receptionists.create')}}" class="btn btn-success text-center"  ><i class="ionicons ion-android-create"></i>  Create Receptionist</a>
+<div class="card">
+    <div class="card-header">
+     <h3 class="card-title">Receptionists</h3>
+    </div>
+    <!-- /.card-header -->
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 10px">ID</th>
 
+                <th>Name</th>
+                <th>Email</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+                <th>Manager Name</th>
+                <th>Actions</th>
 
-<br/>
-<br/>
-<a href="/receptionists/create"><button id="new" class="btn btn-success text-center"  ><i class="ionicons ion-android-create"></i>  Create Receptionist</button></a>
- <br/>
- <br/>
-<table id="users" class="table table-hover table-condensed" style="width:100%">
-
-    <thead>
-
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Created_at</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-
-<tr>
-    <td>---</td>
-    <td>---</td>
-    <td>---</td>
-    <td>---</td>
-
-  <td>
-    <a href="{{ route('receptionists.edit') }}" class="btn btn-secondary" style="margin-bottom: 20px;">Edit</a>
-    @csrf
-        @method('DELETE')
-        <button onclick="return confirm('Are you sure?')"  class="btn btn-danger" type="submit"style="margin-bottom: 20px;">Delete</button>
-    </td>
+              </tr>
+            </thead>
+            <tbody>
+                @foreach($Receptionist as $receptionist)
     <tr>
-    </table>
-</div>
+        <th scope="row">{{ $receptionist->id }}</th>
+        <td>{{ $receptionist->name }}</td>
+        <td>{{ $receptionist->email }}</td>
+        <td>{{ \Carbon\Carbon::parse( $receptionist->created_at,'d/m/Y H:i:s')->isoFormat('Y-M-D') }}</td>
+        <td>{{ \Carbon\Carbon::parse( $receptionist->updated_at,'d/m/Y H:i:s')->isoFormat('Y-M-D') }}</td>
+        <td>{{
+          $receptionist->manager ?  $receptionist->manager->name : 'receptionist not found'
+        }}
+          
+    </td>
+
+        <td>
+
+            <a href="{{route('receptionists.edit',['receptionist' => $receptionist['id']])}}" class="btn btn-secondary" style="margin-bottom: 20px;">Edit</a>
+            <form style="display:inline" method="POST" action="{{route('receptionists.destroy',['receptionist' => $receptionist['id']])}}">
+                @csrf
+                @method('DELETE')
+                <button onclick="return confirm('Are you sure?')" class="btn btn-danger" type="submit" style="margin-bottom: 20px;">Delete</button>
+            </form>
+        </td>
+    <tr>
+        @endforeach
+            </tbody>
+          </table>
+        </div>
+    </div>
+
+
+
+  </div>
+
 
 @endsection
+
+
+
+
