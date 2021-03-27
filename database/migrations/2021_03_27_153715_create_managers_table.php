@@ -4,8 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMangersTable extends Migration
+class CreateManagersTable extends Migration
 {
+   
     /**
      * Run the migrations.
      *
@@ -13,7 +14,7 @@ class CreateMangersTable extends Migration
      */
     public function up()
     {
-        Schema::create('mangers', function (Blueprint $table) {
+        Schema::create('managers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
