@@ -47,3 +47,12 @@ Route::get('/receptionists/create', [ReceptionistsController::class, 'create'])-
 Route::get('/receptionists/edit', [ReceptionistsController::class, 'edit'])->name('receptionists.edit');
 
 Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+
+
+
+//Client
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
+Route::get('/client/home', [App\Http\Controllers\ClientController::class, 'home'])->name('clientHome');
+Route::get('/client/reservation', [App\Http\Controllers\ClientController::class, 'reserve'])->name('clientReservation');
+Route::get('/client/invoice', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
