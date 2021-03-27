@@ -17,7 +17,7 @@
 
                 <th>Name</th>
                 <th>Email</th>
-                <th>Created at</th>
+                <th>Created_at</th>
                 <th>Updated at</th>
                 <th>Manager Name</th>
                 <th>Actions</th>
