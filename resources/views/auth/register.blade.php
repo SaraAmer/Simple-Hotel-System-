@@ -51,6 +51,16 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
+
+
+                        <div class="number">
+                        <input type="number" class="form-control @error('number') is-invalid @enderror" name="phoneNumber"
+                            value="{{ old('number') }}" required autocomplete="phoneNumber" placeholder="Phone Number">
+                        @error('number')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
