@@ -136,7 +136,7 @@
               <li class="nav-item">
                 <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Client Reservation</p>
+                  <p>Manage Client </p>
                 </a>
               </li>
               <li class="nav-item">

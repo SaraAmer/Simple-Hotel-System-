@@ -200,17 +200,36 @@
                   <thead>
                   <tr>
                     <th>Client Name</th>
-                    <th>Accompany Number</th>
-                    <th>Room Number</th>
-                    <th>Client paid price</th>
+                    <th>Email</th>
+                    <th>mobile</th>
+                    <th>country</th>
+                    <th>gender</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
                     <td>Marwa</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>100</td>
+                    <td>eng.marwamedhat2020@gmail.com</td>
+                    <td>01777777777</td>
+                    <td>Egypt</td>
+                    <td>female</td>
+                    <td>
+                    <form method="POST" action="{{route('Receptionist.ManageClient')}}" style="display:inline;margin:0px;padding:0px">
+                    <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to decline ?')">Accept</button>
+                  </form>
+
+                  <form method="POST" action="{{route('Receptionist.ManageClient')}}" style="display:inline;margin:0px;padding:0px">
+                    <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to decline ?')">Decline</button>
+                  </form>
+                  <td>
+
+                    <!-- <form>
+                    <button type="submit" class="btn btn-success">Accept</button>
+                    <button type="submit" class="btn btn-success">decline</button>
+
+                    </form> -->
+
                   </tr>                
                   </tbody>
                 </table>
