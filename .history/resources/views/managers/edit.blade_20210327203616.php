@@ -1,6 +1,5 @@
 @extends('layouts.page')
-@section('title')Edit
-@endsection
+
 @section('content')
 <div class="container">
 <div class="container-fluid">
@@ -8,36 +7,27 @@
         <!-- general form elements -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Edit Receptionist Info Page</h3>
+            <h3 class="card-title">Edit Manager Info Page</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" method="post" action="{{route('receptionists.update',['receptionist' => $receptionist['id']])}}"  enctype="multipart/form-data">
+          <form role="form" method="post" action="{{route('managers.update',['manager'=> $manager['id']])}}"  enctype="multipart/form-data">
             <input type="hidden" name="_method" value="PUT">
             @csrf
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputName">Name</label>
-                  <input class="form-control" id="exampleInputName"  type="text" name="name" placeholder="{{ $receptionist['name'] }}">
+                  <input class="form-control" id="exampleInputName"  type="text" name="name" placeholder="{{ $manager['name'] }}">
 
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input class="form-control" id="exampleInputEmail1" type="email" name="email" placeholder="{{ $receptionist['email'] }}" >
+                <input class="form-control" id="exampleInputEmail1" type="email" name="email" placeholder="{{ $manager['email'] }}" >
               </div>
-              <div class="form-group">
-                <label for="manger_id">Manager</label>
-                <select name="manger_id" class="form-control" id="manger_id">
-                  @foreach ($managers as $manager)
-                    <option value="{{$manager->id}}">{{$manager->name}}</option>
-                  @endforeach
-                </select>
-              </div>
-
 
               <div class="form-group">
                 <label for="exampleInputNationalID">National ID</label>
-                <input class="form-control" id="exampleInputNationalID" pattern="[0-9]*" type="text" name="national_id" placeholder="{{ $receptionist['national_id'] }}">
+                <input class="form-control" id="exampleInputNationalID" pattern="[0-9]*" type="text" name="national_id" placeholder="{{ $manager['national_id'] }}">
                 <div class="form-group">
                     <label>Profile Image</label>
                     <br/>

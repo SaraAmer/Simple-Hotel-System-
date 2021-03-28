@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@section('title')Edit
+@section('title')EDIT
 @endsection
 @section('content')
 <div class="container">

@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@section('title')Create
+@section('title2')Create
 @endsection
 @section('content')
 <div class="container">

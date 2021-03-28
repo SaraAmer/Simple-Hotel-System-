@@ -1,6 +1,5 @@
 @extends('layouts.page')
-@section('title')Create
-@endsection
+
 @section('content')
 <div class="container">
 <div class="container-fluid">

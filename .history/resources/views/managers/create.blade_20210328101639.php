@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+  <div class="container-fluid">
   <!-- general form elements -->
     <div class="card card-primary">
       <div class="card-header">

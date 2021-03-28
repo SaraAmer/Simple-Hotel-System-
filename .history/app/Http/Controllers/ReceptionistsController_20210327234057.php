@@ -14,7 +14,7 @@ class ReceptionistsController extends Controller
     public function index()
     {
         $allReceptionist = Receptionist::all();
-
+        
         return view(
             'receptionists.index',
             [
@@ -64,7 +64,6 @@ class ReceptionistsController extends Controller
         User::create([
                'name'=> $request->name,
                'email'=>$request->email,
-               'role'=>'Receptionist',
 
                'password' => Hash::make($request['password']),
 

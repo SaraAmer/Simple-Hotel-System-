@@ -1,6 +1,6 @@
 
-@extends('layouts.page')
-@section('title')Manage Receptionists
+@extends('layouts.page',['title' => 'About'])
+@section('title')   <h1>About</h1>
 @endsection
 @section('content')
 <a href="{{route('receptionists.create')}}" class="btn btn-success text-center"  ><i class="ionicons ion-android-create"></i>  Create Receptionist</a>

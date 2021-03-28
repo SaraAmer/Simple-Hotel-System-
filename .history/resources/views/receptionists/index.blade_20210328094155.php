@@ -1,12 +1,13 @@
 
 @extends('layouts.page')
-@section('title')Manage Receptionists
+@section('title', 'Page Title')
+
 @endsection
 @section('content')
 <a href="{{route('receptionists.create')}}" class="btn btn-success text-center"  ><i class="ionicons ion-android-create"></i>  Create Receptionist</a>
 <div class="card">
     <div class="card-header">
-     <h3 class="card-title">Receptionists</h3>
+     <h3 class="card-title">Receptionists -@yield('title')</h3>
     </div>
     <!-- /.card-header -->
         <div class="card-body">

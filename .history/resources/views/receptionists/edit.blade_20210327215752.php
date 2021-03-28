@@ -1,6 +1,5 @@
 @extends('layouts.page')
-@section('title')Edit
-@endsection
+
 @section('content')
 <div class="container">
 <div class="container-fluid">

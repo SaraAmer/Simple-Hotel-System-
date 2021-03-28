@@ -324,8 +324,8 @@
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
-{{-- <!-- DataTables  & Plugins -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js " type="text/javascript"></script>
+
+
 <!-- Page specific script -->
 <script>
     $(function () {
@@ -343,6 +343,6 @@
         "responsive": true,
       });
     });
-  </script> --}}
+  </script>
 </body>
 </html>

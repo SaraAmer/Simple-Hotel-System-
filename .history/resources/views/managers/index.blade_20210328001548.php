@@ -1,6 +1,6 @@
 
 @extends('layouts.page')
-@section('title')Manage Manager
+@section('title')Index Page
 @endsection
 @section('content')
 <a href="{{route('managers.create')}}" class="btn btn-success text-center"  ><i class="ionicons ion-android-create"></i>  Create Manager</a>
@@ -10,7 +10,7 @@
     </div>
     <!-- /.card-header -->
         <div class="card-body">
-            <table id="example2" class="table table-bordered table-hover">
+          <table class="table table-bordered">
             <thead>
               <thead>
 
