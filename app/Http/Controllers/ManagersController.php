@@ -13,10 +13,15 @@ class ManagersController extends Controller
     public function index()
     {
         $allManagers = Manager::all();
+
+     
+
+        
         return view(
             'managers.index',
             [
-            'Managers' => $allManagers
+
+            'Managers' => $allManagers,
         ]
         );
     }
