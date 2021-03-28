@@ -60,12 +60,13 @@ class ReceptionistsController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
+        
         Receptionist::create($requestData);
         User::create([
                'name'=> $request->name,
                'email'=>$request->email,
-
                'password' => Hash::make($request['password']),
+               'role' => 'Receptionist'
 
            ]);
 
