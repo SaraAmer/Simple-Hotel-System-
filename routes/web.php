@@ -82,10 +82,14 @@ Route::put('/receptionists/{receptionist}', [ReceptionistsController::class, 'up
 Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
 
 
+Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+Route::get('/manger/profile', [ManagersController::class,'profile'])->name('manager.profile');
+
+
 
 
 //Client
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
 Route::get('/client/home', [App\Http\Controllers\ClientController::class, 'home'])->name('clientHome');
 Route::get('/client/reservation', [App\Http\Controllers\ClientController::class, 'reserve'])->name('clientReservation');
