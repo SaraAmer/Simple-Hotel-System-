@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+//use Spatie\Permission\Traits\HasRoles;
 
 class Admin
 {
@@ -18,6 +19,12 @@ class Admin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->role=="Admin") {
+            //check have role:
+           if(!Auth::user()->hasRole('admin')){
+              
+            Auth::user()->assignRole('admin');
+           }
+          
             return $next($request);
         } else {
             return redirect('/notfound');
