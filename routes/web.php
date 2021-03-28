@@ -47,6 +47,7 @@ Route::get('/receptionists/create', [ReceptionistsController::class, 'create'])-
 Route::get('/receptionists/edit', [ReceptionistsController::class, 'edit'])->name('receptionists.edit');
 
 Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+Route::get('/manger/profile', [ManagersController::class,'profile'])->name('manager.profile');
 
 
 
