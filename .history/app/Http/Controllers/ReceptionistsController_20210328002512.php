@@ -64,8 +64,8 @@ class ReceptionistsController extends Controller
         User::create([
                'name'=> $request->name,
                'email'=>$request->email,
+
                'password' => Hash::make($request['password']),
-               'role' => 'receptionist'
 
            ]);
 
