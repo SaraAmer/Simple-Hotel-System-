@@ -18,10 +18,12 @@ class Manager
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->role=="Manager"||Auth::user()->role=="Admin") {
+            if (!Auth::user()->hasRole('manager') && Auth::user()->role=="Manager") {
+                Auth::user()->assignRole('manager');
+            }
             return $next($request);
         } else {
-            return redirect('/notfound');
-            // return view('404');
+            abort('403', 'Access denied');
         }
     }
 }
