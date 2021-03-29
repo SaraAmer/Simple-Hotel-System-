@@ -20,7 +20,7 @@ use App\Http\Controllers\ReceptionistController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
@@ -56,7 +56,7 @@ Route::middleware(['auth','receptionist'])->group(function () {
     Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
 });
 
-Auth::routes();
+
 //Admin ONLY can....................................................
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth','admin'])->group(function () {
