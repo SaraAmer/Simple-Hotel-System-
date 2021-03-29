@@ -206,12 +206,22 @@
                   </tr>
                   </thead>
                   <tbody>
+                  @foreach ( $ClientReservation as $client)
+                  @foreach ($ClientReservationName as $clientn)
                   <tr>
-                    <td>Marwa</td>
+                    <!-- <td>Marwa</td>
                     <td>3</td>
                     <td>1</td>
-                    <td>100</td>
-                  </tr>                
+                    <td>100</td> -->
+<!-- 
+                    <td>{{ $client['client_id'] }}</td> -->
+                    <td>{{ $clientn['name'] }}</td>
+                    <td>{{  $client['accompany_number']   }}</td>
+                    <td>{{  $client['room_number'] }}</td>
+                    <td>{{  $client['paid price'] }}</td>
+                  </tr>    
+                  @endforeach                              
+                  @endforeach         
                   </tbody>
                 </table>
               </div>

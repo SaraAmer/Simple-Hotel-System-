@@ -208,18 +208,26 @@
                   </tr>
                   </thead>
                   <tbody>
+                  @foreach ($ManagedClients as $client)
+
                   <tr>
-                    <td>Marwa</td>
+                    <!-- <td>Marwa</td>
                     <td>eng.marwamedhat2020@gmail.com</td>
                     <td>01777777777</td>
                     <td>Egypt</td>
-                    <td>female</td>
+                    <td>female</td> -->
+                    <td>{{ $client['name'] }}</td>
+                    <td>{{  $client['email']   }}</td>
+                    <td>{{  $client['mobile'] }}</td>
+                    <td>{{  $client['country'] }}</td>
+                    <td> {{  $client['gender'] }}</td>
+                    
                     <td>
-                    <form method="POST" action="{{route('Receptionist.ManageClient')}}" style="display:inline;margin:0px;padding:0px">
-                    <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to decline ?')">Accept</button>
+                    <form method="GET" action="{{route('Receptionist.ManageClient')}}" style="display:inline;margin:0px;padding:0px">
+                    <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to Accept ?')">Accept</button>
                   </form>
 
-                  <form method="POST" action="{{route('Receptionist.ManageClient')}}" style="display:inline;margin:0px;padding:0px">
+                  <form method="GET" action="{{route('Receptionist.ManageClient')}}" style="display:inline;margin:0px;padding:0px">
                     <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to decline ?')">Decline</button>
                   </form>
                   <td>
@@ -230,7 +238,8 @@
 
                     </form> -->
 
-                  </tr>                
+                  </tr> 
+                  @endforeach               
                   </tbody>
                 </table>
               </div>
