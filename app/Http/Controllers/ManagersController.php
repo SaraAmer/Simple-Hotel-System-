@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ManagerRequest;
+use App\Http\Requests\ManagerUpdateRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Manager;
@@ -31,32 +33,39 @@ class ManagersController extends Controller
         return view('managers.create');
     }
 
-    public function update($ManagerId, Request $request)
+    public function update($ManagerId, ManagerUpdateRequest  $request)
     {
-        $requestData= $request->all();
         $manager = Manager::find($ManagerId);
+        
+    
+        // $manageruser=$manageruser->id;
+       
+        $requestData= $request->all();
         $manager->update($requestData);
-
-
         $manager->save();
         return redirect()->route('managers.index');
     }
     public function edit($ManagerId)
     {
         $manager = Manager::find($ManagerId);
+       
+       
         return view('managers.edit', [
             'manager' => $manager,
+            
+
         ]);
     }
 
     public function destroy($ManagerId)
     {
         $manager = Manager::findorfail($ManagerId);
+        User::where('email', $manager->email)->delete();
         $manager->delete();
         return redirect()->route('managers.index');
     }
 
-    public function store(Request $request)
+    public function store(ManagerRequest $request)
     {
         // $requestData = $request->all();
         Manager::create([
@@ -65,23 +74,18 @@ class ManagersController extends Controller
                 'national_id'=>$request->national_id,
                 
             ]);
+        $manager= Manager::where('email', $request->email)->first();
+
         User::create([
                 'name'=> $request->name,
                 'email'=>$request->email,
 
                 'password' => Hash::make($request['password']),
                 'role'=>'Manager',
+                'user_id'=>$manager->id
 
             ]);
 
         return redirect()->route('managers.index');
-    }
-    public function profile()
-    {
-        // $manager= new Manager();
-        $email=Auth::user()->email;
-        $manager=Manager::where('email', $email)->get();
-        dd($manager);
-        return view('profile', ['manager'=>$manager]);
     }
 }

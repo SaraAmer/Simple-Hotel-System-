@@ -49,7 +49,7 @@ Route::get('/receptionist', function () { //da 2li bktbo fe al url
 // Route::get('/receptionist/profile', function () { //da 2li bktbo fe al url
 //     return view('Receptionist/ProfileReceptionist'); //in rresource/views/Receptionist
 // });
-Route::middleware(['auth','receptionist'])->group(function () {
+Route::middleware(['auth','receptionist','admin'])->group(function () {
     Route::get('/receptionist/profile', [ReceptionistController::class, 'profile'])->name('Receptionist.profile');
     Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient');
     Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
@@ -83,7 +83,7 @@ Route::middleware(['auth','manager'])->group(function () {
 
 
 //Client
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'receptionist')->group(function () {
     Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
     Route::get('/client/home', [App\Http\Controllers\ClientController::class, 'home'])->name('clientHome');
     Route::get('/client/reservation', [App\Http\Controllers\ClientController::class, 'reserve'])->name('clientReservation');

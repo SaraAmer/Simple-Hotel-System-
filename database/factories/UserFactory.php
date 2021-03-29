@@ -32,9 +32,10 @@ class UserFactory extends Factory
         // ];
         return [
                 'name' => 'admin',
-                'email' =>'admin@admin.com',
+                'email' =>'admin2@admin.com',
                 'password'=> Hash::make('123456'),
-                'role' => 'Admin'
+                'role' => 'Admin',
+                'user_id'=> 0,
             
         ];
     }
