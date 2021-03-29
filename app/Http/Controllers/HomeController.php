@@ -24,9 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role=="Manager") {
-            return view('managers/adminStartPage');
-        }
-        // return view('home');
+        return view('home');
     }
 }
