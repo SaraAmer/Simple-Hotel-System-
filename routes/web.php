@@ -49,54 +49,43 @@ Route::get('/receptionist', function () { //da 2li bktbo fe al url
 // Route::get('/receptionist/profile', function () { //da 2li bktbo fe al url
 //     return view('Receptionist/ProfileReceptionist'); //in rresource/views/Receptionist
 // });
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/receptionist/profile', [ReceptionistController::class, 'profile'])->name('Receptionist.profile')->middleware(['auth','receptionist']);
-Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient')->middleware(['auth','receptionist']);
-Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation')->middleware(['auth','receptionist']);
-Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient')->middleware(['auth','receptionist']);
+Route::middleware(['auth','receptionist'])->group(function () {
+    Route::get('/receptionist/profile', [ReceptionistController::class, 'profile'])->name('Receptionist.profile');
+    Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient');
+    Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
+    Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
+});
 
 Auth::routes();
 //Admin ONLY can....................................................
-
-
-Route::get('/managers', [ManagersController::class, 'index'])->name('managers.index')->middleware(['auth','admin']);
-Route::post('/managers', [ManagersController::class, 'store'])->name('managers.store')->middleware(['auth','admin']);
-Route::get('/managers/create', [ManagersController::class, 'create'])->name('managers.create')->middleware(['auth','admin']);
-
-Route::get('/managers/{manager}/edit', [ManagersController::class, 'edit'])->name('managers.edit')->middleware(['auth','admin']);
-
-Route::put('/managers/{manager}', [ManagersController::class, 'update'])->name('managers.update')->middleware(['auth','admin']);
-
-Route::delete('/managers/{manager}', [ManagersController::class, 'destroy'])->name('managers.destroy')->middleware(['auth','admin']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/managers', [ManagersController::class, 'index'])->name('managers.index');
+    Route::post('/managers', [ManagersController::class, 'store'])->name('managers.store');
+    Route::get('/managers/create', [ManagersController::class, 'create'])->name('managers.create');
+    Route::get('/managers/{manager}/edit', [ManagersController::class, 'edit'])->name('managers.edit');
+    Route::put('/managers/{manager}', [ManagersController::class, 'update'])->name('managers.update');
+    Route::delete('/managers/{manager}', [ManagersController::class, 'destroy'])->name('managers.destroy');
+});
 
 //Admin OR manager can........................
-
-Route::get('/receptionists', [ReceptionistsController::class, 'index'])->name('receptionists.index')->middleware(['auth','manager']);
-Route::post('/receptionists', [ReceptionistsController::class, 'store'])->name('receptionists.store')->middleware(['auth','manager']);
-
-Route::get('/receptionists/create', [ReceptionistsController::class, 'create'])->name('receptionists.create')->middleware(['auth','manager']);
-
-Route::get('/receptionists/{receptionist}/edit', [ReceptionistsController::class, 'edit'])->name('receptionists.edit')->middleware(['auth','manager']);
-
-Route::put('/receptionists/{receptionist}', [ReceptionistsController::class, 'update'])->name('receptionists.update')->middleware(['auth','manager']);
-
-Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy')->middleware(['auth','manager']);
-
-
-Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy')->middleware(['auth','manager']);
-Route::get('/manger/profile', [ManagersController::class,'profile'])->name('manager.profile')->middleware(['auth','manager']);
-
+Route::middleware(['auth','manager'])->group(function () {
+    Route::get('/receptionists', [ReceptionistsController::class, 'index'])->name('receptionists.index');
+    Route::post('/receptionists', [ReceptionistsController::class, 'store'])->name('receptionists.store');
+    Route::get('/receptionists/create', [ReceptionistsController::class, 'create'])->name('receptionists.create');
+    Route::get('/receptionists/{receptionist}/edit', [ReceptionistsController::class, 'edit'])->name('receptionists.edit');
+    Route::put('/receptionists/{receptionist}', [ReceptionistsController::class, 'update'])->name('receptionists.update');
+    Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+    Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+    Route::get('/manger/profile', [ManagersController::class,'profile'])->name('manager.profile');
+});
 
 
 
 //Client
-
-Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client')->middleware('auth');
-Route::get('/client/home', [App\Http\Controllers\ClientController::class, 'home'])->name('clientHome')->middleware('auth');
-Route::get('/client/reservation', [App\Http\Controllers\ClientController::class, 'reserve'])->name('clientReservation')->middleware('auth');
-Route::get('/client/invoice', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice')->middleware('auth');
-
-
-Route::get('/notfound', function () {
-    return view('404');
+Route::middleware('auth')->group(function () {
+    Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
+    Route::get('/client/home', [App\Http\Controllers\ClientController::class, 'home'])->name('clientHome');
+    Route::get('/client/reservation', [App\Http\Controllers\ClientController::class, 'reserve'])->name('clientReservation');
+    Route::get('/client/invoice', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
 });

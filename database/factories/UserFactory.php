@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserFactory extends Factory
@@ -32,7 +33,7 @@ class UserFactory extends Factory
         return [
                 'name' => 'admin',
                 'email' =>'admin@admin.com',
-                'password'=> '123456',
+                'password'=> Hash::make('123456'),
                 'role' => 'Admin'
             
         ];

@@ -20,8 +20,8 @@ class Reciptionist
         if (Auth::user()->role=="Receptionist"||Auth::user()->role=="Admin"||Auth::user()->role=="Manager") {
             return $next($request);
         } else {
-            return redirect('/notfound');
-            // return view('404');
+            abort('403', 'Access denied');
+            
         }
     }
 }
