@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Registration;
+use App\Models\Receptionist ;
 use App\Models\Client;
 
 use App\Models\Reservation;
@@ -53,10 +54,49 @@ class ReceptionistController extends Controller
     }
     function profile() 
     {
-        return view('Receptionist/ProfileReceptionist');
+        $Receptionist= Receptionist  :: where('id',1)->first();
+        //Check on Email get from url which i can  get using parameter input as it's different from one to another 
+        // $Receptionist= Receptionist  :: where('email',)->first();
+
+        // @dd($Receptionist);
+        return view('Receptionist/ProfileReceptionist',['Receptionist'=> $Receptionist]);
 
     }
 
+    //when Click decline .. client record will remove from registration table 
+    //when click Accept ... client data will store in Clients table 
+    
+    // public function destory($clientId)
+    // {
+    //     // ------------------------------------------
+    //     // @dd($clientId);
+    //     Registration::find($clientId)->delete();
+    //     return redirect()->route('Receptionist.ManageClient');
+    // }
 
+
+
+    //store in Client table data of Registeration table
+    // public function store(Request $request)
+    // {
+    //     // 'name',
+    //     // 'email',
+    //     // 'password',
+    //     // 'gender',
+    //     // 'mobile',
+    //     // 'country',
+    //     // 'aprovalID',
+    //     // 'aprovalRole',
+    //     // 'has_reservations',
+    //     // 'avatar_image',
+    //     @dd($request);
+    //     @dd("store method");
+    //     $client = new Client;
+    //     $client->name= $request->name;
+    //     $client->email = $request->email;
+
+    //     $client->save();
+    //     return redirect()->route('Receptionist.ManageClient');
+    // }
 
 }

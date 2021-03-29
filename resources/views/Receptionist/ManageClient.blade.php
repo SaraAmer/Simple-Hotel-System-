@@ -187,6 +187,7 @@
     </section>
     <!----------------------------------------------------------------------------------------->
     <!-- Main content -->
+    
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -216,18 +217,23 @@
                     <td>01777777777</td>
                     <td>Egypt</td>
                     <td>female</td> -->
-                    <td>{{ $client['name'] }}</td>
-                    <td>{{  $client['email']   }}</td>
-                    <td>{{  $client['mobile'] }}</td>
-                    <td>{{  $client['country'] }}</td>
-                    <td> {{  $client['gender'] }}</td>
+                    <td name='name' value='name'>{{ $client['name'] }}</td>
+                    <td name='email' value='email'>{{  $client['email']   }}</td>
+                    <td name='mobile' value='mobile'>{{  $client['mobile'] }}</td>
+                    <td name='country' value='country'>{{  $client['country'] }}</td>
+                    <td name='gender' value='gender'> {{  $client['gender'] }}</td>
                     
                     <td>
-                    <form method="GET" action="{{route('Receptionist.ManageClient')}}" style="display:inline;margin:0px;padding:0px">
-                    <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to Accept ?')">Accept</button>
-                  </form>
 
-                  <form method="GET" action="{{route('Receptionist.ManageClient')}}" style="display:inline;margin:0px;padding:0px">
+                    <!-- <form method="POST" action="{{route('clients.store')}}" style="display:inline;margin:0px;padding:0px">
+      
+                    @csrf @method('POST')
+                    <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to Accept ?')">Accept</button>
+                  </form> -->
+
+<!-- route include name of route in web.php -->
+                  <form method="POST" action="{{route('clients.destory',['client' => $client['id']])}}" style="display:inline;margin:0px;padding:0px">
+                  @csrf @method('DELETE')
                     <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to decline ?')">Decline</button>
                   </form>
                   <td>
