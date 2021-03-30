@@ -17,11 +17,13 @@ class Reciptionist
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role=="Receptionist"||Auth::user()->role=="Admin"||Auth::user()->role=="Manager") {
+        if (Auth::user()->role=="Receptionist" || Auth::user()->role=="Manager"||Auth::user()->role=="Admin") {
+            if (!Auth::user()->hasRole('receptionist') && Auth::user()->role=="receptionist") {
+                Auth::user()->assignRole('receptionist');
+            }
             return $next($request);
         } else {
-            return redirect('/notfound');
-            // return view('404');
+            abort('403', 'Access denied');
         }
     }
 }
