@@ -6,6 +6,7 @@ use  App\Http\Controllers\ManageClientController;
 use  App\Http\Controllers\ClientReservationController;
 use App\Http\Controllers\ApprovedClientController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\ManagersController;
 use App\Http\Controllers\ReceptionistsController;
 use App\Http\Controllers\ReceptionistController;
@@ -79,10 +80,19 @@ Route::middleware(['auth','manager'])->group(function () {
     Route::get('/receptionists/{receptionist}/edit', [ReceptionistsController::class, 'edit'])->name('receptionists.edit');
     Route::put('/receptionists/{receptionist}', [ReceptionistsController::class, 'update'])->name('receptionists.update');
     Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
-    Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+
     Route::get('/manger/profile', [ManagersController::class,'profile'])->name('manager.profile');
 });
 
+
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms.index');
+    Route::post('/rooms', [RoomsController::class, 'store'])->name('rooms.store');
+    Route::get('/rooms/create', [RoomsController::class, 'create'])->name('rooms.create');
+    Route::get('/rooms/{room}/edit', [RoomsController::class, 'edit'])->name('rooms.edit');
+    Route::put('/rooms/{room}', [RoomsController::class, 'update'])->name('rooms.update');
+    Route::delete('/rooms/{room}', [RoomsController::class, 'destroy'])->name('rooms.destroy');
+});
 
 
 //Client

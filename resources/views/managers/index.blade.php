@@ -15,9 +15,9 @@
               <thead>
 
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
+            <th>Manager's ID</th>
+            <th>Managers's Name</th>
+            <th>Manager's Email</th>
             <th>Created at</th>
             <th>Updated at</th>
             <th>Actions</th>
