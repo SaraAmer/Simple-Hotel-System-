@@ -45,6 +45,13 @@
 
             <a href="{{route('receptionists.edit',['receptionist' => $receptionist['id']])}}" class="btn btn-secondary"
               style="margin-bottom: 20px;">Edit</a>
+            @if($receptionist->isBanned())
+            <a href="{{route('receptionists.unban',['receptionist' => $receptionist['id']])}}" class="btn btn-success"
+              style="margin-bottom: 20px;">UnBan</a>
+            @else
+            <a href="{{route('receptionists.ban',['receptionist' => $receptionist['id']])}}" class="btn btn-danger"
+              style="margin-bottom: 20px;">Ban</a>
+            @endif
             <form style="display:inline" method="POST"
               action="{{route('receptionists.destroy',['receptionist' => $receptionist['id']])}}">
               @csrf
