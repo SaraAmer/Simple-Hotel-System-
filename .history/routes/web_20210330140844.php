@@ -50,7 +50,7 @@ Route::get('/receptionist', function () { //da 2li bktbo fe al url
 //     return view('Receptionist/ProfileReceptionist'); //in rresource/views/Receptionist
 // });
 
-Route::middleware(['auth','receptionist','admin'])->group(function () {
+Route::middleware(['auth','receptionist'])->group(function () {
     Route::get('/receptionist/profile', [ReceptionistController::class, 'profile'])->name('Receptionist.profile');
     Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient');
     Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');

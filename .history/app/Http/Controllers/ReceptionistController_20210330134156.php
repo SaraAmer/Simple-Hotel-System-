@@ -34,14 +34,7 @@ class ReceptionistController extends Controller
         //         ['name'=>'Marwa','email'=>'eng.marwamedhat2020@gmail.com','mobile'=>'012888888','country'=>'Egypt','gender'=>'female'],
         //         ['name'=>'rana','email'=>'eng.ranaamedhat2020@gmail.com','mobile'=>'0128888888','country' => 'Egypt','gender'=>'female'],
         // ];
-        if(Auth::user()->role == "receptionist")
-        {
-            $ApprovedClient=Client :: where('aprovalID',Auth::user()->id)->get();
-        }
-        else
-        {
         $ApprovedClient=Client :: all();
-        }
         return view('Receptionist.ApprovedClient',
         ['ApprovedClient'=>  $ApprovedClient]);
 
@@ -89,11 +82,11 @@ class ReceptionistController extends Controller
       $client->gender = $acceptedClient->gender;
     //   $client->password = $acceptedClient->password; 
       $client->has_reservations="no";
-      $client->aprovalRole=Auth::user()->role;
+      $client->approvalRole=Auth::user()->role;
       $client->aprovalID=Auth::user()->id;
       $client->save();
       Registration ::where('email',$email)->first()->delete();
-      return redirect()->route('Receptionist.ManageClient');
+
     }
 
     //when Click decline .. client record will remove from registration table 

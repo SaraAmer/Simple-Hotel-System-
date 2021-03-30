@@ -37,6 +37,7 @@ class ReceptionistController extends Controller
         if(Auth::user()->role == "receptionist")
         {
             $ApprovedClient=Client :: where('aprovalID',Auth::user()->id)->get();
+
         }
         else
         {
