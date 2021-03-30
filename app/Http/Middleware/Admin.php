@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-//use Spatie\Permission\Traits\HasRoles;
+
 
 class Admin
 {
@@ -27,8 +27,9 @@ class Admin
           
             return $next($request);
         } else {
-            return redirect('/notfound');
-            // return view('404');
+          
+            abort('403', 'Access denied');
+           
         }
     }
 }

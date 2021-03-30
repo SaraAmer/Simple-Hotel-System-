@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\Admin;
 use Illuminate\Http\Request;
 use App\Models\Manager;
 use App\Models\Floor;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Auth;
 
 class FloorsController extends Controller
 {
@@ -53,11 +49,10 @@ class FloorsController extends Controller
 
     public function store(Request $request)
     {
-        $user =Auth::user()->id ;
         Floor::create([
             'name'=> $request->name,
             'number'=>rand(1, 9999),
-            'manager_id' =>$user,
+
 
         ]);
 
