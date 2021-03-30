@@ -224,15 +224,16 @@
                     <td name='gender' value='gender'> {{  $client['gender'] }}</td>
                     
                     <td>
-                    <form method="GET" action="{{route('acceptClient',['client' => $client['email']])}}" style="display:inline;margin:0px;padding:0px">
-                    <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to Accept ?')">Accept</button>
-                  </form>
 
-                  <form method="POST" action="{{route('clients.destory',['client' => $client['id']])}}" style="display:inline;margin:0px;padding:0px">
-                  @csrf @method('DELETE')
-                    <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to delete ?')">Delete</button>
-                  </form>
-                    <td>
+                    
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    
+
+                <button class="deleteRecord" data-id="{{ $client->id }}" >Delete Record</button>
+
+
+                  <td>
                   
 
                     <!-- <form>
@@ -306,7 +307,25 @@
     });
   });
 </script>
+<script>
+$(".deleteRecord").click(function(){
+var id = $(this).client("id");
+var token = $("meta[name='csrf-token']").attr("content");
+$.ajax(
+{
+    url: "'clients/"+id,
+    type: 'DELETE',
+    data: {
 
+        "id": id,
+        "_token": token,
+    },
+    success: function (){
+        console.log("it Works");
+    }
+});
+});
+</script>
 
 </body>
 </html>

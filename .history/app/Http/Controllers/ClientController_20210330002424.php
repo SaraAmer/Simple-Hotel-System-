@@ -84,8 +84,11 @@ class ClientController extends Controller
     public function deleteclient($id){
 
    
-        @dd($id);
+
         Registration ::find($id)->delete($id);
+    
+      
+    
         return response()->json([
     
             'success' => 'Record deleted successfully!'

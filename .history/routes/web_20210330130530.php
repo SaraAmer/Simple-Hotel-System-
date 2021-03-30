@@ -49,13 +49,12 @@ Route::get('/receptionist', function () { //da 2li bktbo fe al url
 // Route::get('/receptionist/profile', function () { //da 2li bktbo fe al url
 //     return view('Receptionist/ProfileReceptionist'); //in rresource/views/Receptionist
 // });
-
 Route::middleware(['auth','receptionist','admin'])->group(function () {
     Route::get('/receptionist/profile', [ReceptionistController::class, 'profile'])->name('Receptionist.profile');
     Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient');
     Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
     Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
-    Route::get('/receptionist/acceptClient/{client}', [ReceptionistController::class, 'acceptClient'])->name('acceptClient');
+    Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'acceptClient'])->name('acceptClient');
 
 });
 

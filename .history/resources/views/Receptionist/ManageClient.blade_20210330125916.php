@@ -224,7 +224,7 @@
                     <td name='gender' value='gender'> {{  $client['gender'] }}</td>
                     
                     <td>
-                    <form method="GET" action="{{route('acceptClient',['client' => $client['email']])}}" style="display:inline;margin:0px;padding:0px">
+                    <form method="GET" action="{{route('Receptionist.ManageClient')}}" style="display:inline;margin:0px;padding:0px">
                     <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to Accept ?')">Accept</button>
                   </form>
 

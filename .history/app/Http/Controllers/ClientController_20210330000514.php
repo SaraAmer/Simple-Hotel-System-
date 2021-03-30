@@ -56,6 +56,7 @@ class ClientController extends Controller
     {
         // ------------------------------------------
         // @dd($clientId);
+        //sjadoasjdosa
         Registration::find($clientId)->delete();
         return redirect()->route('Receptionist.ManageClient');
     }
@@ -81,17 +82,14 @@ class ClientController extends Controller
     //     $client->save();
     //     return redirect()->route('Receptionist.ManageClient');
     // }
-    public function deleteclient($id){
 
-   
-        @dd($id);
-        Registration ::find($id)->delete($id);
-        return response()->json([
-    
-            'success' => 'Record deleted successfully!'
-    
-        ]);
-    
+    public function deleteClient ($id)
+    {
+        // @dd($id);
+        // $client= Registration ::find($id);
+        // $client->delete();
+        Registration::find($id)->delete();
+
+        return response()->json(['success'=>"Record has been deleted!"]);
     }
-   
 }

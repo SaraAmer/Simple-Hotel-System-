@@ -6,10 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Registration;
 use App\Models\Receptionist ;
 use App\Models\Client;
-use App\Models\User;
+
 use App\Models\Reservation;
-// use App\Http\Auth;
-use Illuminate\Support\Facades\Auth;
+
 class ReceptionistController extends Controller
 {
 
@@ -22,7 +21,7 @@ class ReceptionistController extends Controller
             ['name'=>'Marwa','email'=>'eng.marwamedhat2020@gmail.com','mobile'=>'012888888','country'=>'Egypt','gender'=>'female'],
             ['name'=>'rana','email'=>'eng.ranaamedhat2020@gmail.com','mobile'=>'0128888888','country' => 'Egypt','gender'=>'female'],
         ];
-        $ManagedClients=User ::where('role','pended client')->get();
+        $ManagedClients=Registration :: all();
         return view('Receptionist.ManageClient',
         ['ManagedClients'=> $ManagedClients]);
     }
@@ -34,14 +33,7 @@ class ReceptionistController extends Controller
         //         ['name'=>'Marwa','email'=>'eng.marwamedhat2020@gmail.com','mobile'=>'012888888','country'=>'Egypt','gender'=>'female'],
         //         ['name'=>'rana','email'=>'eng.ranaamedhat2020@gmail.com','mobile'=>'0128888888','country' => 'Egypt','gender'=>'female'],
         // ];
-        if(Auth::user()->role == "receptionist")
-        {
-            $ApprovedClient=Client :: where('aprovalID',Auth::user()->id)->get();
-        }
-        else
-        {
         $ApprovedClient=Client :: all();
-        }
         return view('Receptionist.ApprovedClient',
         ['ApprovedClient'=>  $ApprovedClient]);
 
@@ -69,31 +61,6 @@ class ReceptionistController extends Controller
         // @dd($Receptionist);
         return view('Receptionist/ProfileReceptionist',['Receptionist'=> $Receptionist]);
 
-    }
-    function acceptClient ($email)
-    {
-        // dd($email);
-        // @dd(Auth::user()->role);
-      $accepteduser=User ::where('email',$email)->first();
-    //   dd($accepteduser);
-      $accepteduser->update(['role' => "client"]);
-    //   dd($accepteduser);
-      //search in registeration table with email and when 
-      //find it store in Client table and delete it from registeration
-      $acceptedClient=Registration ::where('email',$email)->first();
-      $client = new Client;
-      $client->name= $acceptedClient->name;
-      $client->email = $acceptedClient->email;
-      $client->mobile = $acceptedClient->mobile;
-      $client->country = $acceptedClient->country;
-      $client->gender = $acceptedClient->gender;
-    //   $client->password = $acceptedClient->password; 
-      $client->has_reservations="no";
-      $client->aprovalRole=Auth::user()->role;
-      $client->aprovalID=Auth::user()->id;
-      $client->save();
-      Registration ::where('email',$email)->first()->delete();
-      return redirect()->route('Receptionist.ManageClient');
     }
 
     //when Click decline .. client record will remove from registration table 

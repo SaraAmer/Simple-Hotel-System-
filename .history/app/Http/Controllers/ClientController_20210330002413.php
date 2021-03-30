@@ -81,11 +81,14 @@ class ClientController extends Controller
     //     $client->save();
     //     return redirect()->route('Receptionist.ManageClient');
     // }
-    public function deleteclient($id){
+    public function delete($id){
 
    
-        @dd($id);
+
         Registration ::find($id)->delete($id);
+    
+      
+    
         return response()->json([
     
             'success' => 'Record deleted successfully!'

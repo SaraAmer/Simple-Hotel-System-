@@ -34,14 +34,7 @@ class ReceptionistController extends Controller
         //         ['name'=>'Marwa','email'=>'eng.marwamedhat2020@gmail.com','mobile'=>'012888888','country'=>'Egypt','gender'=>'female'],
         //         ['name'=>'rana','email'=>'eng.ranaamedhat2020@gmail.com','mobile'=>'0128888888','country' => 'Egypt','gender'=>'female'],
         // ];
-        if(Auth::user()->role == "receptionist")
-        {
-            $ApprovedClient=Client :: where('aprovalID',Auth::user()->id)->get();
-        }
-        else
-        {
         $ApprovedClient=Client :: all();
-        }
         return view('Receptionist.ApprovedClient',
         ['ApprovedClient'=>  $ApprovedClient]);
 
