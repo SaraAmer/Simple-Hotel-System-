@@ -224,11 +224,11 @@
                     <td name='gender' value='gender'> {{  $client['gender'] }}</td>
                     
                     <td>
-                  <form method="POST" action="{{route('clients.destory',['client' => $client['id']])}}" style="display:inline;margin:0px;padding:0px">
-                  @csrf @method('DELETE')
-                    <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to decline ?')">Decline</button>
-                  </form>
-                    <td>
+
+                    
+                   
+
+                  <td>
                   
 
                     <!-- <form>

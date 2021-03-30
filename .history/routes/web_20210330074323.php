@@ -103,7 +103,7 @@ Route::get('/notfound', function () {
 
 //detory fn execute from ClientController 
 //Route from url is http://127.0.0.1:8000/clients/{client} (1,2,3,...)
-Route::delete('/clients/{client}', [App\Http\Controllers\ClientController::class, 'destory'])->name('clients.destory');
+// Route::delete('/clients/{client}', [App\Http\Controllers\ClientController::class, 'destory'])->name('clients.destory');
 Route::post('/clients', [App\Http\Controllers\ClientController::class, 'store'])->name('clients.store');
 
 // Route::delete('clients/{id}', [App\Http\Controllers\ClientController::class, 'deleteclient'])->name('client.delete');
