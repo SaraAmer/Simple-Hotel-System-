@@ -253,8 +253,17 @@
                        src="../../dist/img/user4-128x128.jpg"
                        alt="User profile picture">
                 </div>
+                <!-- Receptionist table data
+                'name', 'email','national_id','avatar_image','updated_at','manger_id' -->
 
-                <h3 class="profile-username text-center">Marwa</h3>
+                <!-- <td>{{  $Receptionist['name'] }}</td>
+                    <td>{{   $Receptionist['email']   }}</td>
+                    <td>{{   $Receptionist['mobile'] }}</td>
+                    <td>{{   $Receptionist['country'] }}</td>
+                    <td> {{   $Receptionist['gender'] }}</td>
+                    <td> {{   $Receptionist['national_id'] }}</td> -->
+
+                <h3 class="profile-username text-center">{{  $Receptionist['name'] }}</h3>
 
                 <p class="text-muted text-center">Receptionist</p>
 
@@ -266,7 +275,7 @@
                     <b>Phone number</b> <a class="float-right">177777777</a>
                   </li>
                   <li class="list-group-item">
-                    <b>email</b> <a class="float-right">marwa@gmial.com</a>
+                    <b>email</b> <a class="float-right">{{   $Receptionist['email']   }}</a>
                   </li>
                   <li class="list-group-item">
                     <b>country</b> <a class="float-right">Egypt</a>

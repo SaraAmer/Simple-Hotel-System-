@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Receptionist;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\AUTH;
 
 class ReceptionistsController extends Controller
 {
@@ -52,23 +53,35 @@ class ReceptionistsController extends Controller
 
     public function destroy($ReceptionistId)
     {
-        $receptionist = Receptionist::findorfail($ReceptionistId);
-        $receptionist->delete();
-        return redirect()->route('receptionists.index');
+        $receptionist=Receptionist::findorfail($ReceptionistId);
+      
+        $user=User::where('email', $receptionist->email)->first();
+   
+         $user->delete();
+         $receptionist->delete();
+         return redirect()->route('receptionists.index');
     }
 
     public function store(Request $request)
     {
-        $requestData = $request->all();
-        
-        Receptionist::create($requestData);
-        User::create([
-               'name'=> $request->name,
-               'email'=>$request->email,
-               'password' => Hash::make($request['password']),
-               'role' => 'Receptionist'
+      
+       Receptionist::create([
+            'name'=> $request->name,
+            'email'=>$request->email,
+            'national_id'=>$request->national_id,
+            'manger_id'=>Auth::user()->id
+            
+        ]);
+       $receptionist= Receptionist::where('email', $request->email)->first();
 
-           ]);
+     User::create([
+            'name'=> $request->name,
+            'email'=>$request->email,
+            'password' => Hash::make($request['password']),
+            'role'=>'Receptionist',
+            'user_id'=>$receptionist->id
+
+        ]);
 
         return redirect()->route('receptionists.index');
     }

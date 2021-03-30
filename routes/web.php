@@ -6,6 +6,7 @@ use  App\Http\Controllers\ManageClientController;
 use  App\Http\Controllers\ClientReservationController;
 use App\Http\Controllers\ApprovedClientController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\ManagersController;
 use App\Http\Controllers\ReceptionistsController;
 use App\Http\Controllers\ReceptionistController;
@@ -50,12 +51,15 @@ Route::get('/receptionist', function () { //da 2li bktbo fe al url
 // Route::get('/receptionist/profile', function () { //da 2li bktbo fe al url
 //     return view('Receptionist/ProfileReceptionist'); //in rresource/views/Receptionist
 // });
+
 Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function () {
     Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
     Route::get('/receptionist/profile', [ReceptionistController::class, 'profile'])->name('Receptionist.profile');
     Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient');
     Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
     Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
+    Route::get('/receptionist/acceptClient/{client}', [ReceptionistController::class, 'acceptClient'])->name('acceptClient');
+
 });
 
 
@@ -79,11 +83,25 @@ Route::middleware(['auth','manager'])->group(function () {
     Route::get('/receptionists/{receptionist}/ban', [ReceptionistsController::class, 'ban'])->name('receptionists.ban');
     Route::get('/receptionists/{receptionist}/unban', [ReceptionistsController::class, 'unban'])->name('receptionists.unban');
     Route::put('/receptionists/{receptionist}', [ReceptionistsController::class, 'update'])->name('receptionists.update');
+<<<<<<< HEAD
     Route::delete('/receptionists/{receptionist}', [ReceptionistsControllReceptionistControllerer::class, 'destroy'])->name('receptionists.destroy');
     Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+=======
+    Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+
+>>>>>>> c42d4d0eafb7d2951ba489dc9b5a58f375dcf046
     Route::get('/manger/profile', [ManagersController::class,'profile'])->name('manager.profile');
 });
 
+
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms.index');
+    Route::post('/rooms', [RoomsController::class, 'store'])->name('rooms.store');
+    Route::get('/rooms/create', [RoomsController::class, 'create'])->name('rooms.create');
+    Route::get('/rooms/{room}/edit', [RoomsController::class, 'edit'])->name('rooms.edit');
+    Route::put('/rooms/{room}', [RoomsController::class, 'update'])->name('rooms.update');
+    Route::delete('/rooms/{room}', [RoomsController::class, 'destroy'])->name('rooms.destroy');
+});
 
 
 //Client
@@ -92,3 +110,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/client/reservation', [App\Http\Controllers\ClientController::class, 'reserve'])->name('clientReservation');
     Route::get('/client/invoice', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
 });
+
+//detory fn execute from ClientController 
+//Route from url is http://127.0.0.1:8000/clients/{client} (1,2,3,...)
+Route::delete('/clients/{client}', [App\Http\Controllers\ClientController::class, 'destory'])->name('clients.destory');
+Route::post('/clients', [App\Http\Controllers\ClientController::class, 'store'])->name('clients.store');
+
+// Route::delete('clients/{id}', [App\Http\Controllers\ClientController::class, 'deleteclient'])->name('client.delete');

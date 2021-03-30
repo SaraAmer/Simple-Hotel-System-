@@ -36,7 +36,7 @@
           <td>{{ \Carbon\Carbon::parse( $receptionist->updated_at,'d/m/Y H:i:s')->isoFormat('Y-M-D') }}</td>
           @role('admin')
           <td>{{
-            $receptionist->manager ? $receptionist->manager->name : 'receptionist not found'
+            $receptionist->manager ? $receptionist->manager->name : 'By admin'
             }}
 
           </td>
