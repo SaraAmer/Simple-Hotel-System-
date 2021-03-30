@@ -85,7 +85,6 @@ class ReceptionistController extends Controller
 
       $accepteduser->update(['role' => "client"]);
     //   dd($accepteduser);
-    $accepteduser->notify(new WelcomeClient());
 
       //search in registeration table with email and when 
       //find it store in Client table and delete it from registeration
@@ -102,6 +101,7 @@ class ReceptionistController extends Controller
       $client->aprovalID=Auth::user()->id;
       $client->save();
       Registration ::where('email',$email)->first()->delete();
+      $accepteduser->notify(new WelcomeClient());
 
       return redirect()->route('Receptionist.ManageClient');
     }

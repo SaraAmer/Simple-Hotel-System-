@@ -10,13 +10,11 @@ use App\Models\User;
 use App\Models\Reservation;
 // use App\Http\Auth;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Notifications\Notifiable;
-use App\Notifications\WelcomeClient;
 use Notifiable;
+use Illuminate\Notifications\Notifiable;
 
 class ReceptionistController extends Controller
 {
-
 
     function ManageClient() 
     {
@@ -82,11 +80,8 @@ class ReceptionistController extends Controller
         // @dd(Auth::user()->role);
       $accepteduser=User ::where('email',$email)->first();
     //   dd($accepteduser);
-
       $accepteduser->update(['role' => "client"]);
     //   dd($accepteduser);
-    $accepteduser->notify(new WelcomeClient());
-
       //search in registeration table with email and when 
       //find it store in Client table and delete it from registeration
       $acceptedClient=Registration ::where('email',$email)->first();
@@ -102,7 +97,6 @@ class ReceptionistController extends Controller
       $client->aprovalID=Auth::user()->id;
       $client->save();
       Registration ::where('email',$email)->first()->delete();
-
       return redirect()->route('Receptionist.ManageClient');
     }
 
