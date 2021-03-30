@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -34,25 +32,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
                 </li>
-               
-                 <li class="nav-item d-none d-sm-inline-block">
-                   
+
+                <li class="nav-item d-none d-sm-inline-block">
+
                     <a href="#" class="nav-link">Contact</a>
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user() ? Auth::user()->name : "username"}}
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user() ? Auth::user()->name : "username"}}
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                 </li>
             </ul>
 
@@ -201,8 +199,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">  {{ Auth::user() ? Auth::user()->name : "username"}} </a>
-                      
+                        <a href="#" class="d-block"> {{ Auth::user() ? Auth::user()->name : "username"}} </a>
+
                     </div>
                 </div>
 
@@ -296,35 +294,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container-fluid">
 
 
-                      <!-- Profile Image -->
-                      <div class="card card-primary card-outline">
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                          <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle"
-                                 src="../../dist/img/user4-128x128.jpg"
-                                 alt="User profile picture">
-                          </div>
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle"
+                                    src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+                            </div>
 
-                          <h3 class="profile-username text-center">  {{ Auth::user() ? Auth::user()->name : "username"}}</h3>
+                            <h3 class="profile-username text-center"> {{ Auth::user() ? Auth::user()->name :
+                                "username"}}</h3>
 
-                          <p class="text-muted text-center">Admin</p>
+                            <p class="text-muted text-center">Admin</p>
 
-                          <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                              <b>Clients</b> <a class="float-right">{{App\Models\client::get()->count()}}</a>
-                            </li>
-                            <li class="list-group-item">
-                              <b>Receptionist</b> <a class="float-right">{{App\Models\Receptionist::get()->count()}}</a>
-                            </li>
-                            <li class="list-group-item">
-                              <b>Managers</b> <a class="float-right">{{App\Models\Manager::get()->count()}}</a>
-                            </li>
-                          </ul>
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Clients</b> <a class="float-right">{{App\Models\Client::get()->count()}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Receptionist</b> <a
+                                        class="float-right">{{App\Models\Receptionist::get()->count()}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Managers</b> <a class="float-right">{{App\Models\Manager::get()->count()}}</a>
+                                </li>
+                            </ul>
 
                         </div>
                         <!-- /.card-body -->
-                      </div>
-                      <!-- /.card -->
+                    </div>
+                    <!-- /.card -->
 
                 </div>
             </section>
@@ -364,5 +363,3 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </body>
 
 </html>
-
-

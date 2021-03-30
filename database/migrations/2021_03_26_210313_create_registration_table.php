@@ -19,7 +19,7 @@ class CreateRegistrationTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('gender', ['male', 'female']);
-            $table->integer('mobile');
+            $table->bigInteger('mobile');
             $table->string('country');
             $table->timestamps();
         });
