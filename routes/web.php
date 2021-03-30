@@ -20,7 +20,8 @@ use App\Http\Controllers\ReceptionistController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+//Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return view('welcome');
 });
@@ -49,7 +50,8 @@ Route::get('/receptionist', function () { //da 2li bktbo fe al url
 // Route::get('/receptionist/profile', function () { //da 2li bktbo fe al url
 //     return view('Receptionist/ProfileReceptionist'); //in rresource/views/Receptionist
 // });
-Route::middleware(['auth','receptionist','admin'])->group(function () {
+Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function () {
+    Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
     Route::get('/receptionist/profile', [ReceptionistController::class, 'profile'])->name('Receptionist.profile');
     Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient');
     Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
@@ -74,8 +76,10 @@ Route::middleware(['auth','manager'])->group(function () {
     Route::post('/receptionists', [ReceptionistsController::class, 'store'])->name('receptionists.store');
     Route::get('/receptionists/create', [ReceptionistsController::class, 'create'])->name('receptionists.create');
     Route::get('/receptionists/{receptionist}/edit', [ReceptionistsController::class, 'edit'])->name('receptionists.edit');
+    Route::get('/receptionists/{receptionist}/ban', [ReceptionistsController::class, 'ban'])->name('receptionists.ban');
+    Route::get('/receptionists/{receptionist}/unban', [ReceptionistsController::class, 'unban'])->name('receptionists.unban');
     Route::put('/receptionists/{receptionist}', [ReceptionistsController::class, 'update'])->name('receptionists.update');
-    Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
+    Route::delete('/receptionists/{receptionist}', [ReceptionistsControllReceptionistControllerer::class, 'destroy'])->name('receptionists.destroy');
     Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
     Route::get('/manger/profile', [ManagersController::class,'profile'])->name('manager.profile');
 });
@@ -83,8 +87,7 @@ Route::middleware(['auth','manager'])->group(function () {
 
 
 //Client
-Route::middleware('auth', 'receptionist')->group(function () {
-    Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
+Route::middleware('auth')->group(function () {
     Route::get('/client/home', [App\Http\Controllers\ClientController::class, 'home'])->name('clientHome');
     Route::get('/client/reservation', [App\Http\Controllers\ClientController::class, 'reserve'])->name('clientReservation');
     Route::get('/client/invoice', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
