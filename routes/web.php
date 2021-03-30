@@ -59,7 +59,6 @@ Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function
     Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
     Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
     Route::get('/receptionist/acceptClient/{client}', [ReceptionistController::class, 'acceptClient'])->name('acceptClient');
-
 });
 
 
@@ -83,13 +82,9 @@ Route::middleware(['auth','manager'])->group(function () {
     Route::get('/receptionists/{receptionist}/ban', [ReceptionistsController::class, 'ban'])->name('receptionists.ban');
     Route::get('/receptionists/{receptionist}/unban', [ReceptionistsController::class, 'unban'])->name('receptionists.unban');
     Route::put('/receptionists/{receptionist}', [ReceptionistsController::class, 'update'])->name('receptionists.update');
-<<<<<<< HEAD
-    Route::delete('/receptionists/{receptionist}', [ReceptionistsControllReceptionistControllerer::class, 'destroy'])->name('receptionists.destroy');
-    Route::delete('/receptionists', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
-=======
     Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
 
->>>>>>> c42d4d0eafb7d2951ba489dc9b5a58f375dcf046
+
     Route::get('/manger/profile', [ManagersController::class,'profile'])->name('manager.profile');
 });
 
@@ -111,7 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/client/invoice', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
 });
 
-//detory fn execute from ClientController 
+//detory fn execute from ClientController
 //Route from url is http://127.0.0.1:8000/clients/{client} (1,2,3,...)
 Route::delete('/clients/{client}', [App\Http\Controllers\ClientController::class, 'destory'])->name('clients.destory');
 Route::post('/clients', [App\Http\Controllers\ClientController::class, 'store'])->name('clients.store');
