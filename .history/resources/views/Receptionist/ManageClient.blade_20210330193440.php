@@ -216,8 +216,8 @@
                     <td>01777777777</td>
                     <td>Egypt</td>
                     <td>female</td> -->
-                    <td name='name' value='name'>{{ $clientdata['name'] }}</td>
-                    <td name='email' value='email'>{{  $clientdata['email']   }}</td>
+                    <!-- <td name='name' value='name'>{{ $clientdata['name'] }}</td>
+                    <td name='email' value='email'>{{  $clientdata['email']   }}</td> -->
                     <td name='mobile' value='mobile'>{{  $clientdata['mobile'] }}</td>
                     <td name='country' value='country'>{{  $clientdata['country'] }}</td>
                     <td name='gender' value='gender'> {{  $clientdata['gender'] }}</td>

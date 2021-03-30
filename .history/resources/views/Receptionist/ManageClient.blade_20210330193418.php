@@ -216,8 +216,8 @@
                     <td>01777777777</td>
                     <td>Egypt</td>
                     <td>female</td> -->
-                    <td name='name' value='name'>{{ $clientdata['name'] }}</td>
-                    <td name='email' value='email'>{{  $clientdata['email']   }}</td>
+                    <!-- <td name='name' value='name'>{{ $clientdata['name'] }}</td>
+                    <td name='email' value='email'>{{  $clientdata['email']   }}</td> -->
                     <td name='mobile' value='mobile'>{{  $clientdata['mobile'] }}</td>
                     <td name='country' value='country'>{{  $clientdata['country'] }}</td>
                     <td name='gender' value='gender'> {{  $clientdata['gender'] }}</td>
@@ -227,7 +227,7 @@
                     <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to Accept ?')">Accept</button>
                   </form>
 
-                  <form method="POST" action="{{route('clients.destory',['client' => $clientdata['id']])}}" style="display:inline;margin:0px;padding:0px">
+                  <form method="POST" action="{{route('clients.destory',['client' => $client['id']])}}" style="display:inline;margin:0px;padding:0px">
                   @csrf @method('DELETE')
                     <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to delete ?')">Delete</button>
                   </form>
