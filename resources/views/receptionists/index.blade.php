@@ -52,24 +52,50 @@
             <a href="{{route('receptionists.ban',['receptionist' => $receptionist['id']])}}" class="btn btn-danger"
               style="margin-bottom: 20px;">Ban</a>
             @endif
-            <form style="display:inline" method="POST"
-              action="{{route('receptionists.destroy',['receptionist' => $receptionist['id']])}}">
-              @csrf
-              @method('DELETE')
-              <button onclick="return confirm('Are you sure?')" class="btn btn-danger" type="submit"
-                style="margin-bottom: 20px;">Delete</button>
-            </form>
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+            <button class="delete-btn btn btn-danger" style="margin-bottom: 20px;"
+              value="{{$receptionist->id}}">Delete</button>
           </td>
         <tr>
+
+
           @endforeach
       </tbody>
     </table>
+
   </div>
 </div>
 
-
-
 </div>
 
-
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script>
+  $(document).ready(function() {
+    var id = jQuery('.delete-btn').val();
+    var token = $("meta[name='csrf-token']").attr("content");
+    $(".delete-btn").on("click", function() {
+      let answer = confirm("are you sure you want to delete this receptionist?");
+      if (answer) {
+        $.ajax({
+            type: "DELETE",
+            url: "/receptionists/" + id,
+            data: {
+              "receptionist": id,
+              "_token": token,
+            },
+            success: function() {
+
+              location.reload();
+
+            }
+          }
+
+
+        );
+      }
+
+    });
+  });
+</script>

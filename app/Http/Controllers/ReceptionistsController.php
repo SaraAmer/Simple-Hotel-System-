@@ -57,24 +57,25 @@ class ReceptionistsController extends Controller
       
         $user=User::where('email', $receptionist->email)->first();
    
-         $user->delete();
-         $receptionist->delete();
-         return redirect()->route('receptionists.index');
+        $user->delete();
+        $receptionist->delete();
+        return response()->json([
+            'message' => 'Data deleted successfully!'
+          ]);
     }
 
     public function store(Request $request)
     {
-      
-       Receptionist::create([
+        Receptionist::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'national_id'=>$request->national_id,
             'manger_id'=>Auth::user()->id
             
         ]);
-       $receptionist= Receptionist::where('email', $request->email)->first();
+        $receptionist= Receptionist::where('email', $request->email)->first();
 
-     User::create([
+        User::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'password' => Hash::make($request['password']),

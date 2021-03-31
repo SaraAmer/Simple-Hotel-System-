@@ -104,8 +104,6 @@ Route::middleware(['auth','admin'])->group(function () {
 
 //Client
 Route::middleware('auth')->group(function () {
-
-
     Route::get('/client/home', [App\Http\Controllers\ClientController::class, 'home'])->name('clientHome');
     Route::get('/client/reservation', [App\Http\Controllers\ClientController::class, 'reserve'])->name('clientReservation');
     Route::get('/client/invoice', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
