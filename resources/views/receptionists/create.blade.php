@@ -1,5 +1,6 @@
 @extends('layouts.page')
-
+@section('title')Create
+@endsection
 @section('content')
 <div class="container">
 <div class="container-fluid">
@@ -32,14 +33,7 @@
                 <label for="exampleInputNationalID">National ID</label>
                 <input class="form-control" id="exampleInputNationalID" pattern="[0-9]*" type="text" name="national_id">
               </div>
-              <div class="form-group">
-                <label for="manger_id">Manager</label>
-                <select name="manger_id" class="form-control" id="manger_id">
-                  @foreach ($managers as $manager)
-                    <option value="{{$manager->id}}">{{$manager->name}}</option>
-                  @endforeach
-                </select>
-              </div>
+
 
               <div class="form-group">
                   <label for="exampleInputFile">Image Upload</label>
@@ -53,7 +47,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Create</button>
             </div>
           </form>
         </div>

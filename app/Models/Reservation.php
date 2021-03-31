@@ -16,4 +16,8 @@ class Reservation extends Model
         'room_number',
         'paid price', 
     ];
+    public function client()
+    {
+       return $this->belongsTo(Client::class,'client_id') ;
+    }
 }

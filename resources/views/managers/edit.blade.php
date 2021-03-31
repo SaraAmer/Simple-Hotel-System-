@@ -1,4 +1,6 @@
 @extends('layouts.page')
+@section('title')edit
+@endsection
 
 @section('content')
 
@@ -36,7 +38,6 @@
               value="{{ $manager['email'] }}">
           </div>
 
-
           <div class=" form-group">
             <label for="exampleInputNationalID">National ID</label>
             <input class="form-control" id="exampleInputNationalID" pattern="[0-9]*" type="text" name="national_id"
@@ -58,7 +59,7 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </form>
     </div>

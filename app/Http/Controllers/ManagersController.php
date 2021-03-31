@@ -60,9 +60,12 @@ class ManagersController extends Controller
     public function destroy($ManagerId)
     {
         $manager = Manager::findorfail($ManagerId);
-        User::where('email', $manager->email)->delete();
-        $manager->delete();
-        return redirect()->route('managers.index');
+      
+        $user=User::where('email', $manager->email)->first();
+   
+         $user->delete();
+         $manager->delete();
+         return redirect()->route('managers.index');
     }
 
     public function store(ManagerRequest $request)
@@ -79,7 +82,6 @@ class ManagersController extends Controller
         User::create([
                 'name'=> $request->name,
                 'email'=>$request->email,
-
                 'password' => Hash::make($request['password']),
                 'role'=>'Manager',
                 'user_id'=>$manager->id

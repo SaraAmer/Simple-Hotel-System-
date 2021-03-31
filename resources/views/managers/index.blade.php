@@ -1,23 +1,24 @@
-
 @extends('layouts.page')
-@section('title')Index Page
+@section('title')Manage Manager
 @endsection
 @section('content')
-<a href="{{route('managers.create')}}" class="btn btn-success text-center"  ><i class="ionicons ion-android-create"></i>  Create Manager</a>
+<a href="{{route('managers.create')}}" class="btn btn-success text-center"><i class="ionicons ion-android-create"></i>
+    Create Manager</a>
 <div class="card">
     <div class="card-header">
-     <h3 class="card-title">Managers</h3>
+        <h3 class="card-title">Managers</h3>
     </div>
-    <!-- /.card-header -->
+
         <div class="card-body">
-          <table class="table table-bordered">
-            <thead>
-              <thead>
+    <table id="example2" class="table table-bordered table-hover display" style="width:100%">
+
+
+                <thead>
 
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
+            <th>Manager's ID</th>
+            <th>Managers's Name</th>
+            <th>Manager's Email</th>
             <th>Created at</th>
             <th>Updated at</th>
             <th>Actions</th>
@@ -45,18 +46,13 @@
                     style="margin-bottom: 20px;">Delete</button>
             </form>
         </td>
-    <tr>
+    </tr>
         @endforeach
             </tbody>
           </table>
         </div>
     </div>
 
-
-
-
-  </div>
-
-
 @endsection
+
 

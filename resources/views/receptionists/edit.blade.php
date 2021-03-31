@@ -1,5 +1,6 @@
 @extends('layouts.page')
-
+@section('title')Edit
+@endsection
 @section('content')
 <div class="container">
 <div class="container-fluid">
@@ -54,7 +55,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Save</button>
             </div>
           </form>
         </div>
