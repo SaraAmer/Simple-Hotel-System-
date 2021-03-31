@@ -16,9 +16,9 @@
                 <thead>
 
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
+            <th>Manager's ID</th>
+            <th>Managers's Name</th>
+            <th>Manager's Email</th>
             <th>Created at</th>
             <th>Updated at</th>
             <th>Actions</th>
@@ -30,8 +30,9 @@
         <th scope="row">{{ $manager->id }}</th>
         <td>{{ $manager->name }}</td>
         <td>{{ $manager->email }}</td>
-        <td>{{ \Carbon\Carbon::parse( $manager->created_at,'d/m/Y H:i:s')->isoFormat('Y-M-D') }}</td>
-        <td>{{ \Carbon\Carbon::parse( $manager->updated_at,'d/m/Y H:i:s')->isoFormat('Y-M-D') }}</td>
+        
+        <td> {{$manager->created_at}}</td>
+        <td> {{$manager->updated_at}}</td>
 
         <td>
 

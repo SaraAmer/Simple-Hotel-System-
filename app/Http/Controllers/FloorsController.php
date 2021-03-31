@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\AUTH;
+use App\Models\Room;
+use Illuminate\Support\Facades\Session;
 
 use App\Models\Floor;
 use App\Models\Manager;
@@ -41,17 +43,20 @@ class FloorsController extends Controller
         ]);
     }
 
-    public function destroy(Floor $floorId)
+    public function destroy($floorId)
     {
-        if ($rooms = $floorId->rooms) {
-            foreach ($rooms as $room) {
-                if ($room->status==0) {
-                    return "false";
-                }
-            }
-        }
+        
+        $Floor=Floor::where('number', $floorId)->first();
+       
 
-        $floorId->delete();
+        $room=Room::where('floor_id', $floorId)->first();
+        if($room==null){
+         Floor::where('number',$floorId)->delete();
+        }
+        else{
+            Session::flash('message', "Floor rooms are not empty it can't be deleted!"); 
+          
+        }
         return redirect()->route('floors.index');
     }
 

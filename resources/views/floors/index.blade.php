@@ -2,11 +2,16 @@
 @section('title')Manage Floors
 @endsection
 @section('content')
+      @if(Session::has('message'))
+    
+<p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('message') }}</p>
+@endif
  <a href="{{route('floors.create')}}" class="btn btn-success text-center"  ><i class="ionicons ion-android-create"></i>  Create Floors</a>
  <div class="card">
     <div class="card-header">
      <h3 class="card-title">Floors</h3>
     </div>
+
     <!-- /.card-header -->
         <div class="card-body">
             <table id="example2" class="table table-bordered table-hover display" style="width:100%">
@@ -19,6 +24,8 @@
             @role('admin')
             <th>Manager Name</th>
             @endrole
+            <th>Created At</th>
+            <th>Updated At</th>
             <th>Actions</th>
            </tr>
            </thead>
@@ -35,6 +42,8 @@
 
         </td>
         @endrole
+        <td>{{ \Carbon\Carbon::parse( $floor->created_at)->isoFormat('Y-M-D') }}</td>
+        <td>{{ \Carbon\Carbon::parse( $floor->updated_at)->isoFormat('Y-M-D') }}</td>
         <td>
             {{-- mfrod tban ly el manager bs ely 3aml create ly el sf7a dih  --}}
             <a href="{{route('floors.edit',['floor' => $floor['number']])}}" class="btn btn-secondary" style="margin-bottom: 20px;">Edit</a>
