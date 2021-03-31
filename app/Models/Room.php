@@ -9,6 +9,7 @@ use App\Models\Floor;
 class Room extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'floor_id',
         'capacity',
