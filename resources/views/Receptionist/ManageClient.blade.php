@@ -6,8 +6,8 @@
 
 
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead>
+                <table id="example2" class="table table-bordered table-hover display" style="width:100%">
+                    <thead>
                   <tr>
                     <th>Client Name</th>
                     <th>Email</th>
