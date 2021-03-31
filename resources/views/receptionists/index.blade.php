@@ -15,8 +15,8 @@
         <tr>
           <th style="width: 10px">ID</th>
 
-          <th>Name</th>
-          <th>Email</th>
+          <th>Receptionist's Name</th>
+          <th>Receptionist's Email</th>
           <th>Created_at</th>
           <th>Updated at</th>
           @role('admin')

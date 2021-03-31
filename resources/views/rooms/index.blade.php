@@ -31,7 +31,7 @@
         <th scope="row">{{ $room->room_number }}</th>
         <td>{{ $room->floor_id}}</td>
         <td>{{ $room->capacity}}</td>
-        <td>{{$priceInDollars[$count]}}
+        <td>{{$priceInDollars[$count]}} $
           @php($count++)
         <td>{{ \Carbon\Carbon::parse( $room->created_at,'d/m/Y H:i:s')->isoFormat('Y-M-D') }}</td>
         <td>{{ \Carbon\Carbon::parse( $room->updated_at,'d/m/Y H:i:s')->isoFormat('Y-M-D') }}</td>
