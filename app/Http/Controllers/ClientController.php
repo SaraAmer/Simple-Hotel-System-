@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Registration;
 
-<<<<<<< HEAD
-use App\Models\Receptionist ;
 use App\Models\Client;
 use App\Models\User;
 use App\Models\Reservation;
@@ -16,8 +14,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Notifications\WelcomeClient;
 use Notifiable;
 
-=======
->>>>>>> e094d7701b9a08e76b561704b2e1494808f1b8ec
 class ClientController extends Controller
 {
     //
@@ -69,13 +65,8 @@ class ClientController extends Controller
     }
     function ManageClient() 
     {
-        //to show all client who haven't approved and approve them 
-        //So get data from Registrations table 
-        //id,name,email,mobile,email
-        $ManagedClients=[
-            ['name'=>'Marwa','email'=>'eng.marwamedhat2020@gmail.com','mobile'=>'012888888','country'=>'Egypt','gender'=>'female'],
-            ['name'=>'rana','email'=>'eng.ranaamedhat2020@gmail.com','mobile'=>'0128888888','country' => 'Egypt','gender'=>'female'],
-        ];
+        
+       
         $ManagedClients=User ::where('role','pended client')->get();
         $ManagedClientsdata= Registration:: all();
         return view('client.ManageClient',
@@ -85,20 +76,13 @@ class ClientController extends Controller
 
     public function destory($clientId)
     {
-        // ------------------------------------------
-        // @dd($clientId);
+       
         Registration::find($clientId)->delete();
         return redirect()->route('Receptionist.ManageClient');
     }
-<<<<<<< HEAD
 
-    function ApprovedClient() //to show all ApprovedClient who receptionist approve them Only
-    {    //table clients have approved clients   
-        //table clients id,name,email,gender,mobile,country,approvalID,approvalRole,has_reservations,avatar_image
-        // $ApprovedClient=[
-        //         ['name'=>'Marwa','email'=>'eng.marwamedhat2020@gmail.com','mobile'=>'012888888','country'=>'Egypt','gender'=>'female'],
-        //         ['name'=>'rana','email'=>'eng.ranaamedhat2020@gmail.com','mobile'=>'0128888888','country' => 'Egypt','gender'=>'female'],
-        // ];
+    function ApprovedClient() 
+    {   ;
         if(Auth::user()->role == "Receptionist")
         {
             $ApprovedClient=Client :: where('aprovalID',Auth::user()->id)->get();
@@ -109,34 +93,8 @@ class ClientController extends Controller
         }
         return view('client.ApprovedClient',
         ['ApprovedClient'=>  $ApprovedClient]);
-
     }
 
-     //store in Client table data of Registeration table
-=======
-    //store in Client table data of Registeration table
->>>>>>> e094d7701b9a08e76b561704b2e1494808f1b8ec
-    // public function store(Request $request)
-    // {
-    //     // 'name',
-    //     // 'email',
-    //     // 'password',
-    //     // 'gender',
-    //     // 'mobile',
-    //     // 'country',
-    //     // 'aprovalID',
-    //     // 'aprovalRole',
-    //     // 'has_reservations',
-    //     // 'avatar_image',
-    //     @dd($request);
-    //     @dd("store method");
-    //     $client = new Client;
-    //     $client->name= $request->name;
-    //     $client->email = $request->email;
-
-    //     $client->save();
-    //     return redirect()->route('Receptionist.ManageClient');
-    // }
     public function deleteclient($id)
     {
         @dd($id);
@@ -147,15 +105,8 @@ class ClientController extends Controller
 
         ]);
     }
-<<<<<<< HEAD
     function ClientReservation() 
-    {      //to show all ApprovedClientReservation which recieptionist approve them Only
-        //table reservations has id,Client_id,accompany_number,room_number,paid price
-        //table clients  name,email,.... (i need clientname where id=)
-        // $ClientReservation=[  //name of key is the same as name of databaseColoum
-        // ['name'=>'Marwa','accompany_number'=>3,'room_number'=>1,'paid price'=>200],
-        // ['name'=>'Marwa','accompany_number'=>3,'room_number'=>1,'paid price'=>200],
-        // ];
+    {     
         $ClientReservation=Reservation :: all();
         $ClientReservationName=Client :: all();
 
@@ -165,13 +116,10 @@ class ClientController extends Controller
      
     function acceptClient ($email)
     {
-        // dd($email);
-        // @dd(Auth::user()->role);
+       
       $accepteduser=User ::where('email',$email)->first();
-    //   dd($accepteduser);
 
       $accepteduser->update(['role' => "client"]);
-    //   dd($accepteduser);
     $accepteduser->notify(new WelcomeClient());
 
       //search in registeration table with email and when 
@@ -193,6 +141,4 @@ class ClientController extends Controller
       return redirect()->route('Receptionist.ManageClient');
     }
    
-=======
->>>>>>> e094d7701b9a08e76b561704b2e1494808f1b8ec
 }
