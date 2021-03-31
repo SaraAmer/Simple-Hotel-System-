@@ -57,10 +57,13 @@ class ReceptionistsController extends Controller
         $receptionist=Receptionist::findorfail($ReceptionistId);
 
         $user=User::where('email', $receptionist->email)->first();
-
+   
         $user->delete();
         $receptionist->delete();
-        return redirect()->route('receptionists.index');
+        return response()->json([
+            'message' => 'Data deleted successfully!'
+          ]);
+
     }
 
     public function store(Request $request)
@@ -73,7 +76,6 @@ class ReceptionistsController extends Controller
 
         ]);
         $receptionist= Receptionist::where('email', $request->email)->first();
-
 
         User::create([
             'name'=> $request->name,
