@@ -42,6 +42,7 @@ class ReceptionistsController extends Controller
         $receptionist->save();
         return redirect()->route('receptionists.index');
     }
+    
 
     public function edit($ReceptionistId)
     {
@@ -63,7 +64,6 @@ class ReceptionistsController extends Controller
         return response()->json([
             'message' => 'Data deleted successfully!'
           ]);
-
     }
 
     public function store(Request $request)
@@ -103,5 +103,13 @@ class ReceptionistsController extends Controller
         $receptionist->unban();
         $user->unban();
         return redirect()->route('receptionists.index');
+    }
+    public function home()
+    {
+        $receptionist = Receptionist::where('email', Auth::user()->email)->first();
+       
+        return view('receptionist.home', [
+            'Receptionist' => $receptionist
+        ]);
     }
 }
