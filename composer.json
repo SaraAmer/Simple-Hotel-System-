@@ -14,7 +14,9 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "rinvex/countries": "^7.3",
-        "spatie/laravel-permission": "^4.0"
+        "spatie/laravel-permission": "^4.0",
+        "stripe/stripe-php": "^7.76",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
