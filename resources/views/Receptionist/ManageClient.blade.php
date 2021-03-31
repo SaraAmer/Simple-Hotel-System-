@@ -2,12 +2,18 @@
 @section('title')Manage clients
 @endsection
 @section('content')
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Manage clients</h3>
+  </div>
+  <!-- /.card-header -->
+     <div class="card-body">
 
 
 
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover display" style="width:100%">
-                    <thead>
+        <div class="card-body">
+            <table id="example2" class="table table-bordered table-hover display" style="width:100%">
+                <thead>
                   <tr>
                     <th>Client Name</th>
                     <th>Email</th>
@@ -16,7 +22,7 @@
                     <th>gender</th>
                     <th>Action</th>
                   </tr>
-                  </thead>
+                </thead>
                   <tbody>
                   @foreach ($ManagedClientsdata as $clientdata)
                   <tr>
@@ -57,15 +63,14 @@
                   @endforeach
 
                   </tbody>
-                </table>
-              </div>
-            </div>
-        </div>
-      </div>
-    </section>
+            </table>
+         </div>
   </div>
+</div>
 
 
-</body>
+
+
+
 @endsection
 

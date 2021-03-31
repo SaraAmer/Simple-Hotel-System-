@@ -203,7 +203,8 @@
 
                             </ul>
                         </li>
-                            @role("receptionist")
+                        {{-- @hasanyrole('receptionist|admin') --}}
+
                             <li class="nav-item">
                                 <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
@@ -228,7 +229,7 @@
                                   <p>Manage Client</p>
                                 </a>
                               </li>
-                            @endrole
+                            {{-- @endhasanyrole --}}
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
