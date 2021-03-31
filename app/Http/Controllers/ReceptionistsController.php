@@ -15,20 +15,21 @@ class ReceptionistsController extends Controller
     public function index()
     {
         $allReceptionist = Receptionist::all();
-        
+
         return view(
             'receptionists.index',
             [
                 'Receptionist' =>  $allReceptionist,
-                'managers' => Manager::all()
-                
+                'manager' => Manager::all()
+
+
             ]
         );
     }
     public function create()
     {
         return view('receptionists.create', [
-            'managers' => Manager::all()
+            'manager' => Manager::all()
         ]);
     }
     public function update($ReceptionistId, Request $request)
@@ -47,34 +48,36 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::find($ReceptionistId);
         return view('receptionists.edit', [
             'receptionist' => $receptionist,
-            'managers' => Manager::all()
+            'manager' => Manager::all()
         ]);
     }
 
     public function destroy($ReceptionistId)
     {
         $receptionist=Receptionist::findorfail($ReceptionistId);
-      
+
         $user=User::where('email', $receptionist->email)->first();
    
-         $user->delete();
-         $receptionist->delete();
-         return redirect()->route('receptionists.index');
+        $user->delete();
+        $receptionist->delete();
+        return response()->json([
+            'message' => 'Data deleted successfully!'
+          ]);
+
     }
 
     public function store(Request $request)
     {
-      
-       Receptionist::create([
+        Receptionist::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'national_id'=>$request->national_id,
             'manger_id'=>Auth::user()->id
-            
-        ]);
-       $receptionist= Receptionist::where('email', $request->email)->first();
 
-     User::create([
+        ]);
+        $receptionist= Receptionist::where('email', $request->email)->first();
+
+        User::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'password' => Hash::make($request['password']),

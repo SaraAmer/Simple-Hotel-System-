@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Floor;
 
 class Room extends Model
 {
@@ -13,6 +14,10 @@ class Room extends Model
         'capacity',
         'price_inCents',
         'created_at',
-        'updated_at',
+        'updated_at',  
     ];
+    public function floors()
+    {
+        return $this->belongsTo('App\Models\Floor','number');
+    }
 }

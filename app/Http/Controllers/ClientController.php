@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Registration;
 
+<<<<<<< HEAD
 use App\Models\Receptionist ;
 use App\Models\Client;
 use App\Models\User;
@@ -15,10 +16,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Notifications\WelcomeClient;
 use Notifiable;
 
+=======
+>>>>>>> e094d7701b9a08e76b561704b2e1494808f1b8ec
 class ClientController extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
         $clientData=[
             'name'=> 'Eithar',
             'gender'=> 'Female',
@@ -30,7 +34,8 @@ class ClientController extends Controller
             'client' => $clientData
         ]);
     }
-    public function home(){
+    public function home()
+    {
         $clientName= "Eithar";
         $rooms=[
             'room1'=>[
@@ -51,9 +56,12 @@ class ClientController extends Controller
         ]);
     }
 
-    public function reserve(){}
+    public function reserve()
+    {
+    }
 
-    public function viewInvoices(){
+    public function viewInvoices()
+    {
         $clientName= "Eithar";
         return view('client.invoice', [
             'clientName'=>$clientName
@@ -74,7 +82,7 @@ class ClientController extends Controller
         ['ManagedClients'=> $ManagedClients],['ManagedClientsdata'=> $ManagedClientsdata]);
     }
 
-     
+
     public function destory($clientId)
     {
         // ------------------------------------------
@@ -82,6 +90,7 @@ class ClientController extends Controller
         Registration::find($clientId)->delete();
         return redirect()->route('Receptionist.ManageClient');
     }
+<<<<<<< HEAD
 
     function ApprovedClient() //to show all ApprovedClient who receptionist approve them Only
     {    //table clients have approved clients   
@@ -104,6 +113,9 @@ class ClientController extends Controller
     }
 
      //store in Client table data of Registeration table
+=======
+    //store in Client table data of Registeration table
+>>>>>>> e094d7701b9a08e76b561704b2e1494808f1b8ec
     // public function store(Request $request)
     // {
     //     // 'name',
@@ -125,18 +137,17 @@ class ClientController extends Controller
     //     $client->save();
     //     return redirect()->route('Receptionist.ManageClient');
     // }
-    public function deleteclient($id){
-
-   
+    public function deleteclient($id)
+    {
         @dd($id);
         Registration ::find($id)->delete($id);
         return response()->json([
-    
+
             'success' => 'Record deleted successfully!'
-    
+
         ]);
-    
     }
+<<<<<<< HEAD
     function ClientReservation() 
     {      //to show all ApprovedClientReservation which recieptionist approve them Only
         //table reservations has id,Client_id,accompany_number,room_number,paid price
@@ -182,4 +193,6 @@ class ClientController extends Controller
       return redirect()->route('Receptionist.ManageClient');
     }
    
+=======
+>>>>>>> e094d7701b9a08e76b561704b2e1494808f1b8ec
 }

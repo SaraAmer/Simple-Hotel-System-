@@ -111,15 +111,20 @@
 
                     <div class="input-group mb-3">
 
-                        <select name="gender">
+                        <select name="gender" class="form-control @error('gender') is-invalid @enderror">
                             <option value=" Male">Male</option>
                             <option value="Female">Female</option>
                         </select>
+                        @error('gender')
 
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="input-group mb-3">
 
-                        <select name="countries">
+                        <select name="countries" class="form-control @error('countries') is-invalid @enderror">
                             @foreach($countries as $country)
                             {
                             <option value="{{$country['name']}}">{{$country['name']}}</option>

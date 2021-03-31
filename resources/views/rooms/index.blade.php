@@ -8,15 +8,16 @@
     <div class="card-header">
      <h3 class="card-title">rooms</h3>
     </div>
-    <!-- /.card-header -->
+
+
         <div class="card-body">
-          <table class="table table-bordered">
-            <thead>
-              <thead>
+            <table id="example2" class="table table-bordered table-hover display" style="width:100%">
+                <thead>
+
 
         <tr>
             <th>Room Number</th>
-            <th>Floor Number</th>
+            <th>Floor Name</th>
             <th>Capacity</th>
             <th>Price in Dollars</th>
             <th>Created At</th>
@@ -26,18 +27,21 @@
     </thead>
     @php($count=0)
     @foreach($rooms as $room)
-    
+
     <tr>
         <th scope="row">{{ $room->room_number }}</th>
-        <td>{{ $room->floor_id}}</td>
-        <td>{{ $room->capacity}}</td>
-        <td>{{$priceInDollars[$count]}}
-          @php($count++)
+
+                {{-- <td>{{ $room->floor_id }} </td> --}}
+
+        <td>{{ $room->floor ? $room->floor->name : 'floor name' }} </td>
+        <td>{{$room->capacity}}</td>
+        <td>{{$priceInDollars[$count]}}$
+          @php($count++)</td>
         <td>{{ \Carbon\Carbon::parse( $room->created_at)->isoFormat('Y-M-D') }}</td>
         <td>{{ \Carbon\Carbon::parse( $room->updated_at)->isoFormat('Y-M-D') }}</td>
 
         <td>
-        
+
 
             <a href="{{route('rooms.edit',['room' => $room['room_number']])}}" class="btn btn-secondary"
                 style="margin-bottom: 20px;">Edit</a>
@@ -49,8 +53,8 @@
                     style="margin-bottom: 20px;">Delete</button>
             </form>
         </td>
-    <tr>
-   
+    </tr>
+
         @endforeach
             </tbody>
           </table>
