@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@section('title')Index Page
+@section('title')Manage Receptionists
 @endsection
 @section('content')
 <a href="{{route('receptionists.create')}}" class="btn btn-success text-center"><i
@@ -10,7 +10,10 @@
   </div>
   <!-- /.card-header -->
   <div class="card-body">
-    <table class="table table-bordered">
+
+    <table id="example2" class="table table-bordered table-hover display" style="width:100%">
+
+
       <thead>
         <tr>
           <th style="width: 10px">ID</th>
@@ -36,6 +39,7 @@
           <td>{{ \Carbon\Carbon::parse( $receptionist->updated_at)->isoFormat('Y-M-D') }}</td>
           @role('admin')
           <td>{{
+
             $receptionist->manager ? $receptionist->manager->name : 'By admin'
             }}
 
@@ -64,7 +68,6 @@
     </table>
 
   </div>
-</div>
 
 </div>
 

@@ -8,6 +8,7 @@
     <div class="card-header">
      <h3 class="card-title">rooms</h3>
     </div>
+ 
     <!-- /.card-header -->
         <div class="card-body">
           <table class="table table-bordered">
@@ -16,7 +17,7 @@
 
         <tr>
             <th>Room Number</th>
-            <th>Floor Number</th>
+            <th>Floor Name</th>
             <th>Capacity</th>
             <th>Price in Dollars</th>
             <th>Created At</th>
@@ -29,10 +30,13 @@
     
     <tr>
         <th scope="row">{{ $room->room_number }}</th>
-        <td>{{ $room->floor_id}}</td>
-        <td>{{ $room->capacity}}</td>
-        <td>{{$priceInDollars[$count]}}
-          @php($count++)
+
+                {{-- <td>{{ $room->floor_id }} </td> --}}
+
+        <td>{{ $room->floor ? $room->floor->name : 'floor name' }} </td>
+        <td>{{$room->capacity}}</td>
+        <td>{{$priceInDollars[$count]}}$
+          @php($count++)</td>
         <td>{{ \Carbon\Carbon::parse( $room->created_at)->isoFormat('Y-M-D') }}</td>
         <td>{{ \Carbon\Carbon::parse( $room->updated_at)->isoFormat('Y-M-D') }}</td>
 

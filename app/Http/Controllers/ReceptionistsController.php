@@ -15,20 +15,21 @@ class ReceptionistsController extends Controller
     public function index()
     {
         $allReceptionist = Receptionist::all();
-        
+
         return view(
             'receptionists.index',
             [
                 'Receptionist' =>  $allReceptionist,
-                'managers' => Manager::all()
-                
+                'manager' => Manager::all()
+
+
             ]
         );
     }
     public function create()
     {
         return view('receptionists.create', [
-            'managers' => Manager::all()
+            'manager' => Manager::all()
         ]);
     }
     public function update($ReceptionistId, Request $request)
@@ -47,14 +48,14 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::find($ReceptionistId);
         return view('receptionists.edit', [
             'receptionist' => $receptionist,
-            'managers' => Manager::all()
+            'manager' => Manager::all()
         ]);
     }
 
     public function destroy($ReceptionistId)
     {
         $receptionist=Receptionist::findorfail($ReceptionistId);
-      
+
         $user=User::where('email', $receptionist->email)->first();
    
         $user->delete();
@@ -62,6 +63,7 @@ class ReceptionistsController extends Controller
         return response()->json([
             'message' => 'Data deleted successfully!'
           ]);
+
     }
 
     public function store(Request $request)
@@ -71,7 +73,7 @@ class ReceptionistsController extends Controller
             'email'=>$request->email,
             'national_id'=>$request->national_id,
             'manger_id'=>Auth::user()->id
-            
+
         ]);
         $receptionist= Receptionist::where('email', $request->email)->first();
 
