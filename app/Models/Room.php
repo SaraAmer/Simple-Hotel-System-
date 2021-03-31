@@ -14,10 +14,10 @@ class Room extends Model
         'capacity',
         'price_inCents',
         'created_at',
-        'updated_at',  
+        'updated_at',
     ];
     public function floors()
     {
-        return $this->belongsTo('App\Models\Floor','number');
+        return $this->belongsTo('App\Models\Floor', 'floor_id', 'number');
     }
 }

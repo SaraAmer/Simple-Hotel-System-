@@ -107,7 +107,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="http://localhost:8000/{{Auth::user()->avatar_image}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="/admin" class="d-block">  {{ Auth::user() ? Auth::user()->name : "username"}}</a>
@@ -165,6 +165,7 @@
                                       </a>
                                     </li>
                                 <li class="nav-item">
+
                                     <a href="{{route('floors.index')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Manage Floors </p>
@@ -201,10 +202,11 @@
 
 
 
-                            </ul>
-                        </li>
-                        {{-- @hasanyrole('receptionist|admin') --}}
 
+
+                                  @hasanyrole('admin|manager|receptionist')
+
+                        <!--------------- -->
                             <li class="nav-item">
                                 <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
@@ -217,20 +219,23 @@
                                   <p>Client Reservation</p>
                                 </a>
                               </li>
+                            <!----------------------------------->
                               <li class="nav-item">
                                 <a href="{{Route('Receptionist.profile')}}" class="nav-link ">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Profile</p>
                                 </a>
                               </li>
+                              <!------------------------- -->
                               <li class="nav-item">
                                 <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Manage Client</p>
                                 </a>
                               </li>
-                            {{-- @endhasanyrole --}}
-
+                            @endhasanyrole
+                            <!---------------------------->
+                            </ul>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>

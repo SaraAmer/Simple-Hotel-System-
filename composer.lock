@@ -5140,19 +5140,10 @@
             "license": [
                 "MIT"
             ],
-<<<<<<< HEAD
-            "authors": [
-                {
-                    "name": "Arjay Angeles",
-                    "email": "aqangeles@gmail.com"
-                }
-            ],
-=======
             "authors": [{
                 "name": "Arjay Angeles",
                 "email": "aqangeles@gmail.com"
             }],
->>>>>>> 4d9b6c2cb1ebe486e671cbd997d92c2f7873a8b1
             "description": "jQuery DataTables API for Laravel 4|5|6|7",
             "keywords": [
                 "datatables",
@@ -5163,12 +5154,7 @@
                 "issues": "https://github.com/yajra/laravel-datatables/issues",
                 "source": "https://github.com/yajra/laravel-datatables/tree/v9.17.1"
             },
-<<<<<<< HEAD
-            "funding": [
-                {
-=======
             "funding": [{
->>>>>>> 4d9b6c2cb1ebe486e671cbd997d92c2f7873a8b1
                     "url": "https://www.paypal.me/yajra",
                     "type": "custom"
                 },

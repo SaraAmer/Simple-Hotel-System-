@@ -34,34 +34,13 @@ Route::get('/receptionist', function () { //da 2li bktbo fe al url
     return view('Receptionist/receptionist'); //in rresource/views/Receptionist
 });
 
-
-
-// Route::get('/receptionist/manageclient', function () { //da 2li bktbo fe al url
-//     return view('Receptionist/ManageClient'); //in rresource/views/Receptionist
-// });
-
-// Route::get('/receptionist/clientreservation', function () { //da 2li bktbo fe al url
-//     return view('Receptionist/ClientReservation'); //in rresource/views/Receptionist
-// });
-
-
-// Route::get('/receptionist/approvalclient', function () { //da 2li bktbo fe al url
-//     return view('Receptionist/ApprovedClient'); //in rresource/views/Receptionist
-// });
-// Route::get('/receptionist/profile', function () { //da 2li bktbo fe al url
-//     return view('Receptionist/ProfileReceptionist'); //in rresource/views/Receptionist
-// });
-
-
-
-
 Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function () {
     Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
-    Route::get('/receptionist/profile', [ReceptionistController::class, 'profile'])->name('Receptionist.profile');
-    Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient');
-    Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
-    Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
-    Route::get('/receptionist/acceptClient/{client}', [ReceptionistController::class, 'acceptClient'])->name('acceptClient');
+    Route::get('/receptionist/profile', [ReceptionistsController::class, 'profile'])->name('Receptionist.profile');
+    Route::get('/receptionist/ManageClient', [App\Http\Controllers\ClientController::class, 'ManageClient'])->name('Receptionist.ManageClient');
+    Route::get('/receptionist/ClientReservation', [App\Http\Controllers\ClientController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
+    Route::get('/receptionist/ApprovedClient', [App\Http\Controllers\ClientController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
+    Route::get('/receptionist/acceptClient/{client}', [App\Http\Controllers\ClientController::class, 'acceptClient'])->name('acceptClient');
 });
 
 

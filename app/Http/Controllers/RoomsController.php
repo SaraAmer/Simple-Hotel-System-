@@ -8,7 +8,6 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\Floor;
 
-
 class RoomsController extends Controller
 {
     public function index()
@@ -38,30 +37,29 @@ class RoomsController extends Controller
         //     $allfloors=[];
         //   foreach ( $allrooms as $room ){
         //     $allfloors[]=Floor::all()->where('number','=',$room->floor_id);}
-            // $allfloors=Floor::all()
+        // $allfloors=Floor::all()
 
-            // dd($allfloors);
-                return view(
+        // dd($allfloors);
+        return view(
             'rooms.index',
             [
 
             'rooms' => $allrooms,
             'priceInDollars'=>$priceInDollars,
-
             'floors'=>Floor::all(),
-            
+
         ]
         );
     }
 
     public function create()
-    { 
-        
-        return view('rooms.create', [
+    {
+        return view(
+            'rooms.create',
+            [
             'floors'=>Floor::all(),
             ]
-      );
-           
+        );
     }
 
     public function update($roomId, Request  $request)

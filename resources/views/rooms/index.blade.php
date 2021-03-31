@@ -27,13 +27,15 @@
     </thead>
     @php($count=0)
     @foreach($rooms as $room)
+    {{-- @foreach ($floors as $floor )
 
+    @endforeach --}}
     <tr>
         <th scope="row">{{ $room->room_number }}</th>
 
                 {{-- <td>{{ $room->floor_id }} </td> --}}
+        <td>{{ $room->floors ? $room->floors->name : 'floor name'}} </td>
 
-        <td>{{ $room->floor ? $room->floor->name : 'floor name' }} </td>
         <td>{{$room->capacity}}</td>
         <td>{{$priceInDollars[$count]}}$
           @php($count++)</td>
@@ -54,7 +56,7 @@
             </form>
         </td>
     </tr>
-
+    {{-- @endforeach --}}
         @endforeach
             </tbody>
           </table>
