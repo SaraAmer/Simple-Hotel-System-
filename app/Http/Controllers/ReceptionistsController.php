@@ -101,4 +101,14 @@ class ReceptionistsController extends Controller
         $user->unban();
         return redirect()->route('receptionists.index');
     }
+    function profile() 
+    {
+        $Receptionist= Receptionist  :: where('id',1)->first();
+        //Check on Email get from url which i can  get using parameter input as it's different from one to another 
+        // $Receptionist= Receptionist  :: where('email',)->first();
+
+        // @dd($Receptionist);
+        return view('receptionists/ProfileReceptionist',['Receptionist'=> $Receptionist]);
+
+    }
 }
