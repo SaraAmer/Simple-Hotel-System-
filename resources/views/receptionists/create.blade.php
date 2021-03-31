@@ -1,5 +1,6 @@
 @extends('layouts.page')
-
+@section('title')Create
+@endsection
 @section('content')
 <div class="container">
 <div class="container-fluid">
@@ -33,6 +34,7 @@
                 <input class="form-control" id="exampleInputNationalID" pattern="[0-9]*" type="text" name="national_id">
               </div>
 
+
               <div class="form-group">
                   <label for="exampleInputFile">Image Upload</label>
                   <br>
@@ -45,7 +47,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Create</button>
             </div>
           </form>
         </div>

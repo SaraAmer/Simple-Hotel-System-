@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Registration;
 
-
 class ClientController extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
         $clientData=[
             'name'=> 'Eithar',
             'gender'=> 'Female',
@@ -21,7 +21,8 @@ class ClientController extends Controller
             'client' => $clientData
         ]);
     }
-    public function home(){
+    public function home()
+    {
         $clientName= "Eithar";
         $rooms=[
             'room1'=>[
@@ -42,16 +43,19 @@ class ClientController extends Controller
         ]);
     }
 
-    public function reserve(){}
+    public function reserve()
+    {
+    }
 
-    public function viewInvoices(){
+    public function viewInvoices()
+    {
         $clientName= "Eithar";
         return view('client.invoice', [
             'clientName'=>$clientName
         ]);
     }
 
-     
+
     public function destory($clientId)
     {
         // ------------------------------------------
@@ -59,7 +63,7 @@ class ClientController extends Controller
         Registration::find($clientId)->delete();
         return redirect()->route('Receptionist.ManageClient');
     }
-     //store in Client table data of Registeration table
+    //store in Client table data of Registeration table
     // public function store(Request $request)
     // {
     //     // 'name',
@@ -81,17 +85,14 @@ class ClientController extends Controller
     //     $client->save();
     //     return redirect()->route('Receptionist.ManageClient');
     // }
-    public function deleteclient($id){
-
-   
+    public function deleteclient($id)
+    {
         @dd($id);
         Registration ::find($id)->delete($id);
         return response()->json([
-    
+
             'success' => 'Record deleted successfully!'
-    
+
         ]);
-    
     }
-   
 }

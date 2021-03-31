@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@section('title')Index Page
+@section('title')Manage Receptionists
 @endsection
 @section('content')
 <a href="{{route('receptionists.create')}}" class="btn btn-success text-center"><i
@@ -10,8 +10,11 @@
   </div>
   <!-- /.card-header -->
   <div class="card-body">
-    <table class="table table-bordered">
-      <thead>
+
+    <table id="example2" class="table table-bordered table-hover display" style="width:100%">
+
+
+        <thead>
         <tr>
           <th style="width: 10px">ID</th>
 
@@ -32,10 +35,11 @@
           <th scope="row">{{ $receptionist->id }}</th>
           <td>{{ $receptionist->name }}</td>
           <td>{{ $receptionist->email }}</td>
-          <td>{{ \Carbon\Carbon::parse( $receptionist->created_at,'d/m/Y H:i:s')->isoFormat('Y-M-D') }}</td>
-          <td>{{ \Carbon\Carbon::parse( $receptionist->updated_at,'d/m/Y H:i:s')->isoFormat('Y-M-D') }}</td>
+          <td>{{ \Carbon\Carbon::parse( $receptionist->created_at)->isoFormat('Y-M-D') }}</td>
+          <td>{{ \Carbon\Carbon::parse( $receptionist->updated_at)->isoFormat('Y-M-D') }}</td>
           @role('admin')
           <td>{{
+
             $receptionist->manager ? $receptionist->manager->name : 'By admin'
             }}
 
@@ -45,6 +49,13 @@
 
             <a href="{{route('receptionists.edit',['receptionist' => $receptionist['id']])}}" class="btn btn-secondary"
               style="margin-bottom: 20px;">Edit</a>
+            @if($receptionist->isBanned())
+            <a href="{{route('receptionists.unban',['receptionist' => $receptionist['id']])}}" class="btn btn-success"
+              style="margin-bottom: 20px;">UnBan</a>
+            @else
+            <a href="{{route('receptionists.ban',['receptionist' => $receptionist['id']])}}" class="btn btn-danger"
+              style="margin-bottom: 20px;">Ban</a>
+            @endif
             <form style="display:inline" method="POST"
               action="{{route('receptionists.destroy',['receptionist' => $receptionist['id']])}}">
               @csrf
@@ -53,16 +64,13 @@
                 style="margin-bottom: 20px;">Delete</button>
             </form>
           </td>
-        <tr>
+        </tr>
           @endforeach
       </tbody>
     </table>
   </div>
-</div>
 
 
-
-</div>
 
 
 @endsection

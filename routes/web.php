@@ -21,7 +21,8 @@ use App\Http\Controllers\ReceptionistController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+//Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return view('welcome');
 });

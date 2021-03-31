@@ -23,9 +23,15 @@
       <form role="form" method="post" action="{{route('rooms.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
-          <div class="form-group">
-            <label for="exampleInputfloor_id">Floor id</label>
-            <input class="form-control" id="exampleInputfloor_id" type="text" name="floor_id">
+         
+            <div class="form-group">
+                <label for="manger_id">Floor Name</label>
+                <select name="floor_id" class="form-control" id="floor_id">
+                  @foreach ($floors as $floor)
+                    <option value="{{$floor->number}}">{{$floor->name}}</option>
+                  @endforeach
+                </select>
+             
 
           </div>
           <div class="form-group">

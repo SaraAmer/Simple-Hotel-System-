@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Floor extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'manger_id'
+    ];
+    public function manager()
+    {
+        return $this->belongsTo('App\Models\Manager', 'manger_id');
+    }
+    public function room()
+    {
+        return $this->belongsTo('App\Models\Room', 'floor_id');
+    }
 }
