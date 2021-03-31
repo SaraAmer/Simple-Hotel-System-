@@ -60,7 +60,7 @@
             <button class="delete-btn btn btn-danger" style="margin-bottom: 20px;"
               value="{{$receptionist->id}}">Delete</button>
           </td>
-        <tr>
+        </tr>
 
 
           @endforeach

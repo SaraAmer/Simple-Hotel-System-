@@ -167,6 +167,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+
                                     <a href="{{route('floors.index')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Manage Floors </p>
@@ -205,32 +206,34 @@
 
                             </ul>
                         </li>
-                        @role("receptionist")
-                        <li class="nav-item">
-                            <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Client Approval</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{Route('Receptionist.ClientReservation')}}" class="nav-link ">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Client Reservation</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{Route('Receptionist.profile')}}" class="nav-link ">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Profile</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Manage Client</p>
-                            </a>
-                        </li>
-                        @endrole
+                        <!--------------- -->
+                            <li class="nav-item">
+                                <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Client Approval</p>
+                                </a>
+                              </li>
+                              <li class="nav-item">
+                                <a href="{{Route('Receptionist.ClientReservation')}}" class="nav-link ">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Client Reservation</p>
+                                </a>
+                              </li>
+                            <!----------------------------------->
+                              <li class="nav-item">
+                                <a href="{{Route('Receptionist.profile')}}" class="nav-link ">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Profile</p>
+                                </a>
+                              </li>
+                              <!------------------------- -->
+                              <li class="nav-item">
+                                <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Manage Client</p>
+                                </a>
+                              </li>
+                            <!---------------------------->
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">

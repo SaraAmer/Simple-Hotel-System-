@@ -23,12 +23,16 @@
               <li class="list-group-item">
                 <b>Phone #</b> <a class="float-right">{{$client['phoneNo']}}</a>
               </li>
+<<<<<<< HEAD
               <li class="list-group-item">
                 <b>Email</b> <a class="float-right">{{$client['email']}}</a>
               </li>
               <li class="list-group-item">
                 <b>Country</b> <a class="float-right">{{$client['country']}}</a>
               </li>
+=======
+       
+>>>>>>> a4957ac0d7c88fb8339a185d6df8065de9777d6b
             </ul>
 
           </div>
@@ -36,7 +40,31 @@
         </div>
         <!-- /.card -->
 
+<<<<<<< HEAD
         <!-- About Me Box -->
+=======
+                
+
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>Gender</b> <a class="float-right">{{$client['gender']}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Phone #</b> <a class="float-right">{{$client['mobile']}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Email</b> <a class="float-right">{{$client['email']}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Country</b> <a class="float-right">{{$client['country']}}</a>
+                  </li>
+                </ul>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+>>>>>>> a4957ac0d7c88fb8339a185d6df8065de9777d6b
 
         <!-- /.card-body -->
       </div>

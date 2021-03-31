@@ -17,7 +17,7 @@ class ReceptionistsController extends Controller
         $allReceptionist = Receptionist::all();
 
         return view(
-            'receptionists.index',
+            'receptionist.index',
             [
                 'Receptionist' =>  $allReceptionist,
                 'manager' => Manager::all()
@@ -28,7 +28,7 @@ class ReceptionistsController extends Controller
     }
     public function create()
     {
-        return view('receptionists.create', [
+        return view('receptionist.create', [
             'manager' => Manager::all()
         ]);
     }
@@ -40,14 +40,14 @@ class ReceptionistsController extends Controller
 
 
         $receptionist->save();
-        return redirect()->route('receptionists.index');
+        return redirect()->route('receptionist.index');
     }
     
 
     public function edit($ReceptionistId)
     {
         $receptionist = Receptionist::find($ReceptionistId);
-        return view('receptionists.edit', [
+        return view('receptionist.edit', [
             'receptionist' => $receptionist,
             'manager' => Manager::all()
         ]);
@@ -86,7 +86,7 @@ class ReceptionistsController extends Controller
 
         ]);
 
-        return redirect()->route('receptionists.index');
+        return redirect()->route('receptionist.index');
     }
     public function ban($ReceptionistId)
     {
@@ -94,7 +94,7 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::where('id', $ReceptionistId)->first();
         $receptionist->ban();
         $user->ban();
-        return redirect()->route('receptionists.index');
+        return redirect()->route('receptionist.index');
     }
     public function unban($ReceptionistId)
     {
@@ -102,7 +102,7 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::where('id', $ReceptionistId)->first();
         $receptionist->unban();
         $user->unban();
-        return redirect()->route('receptionists.index');
+        return redirect()->route('receptionist.index');
     }
     public function home()
     {
@@ -111,5 +111,14 @@ class ReceptionistsController extends Controller
         return view('receptionist.home', [
             'Receptionist' => $receptionist
         ]);
+        function profile()
+        {
+            $Receptionist= Receptionist  :: where('id', 1)->first();
+            //Check on Email get from url which i can  get using parameter input as it's different from one to another
+            // $Receptionist= Receptionist  :: where('email',)->first();
+
+            // @dd($Receptionist);
+            return view('receptionist/home', ['Receptionist'=> $Receptionist]);
+        }
     }
 }

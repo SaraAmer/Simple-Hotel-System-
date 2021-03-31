@@ -13,24 +13,7 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
-<style>
-.roomImg{
-  width: 100%;
-  height: 140px;
-}
-.room{
-  transition: ease-in-out 0.5s;
-  margin :10px;
-  border: 1px solid #BFBFBF;
-  box-shadow: 1px 1px 5px 1px #9a9992;
-}
-  
 
-  .room:hover{
-    transform: scale(1.1);
-    
-  }
-</style>
 
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -130,7 +113,7 @@
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="{{ route('client') }}" class="d-block">{{ $clientName }}</a>
+          <a href="{{ route('client') }}" class="d-block">{{ $client['name']}}</a>
         </div>
       </div>
 
@@ -183,90 +166,90 @@
     <!-- /.sidebar -->
   </aside>
 
-
-
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Our Rooms</h1>
+            <h1>Invoices</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Hotel</li>
+              <li class="breadcrumb-item active">User Profile</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
-    <!-- Main content -->
-    <section class="content">
+<section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h4 class="card-title">Browse Our Rooms</h4>
-              </div>
-              <div class="card-body">
-                <div>
-          
-                  
-                  <div class="filter-container p-0 row">
-                    @foreach($rooms as $room)
-                    <div style="background-color: #ccc; padding:0;" class="filtr-item col-sm-2 room" data-category="2, 4" data-sort="black sample">
-                      <a href="{{ route('clientInvoice', ['roomNumber' => $room['room_number']]) }}" data-toggle="lightbox" data-title="sample 12 - black">
-                        <img class="roomImg" style="max-width: 100%;" src="{{asset($room['image'])}}" class="img-fluid mb-2" alt="black sample"/>
-                        
-                        <p style="margin-bottom: 0; color: black;"> price: {{ $room['price'] }}$</p>
-                      <p style="margin-bottom: 0; color:black; "> Capacity: {{ $room['capacity'] }}</p>
-                      <div style="text-align: center;">
-                      <p class="btn btn-primary" style="margin: 10px 0 0 0 ;">Reserve!</p>
-
-                      </a>
-                      
-
-                      </div>
-                    </div>
-                    @endforeach
-                  </div>
-                </div>
-
-              </div>
+            <div class="callout callout-info">
+              <h5><i class="fas fa-info"></i> Note:</h5>
+              This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
             </div>
-          </div>
-        
-          
-        </div>
+
+
+            <!-- Main content -->
+            
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p class="mb-4">
+                            Total Amount is <strong>{{$amount}}$</strong>  
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <form action="/charge" method="post" id="payment-form">
+  <div class="form-row">
+    <label for="card-element">
+      Credit or debit card
+    </label>
+    <div id="card-element">
+      <!-- A Stripe Element will be inserted here. -->
+    </div>
+
+    <!-- Used to display Element errors. -->
+    <div id="card-errors" role="alert"></div>
+  </div>
+
+  <button>Submit Payment</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <footer class="main-footer">
+  <footer class="main-footer no-print">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.1.0
     </div>
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
   </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-
-
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
