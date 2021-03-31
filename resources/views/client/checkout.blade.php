@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | User Profile</title>
+  <title>AdminLTE 3 | Invoice</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -13,9 +13,10 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
+
+
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -112,7 +113,7 @@
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-        <a href="{{ route('client') }}" class="d-block">{{ $client['name'] }}</a>
+          <a href="{{ route('client') }}" class="d-block">{{ $client['name']}}</a>
         </div>
       </div>
 
@@ -154,7 +155,7 @@
                   <p>Your Reservations</p>
                 </a>
               </li>
-       
+    
             </ul>
           </li>
 
@@ -172,7 +173,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Profile</h1>
+            <h1>Invoices</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -183,61 +184,67 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
-    <!-- Main content -->
-    <section class="content">
+<section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3">
-
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user4-128x128.jpg"
-                       alt="User profile picture">
-                </div>
-
-                <h3 class="profile-username text-center">{{$client['name']}}</h3>
-
-                
-
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Gender</b> <a class="float-right">{{$client['gender']}}</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Phone #</b> <a class="float-right">{{$client['mobile']}}</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Email</b> <a class="float-right">{{$client['email']}}</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Country</b> <a class="float-right">{{$client['country']}}</a>
-                  </li>
-                </ul>
-
-              </div>
-              <!-- /.card-body -->
+          <div class="col-12">
+            <div class="callout callout-info">
+              <h5><i class="fas fa-info"></i> Note:</h5>
+              This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
             </div>
-            <!-- /.card -->
 
-            <!-- About Me Box -->
+
+            <!-- Main content -->
             
-              <!-- /.card-body -->
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p class="mb-4">
+                            Total Amount is <strong>{{$amount}}$</strong>  
+                        </p>
+                    </div>
+                </div>
             </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        
-        <!-- /.row -->
+
+
+            <form action="/charge" method="post" id="payment-form">
+  <div class="form-row">
+    <label for="card-element">
+      Credit or debit card
+    </label>
+    <div id="card-element">
+      <!-- A Stripe Element will be inserted here. -->
+    </div>
+
+    <!-- Used to display Element errors. -->
+    <div id="card-errors" role="alert"></div>
+  </div>
+
+  <button>Submit Payment</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+  <footer class="main-footer no-print">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.1.0
     </div>

@@ -4,37 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Registration;
+use App\Models\Client;
+use App\Models\Room;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class ClientController extends Controller
 {
     //
     public function index(){
-        $clientData=[
-            'name'=> 'Eithar',
-            'gender'=> 'Female',
-            'phoneNo' => '123456',
-            'email'=> 'eithar@yahoo.com',
-            'country'=> 'Alex'
-        ];
+      
+        $client=Client::where('email', Auth::user()->email)->first();
+
         return view('client.index', [
-            'client' => $clientData
+            'client' => $client
         ]);
     }
     public function home(){
-        $clientName= "Eithar";
-        $rooms=[
-            'room1'=>[
-                'capacity'=> 2,
-                'price'=> 100,
-                'status'=> 'Available'
-            ],
-            'room2'=> [
-                'capacity'=> 5,
-                'price'=> 200,
-                'status'=> 'Unavailable'
-            ]
-        ];
+        $client=Client::where('email', Auth::user()->email)->first();
+        $clientName= $client['name'];
+        $rooms= Room::where('status', 'available')->get();
+ 
         return view('client.home', [
             'rooms' => $rooms,
             'clientName'=>$clientName
@@ -44,10 +35,26 @@ class ClientController extends Controller
 
     public function reserve(){}
 
-    public function viewInvoices(){
-        $clientName= "Eithar";
+    public function viewInvoices($roomNumber){
+       
+        $client=Client::where('email', Auth::user()->email)->first();
+        $room= Room::where('room_number', $roomNumber)->first();
+        
         return view('client.invoice', [
-            'clientName'=>$clientName
+            'client'=>$client,
+            'room'=> $room
+        ]);
+    }
+
+
+    public function checkout($amount){
+        $client=Client::where('email', Auth::user()->email)->first();
+
+        //dd($amount);
+        return view('client.checkout', [
+            'amount'=>$amount,
+            'client'=>$client,
+            
         ]);
     }
 
