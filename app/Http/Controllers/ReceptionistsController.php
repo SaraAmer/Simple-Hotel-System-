@@ -22,6 +22,7 @@ class ReceptionistsController extends Controller
                 'Receptionist' =>  $allReceptionist,
                 'manager' => Manager::all()
 
+
             ]
         );
     }
@@ -83,6 +84,22 @@ class ReceptionistsController extends Controller
 
         ]);
 
+        return redirect()->route('receptionists.index');
+    }
+    public function ban($ReceptionistId)
+    {
+        $user = User::where('user_id', $ReceptionistId)->where('role', 'Receptionist')->first();
+        $receptionist = Receptionist::where('id', $ReceptionistId)->first();
+        $receptionist->ban();
+        $user->ban();
+        return redirect()->route('receptionists.index');
+    }
+    public function unban($ReceptionistId)
+    {
+        $user = User::where('user_id', $ReceptionistId)->where('role', 'Receptionist')->first();
+        $receptionist = Receptionist::where('id', $ReceptionistId)->first();
+        $receptionist->unban();
+        $user->unban();
         return redirect()->route('receptionists.index');
     }
 }

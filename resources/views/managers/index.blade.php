@@ -1,14 +1,14 @@
-
 @extends('layouts.page')
 @section('title')Manage Manager
 @endsection
 @section('content')
-<a href="{{route('managers.create')}}" class="btn btn-success text-center"  ><i class="ionicons ion-android-create"></i>  Create Manager</a>
+<a href="{{route('managers.create')}}" class="btn btn-success text-center"><i class="ionicons ion-android-create"></i>
+    Create Manager</a>
 <div class="card">
     <div class="card-header">
-     <h3 class="card-title">Managers</h3>
+        <h3 class="card-title">Managers</h3>
     </div>
-    <!-- /.card-header -->
+
         <div class="card-body">
     <table id="example2" class="table table-bordered table-hover display" style="width:100%">
 
@@ -54,4 +54,5 @@
     </div>
 
 @endsection
+
 

@@ -18,8 +18,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach ($ManagedClients as $client)
-
+                  @foreach ($ManagedClientsdata as $clientdata)
                   <tr>
                     <!-- <td>Marwa</td>
                     <td>eng.marwamedhat2020@gmail.com</td>
@@ -27,18 +26,20 @@
                     <td>Egypt</td>
                     <td>female</td> -->
 
+
                     <td name='name' value='name'>{{ $client['name'] }}</td>
                     <td name='email' value='email'>{{  $client['email']   }}</td>
                     <td name='mobile' value='mobile'>{{  $client['mobile'] }}</td>
                     <td name='country' value='country'>{{  $client['country'] }}</td>
                     <td name='gender' value='gender'> {{  $client['gender'] }}</td>
 
+
                     <td>
-                    <form method="GET" action="{{route('acceptClient',['client' => $client['email']])}}" style="display:inline;margin:0px;padding:0px">
+                    <form method="GET" action="{{route('acceptClient',['client' => $clientdata['email']])}}" style="display:inline;margin:0px;padding:0px">
                     <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to Accept ?')">Accept</button>
                   </form>
 
-                  <form method="POST" action="{{route('clients.destory',['client' => $client['id']])}}" style="display:inline;margin:0px;padding:0px">
+                  <form method="POST" action="{{route('clients.destory',['client' => $clientdata['id']])}}" style="display:inline;margin:0px;padding:0px">
                   @csrf @method('DELETE')
                     <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to delete ?')">Delete</button>
                   </form>
@@ -51,8 +52,10 @@
 
                     </form> -->
 
+
                   </tr>
                   @endforeach
+
                   </tbody>
                 </table>
               </div>

@@ -10,8 +10,13 @@ use App\Models\User;
 use App\Models\Reservation;
 // use App\Http\Auth;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Notifications\Notifiable;
+use App\Notifications\WelcomeClient;
+use Notifiable;
+
 class ReceptionistController extends Controller
 {
+
 
     function ManageClient() 
     {
@@ -23,8 +28,9 @@ class ReceptionistController extends Controller
             ['name'=>'rana','email'=>'eng.ranaamedhat2020@gmail.com','mobile'=>'0128888888','country' => 'Egypt','gender'=>'female'],
         ];
         $ManagedClients=User ::where('role','pended client')->get();
+        $ManagedClientsdata= Registration:: all();
         return view('Receptionist.ManageClient',
-        ['ManagedClients'=> $ManagedClients]);
+        ['ManagedClients'=> $ManagedClients],['ManagedClientsdata'=> $ManagedClientsdata]);
     }
 
     function ApprovedClient() //to show all ApprovedClient who receptionist approve them Only
@@ -34,7 +40,7 @@ class ReceptionistController extends Controller
         //         ['name'=>'Marwa','email'=>'eng.marwamedhat2020@gmail.com','mobile'=>'012888888','country'=>'Egypt','gender'=>'female'],
         //         ['name'=>'rana','email'=>'eng.ranaamedhat2020@gmail.com','mobile'=>'0128888888','country' => 'Egypt','gender'=>'female'],
         // ];
-        if(Auth::user()->role == "receptionist")
+        if(Auth::user()->role == "Receptionist")
         {
             $ApprovedClient=Client :: where('aprovalID',Auth::user()->id)->get();
         }
@@ -76,8 +82,11 @@ class ReceptionistController extends Controller
         // @dd(Auth::user()->role);
       $accepteduser=User ::where('email',$email)->first();
     //   dd($accepteduser);
+
       $accepteduser->update(['role' => "client"]);
     //   dd($accepteduser);
+    $accepteduser->notify(new WelcomeClient());
+
       //search in registeration table with email and when 
       //find it store in Client table and delete it from registeration
       $acceptedClient=Registration ::where('email',$email)->first();
@@ -93,6 +102,7 @@ class ReceptionistController extends Controller
       $client->aprovalID=Auth::user()->id;
       $client->save();
       Registration ::where('email',$email)->first()->delete();
+
       return redirect()->route('Receptionist.ManageClient');
     }
 
