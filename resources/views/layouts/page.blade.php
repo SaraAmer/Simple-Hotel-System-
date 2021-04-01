@@ -17,6 +17,24 @@
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <style>
+.roomImg{
+  width: 100%;
+  height: 140px;
+}
+.room{
+  transition: ease-in-out 0.5s;
+  margin :10px;
+  border: 1px solid #BFBFBF;
+  box-shadow: 1px 1px 5px 1px #9a9992;
+}
+
+
+  .room:hover{
+    transform: scale(1.1);
+
+  }
+</style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -109,10 +127,10 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="http://localhost:8000/{{Auth::user()->avatar_image}}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{asset(Auth::user()->avatar_image)}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="/admin" class="d-block"> {{ Auth::user() ? Auth::user()->name : "username"}}</a>
+                        <a href="/home" class="d-block"> {{ Auth::user() ? Auth::user()->name : "username"}}</a>
                     </div>
                 </div>
 
@@ -182,7 +200,7 @@
                                 @endhasanyrole
                                 @role('client')
                                 <li class="nav-item">
-                                    <a href="{{ route('clientHome') }}" class="nav-link">
+                                    <a href="{{ route('client.browse') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Browse Hotel</p>
                                     </a>
@@ -193,22 +211,15 @@
                                         <p>Your Reservations</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('clientInvoice') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Invoices</p>
-                                    </a>
-                                </li>
+
 
                                 @endrole
 
 
 
 
-
-                                  @hasanyrole('admin|manager|receptionist')
-
                         <!--------------- -->
+                        @hasanyrole('manager|admin|receptionist')
                             <li class="nav-item">
                                 <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
@@ -221,32 +232,11 @@
                                   <p>Client Reservation</p>
                                 </a>
                               </li>
-                            <!----------------------------------->
-                              <li class="nav-item">
-                                <a href="{{Route('Receptionist.profile')}}" class="nav-link ">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Profile</p>
-                                </a>
-                              </li>
-                              <!------------------------- -->
-                              <li class="nav-item">
-                                <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Manage Client</p>
-                                </a>
-                              </li>
-                            @endhasanyrole
+
+
                             <!---------------------------->
-                            </ul>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
-                        </li>
+
+                    @endhasanyrole
                     </ul>
                 </nav>
             </div>
@@ -327,6 +317,7 @@
                 });
             });
         </script>
+
 </body>
 
 </html>

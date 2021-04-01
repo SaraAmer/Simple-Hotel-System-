@@ -42,7 +42,7 @@ class ReceptionistsController extends Controller
         $receptionist->save();
         return redirect()->route('receptionist.index');
     }
-    
+
 
     public function edit($ReceptionistId)
     {
@@ -58,7 +58,7 @@ class ReceptionistsController extends Controller
         $receptionist=Receptionist::findorfail($ReceptionistId);
 
         $user=User::where('email', $receptionist->email)->first();
-   
+
         $user->delete();
         $receptionist->delete();
         return response()->json([
@@ -68,11 +68,12 @@ class ReceptionistsController extends Controller
 
     public function store(Request $request)
     {
+        $manager = Manager::where('email', Auth::user()->email)->first();
         Receptionist::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'national_id'=>$request->national_id,
-            'manger_id'=>Auth::user()->id
+            'manger_id'=> $manager->id
 
         ]);
         $receptionist= Receptionist::where('email', $request->email)->first();
@@ -86,7 +87,7 @@ class ReceptionistsController extends Controller
 
         ]);
 
-        return redirect()->route('receptionist.index');
+        return redirect()->route('receptionists.index');
     }
     public function ban($ReceptionistId)
     {
@@ -106,8 +107,11 @@ class ReceptionistsController extends Controller
     }
     public function home()
     {
+        if (!Auth::user()->hasRole('receptionist')) {
+            Auth::user()->assignRole('receptionist');
+        }
         $receptionist = Receptionist::where('email', Auth::user()->email)->first();
-       
+
         return view('receptionist.home', [
             'Receptionist' => $receptionist
         ]);

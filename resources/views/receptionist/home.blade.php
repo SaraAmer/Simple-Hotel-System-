@@ -7,18 +7,9 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user4-128x128.jpg"
+                       src="{{asset($Receptionist['avatar_image'])}}"
                        alt="User profile picture">
                 </div>
-                <!-- Receptionist table data
-                'name', 'email','national_id','avatar_image','updated_at','manger_id' -->
-
-                <!-- <td>{{  $Receptionist['name'] }}</td>
-                    <td>{{   $Receptionist['email']   }}</td>
-                    <td>{{   $Receptionist['mobile'] }}</td>
-                    <td>{{   $Receptionist['country'] }}</td>
-                    <td> {{   $Receptionist['gender'] }}</td>
-                    <td> {{   $Receptionist['national_id'] }}</td> -->
 
                 <h3 class="profile-username text-center">{{  $Receptionist['name'] }}</h3>
 
@@ -32,10 +23,10 @@
                     <b>Phone number</b> <a class="float-right">177777777</a>
                   </li>
                   <li class="list-group-item">
-                    <b>email</b> <a class="float-right">{{   $Receptionist['email']   }}</a>
+                    <b>Email</b> <a class="float-right">{{   $Receptionist['email']   }}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>country</b> <a class="float-right">Egypt</a>
+                    <b>Country</b> <a class="float-right">Egypt</a>
                   </li>
                 </ul>
 

@@ -62,11 +62,12 @@ class FloorsController extends Controller
 
     public function store(Request $request)
     {
+        $manager = Manager::where('email', Auth::user()->email)->first();
         Floor::create([
 
             'name'=> $request->name,
             'number'=>rand(1, 9999),
-            'manger_id'=>Auth::user()->id
+            'manger_id'=>$manager->id
 
 
         ]);
