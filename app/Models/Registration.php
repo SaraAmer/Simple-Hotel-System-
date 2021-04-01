@@ -22,4 +22,5 @@ class Registration extends Model
     //     'password',
     //     'remember_token',
     // ];
+
 }

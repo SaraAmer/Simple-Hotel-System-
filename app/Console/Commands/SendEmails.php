@@ -11,14 +11,14 @@ class SendEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'reminder:emails';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'send reminder emails to the clients';
 
     /**
      * Create a new command instance.
@@ -37,6 +37,7 @@ class SendEmails extends Command
      */
     public function handle()
     {
+        dd(now()->format('Y-m-d'));
         return 0;
     }
 }
