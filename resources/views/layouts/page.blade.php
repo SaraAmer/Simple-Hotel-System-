@@ -178,12 +178,7 @@
                                     </a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Client</p>
-                                    </a>
-                                </li>
+                                
                                 <li class="nav-item">
 
                                     <a href="{{route('floors.index')}}" class="nav-link">
@@ -220,6 +215,12 @@
                         
                         <!--------------- -->
                         @hasanyrole('manager|admin|receptionist')
+                        <li class="nav-item">
+                                    <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Manage Client</p>
+                                    </a>
+                                </li>
                             <li class="nav-item">
                                 <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>

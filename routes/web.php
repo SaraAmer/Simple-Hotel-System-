@@ -32,7 +32,6 @@ Route::get('/', function () {
 });
 
 
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function () {
@@ -93,4 +92,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/client', [ClientController::class, 'index'])->name('client');
     Route::delete('/clients/{client}', [ClientController::class, 'destory'])->name('clients.destory');
     Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/pendedclient', [ClientController::class, 'pendedclienthome'])->name('pendedclient.home');
+
 });

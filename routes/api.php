@@ -28,13 +28,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //so send token in header 
 //Authorization Bearer
 //Accept application/json
- //Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function () {
     Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient')->middleware('auth:sanctum');
     Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
     Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
     Route::get('/receptionist/acceptClient/{client}', [ReceptionistController::class, 'acceptClient'])->name('acceptClient');
    
-// });
 // http://127.0.0.1:8000/api/rooms
 //implement index ,show,store
 // Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
