@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Registration;
 use App\Models\Client;
+use App\Models\Receptionist;
 use App\Models\Room;
 
 
@@ -20,8 +21,8 @@ class ClientController extends Controller
 {
     //
 
-    public function index(){
-      
+    public function index()
+    {
         $client=Client::where('email', Auth::user()->email)->first();
 
 
@@ -30,25 +31,32 @@ class ClientController extends Controller
         ]);
     }
 
-    public function home(){
+    public function home()
+    {
+        if (!Auth::user()->hasRole('client')) {
+            Auth::user()->assignRole('client');
+        }
+      
         $client=Client::where('email', Auth::user()->email)->first();
-        $clientName= $client['name'];
-        $rooms= Room::where('status', 'available')->get();
-    
+     
+       
         return view('client.home', [
-            'rooms' => $rooms,
-            'clientName'=>$clientName
+          
+            'client'=>$client
 
         ]);
     }
+   
+
+
 
     public function reserve()
     {
     }
 
 
-    public function viewInvoices($roomNumber){
-       
+    public function viewInvoices($roomNumber)
+    {
         $client=Client::where('email', Auth::user()->email)->first();
         $room= Room::where('room_number', $roomNumber)->first();
         
@@ -60,46 +68,46 @@ class ClientController extends Controller
     }
 
 
-    public function checkout($amount){
+    public function checkout($amount)
+    {
         $client=Client::where('email', Auth::user()->email)->first();
 
-        //dd($amount);
         return view('client.checkout', [
             'amount'=>$amount,
             'client'=>$client,
             
         ]);
     }
-    function ManageClient() 
+    public function ManageClient()
     {
-        
-       
-        $ManagedClients=User ::where('role','pended client')->get();
+        $ManagedClients=User ::where('role', 'pended client')->get();
         $ManagedClientsdata= Registration:: all();
-        return view('client.ManageClient',
-        ['ManagedClients'=> $ManagedClients],['ManagedClientsdata'=> $ManagedClientsdata]);
+        return view(
+            'client.ManageClient',
+            ['ManagedClients'=> $ManagedClients],
+            ['ManagedClientsdata'=> $ManagedClientsdata]
+        );
     }
 
 
     public function destory($clientId)
     {
-       
         Registration::find($clientId)->delete();
         return redirect()->route('Receptionist.ManageClient');
     }
 
-    function ApprovedClient() 
-    {   ;
-        if(Auth::user()->role == "Receptionist")
-        {
-            $ApprovedClient=Client :: where('aprovalID',Auth::user()->id)->get();
+    public function ApprovedClient()
+    {
+        ;
+        if (Auth::user()->role == "Receptionist") {
+            $ApprovedClient=Client :: where('aprovalID', Auth::user()->id)->get();
+        } else {
+            $ApprovedClient=Client :: all();
         }
-        else
-        {
-        $ApprovedClient=Client :: all();
-        }
-        return view('client.ApprovedClient',
-        ['ApprovedClient'=>  $ApprovedClient]);
+        return view(
+            'client.ApprovedClient',
+            ['ApprovedClient'=>  $ApprovedClient]
+        );
     }
 
     public function deleteclient($id)
@@ -111,41 +119,48 @@ class ClientController extends Controller
 
         ]);
     }
-  /*  function ClientReservation() 
-    {     
-        $ClientReservation=Reservation :: all();
-        $ClientReservationName=Client :: all();
-
-        return view('client.ClientReservation',
-        ['ClientReservation'=> $ClientReservation],[ 'ClientReservationName'=>$ClientReservationName]);
+    public function ClientReservation()
+    {
+        // if (Auth::user()->role=="Receptionist") {
+        //     $receptionist = Receptionist::where('email', Auth::user()->email)->first();
+        //     $ClientReservation=Reservation:: where('aprovalID', $receptionist->id)->get();
+        //     return view(
+        //         'client.ClientReservation',
+        //         ['ClientReservation'=>$ClientReservation]
+        //     );
+        // } else {
+        $ClientReservation=Reservation ::all();
+        
+        return view(
+            'client.ClientReservation',
+            [ 'ClientReservation'=>$ClientReservation]
+        );
+        // }
     }
      
-    */
-    function acceptClient ($email)
+    
+    public function acceptClient($email)
     {
-       
-      $accepteduser=User ::where('email',$email)->first();
+        $accepteduser=User ::where('email', $email)->first();
 
-      $accepteduser->update(['role' => "client"]);
-    $accepteduser->notify(new WelcomeClient());
+        $accepteduser->update(['role' => "client"]);
+        $accepteduser->notify(new WelcomeClient());
+        //search in registeration table with email and when
+        //find it store in Client table and delete it from registeration
+        $acceptedClient=Registration ::where('email', $email)->first();
+        $client = new Client;
+        $client->name= $acceptedClient->name;
+        $client->email = $acceptedClient->email;
+        $client->mobile = $acceptedClient->mobile;
+        $client->country = $acceptedClient->country;
+        $client->gender = $acceptedClient->gender;
+        //   $client->password = $acceptedClient->password;
+        $client->has_reservations="no";
+        $client->aprovalRole=Auth::user()->role;
+        $client->aprovalID=Auth::user()->user_id;
+        $client->save();
+        Registration ::where('email', $email)->first()->delete();
 
-      //search in registeration table with email and when 
-      //find it store in Client table and delete it from registeration
-      $acceptedClient=Registration ::where('email',$email)->first();
-      $client = new Client;
-      $client->name= $acceptedClient->name;
-      $client->email = $acceptedClient->email;
-      $client->mobile = $acceptedClient->mobile;
-      $client->country = $acceptedClient->country;
-      $client->gender = $acceptedClient->gender;
-    //   $client->password = $acceptedClient->password; 
-      $client->has_reservations="no";
-      $client->aprovalRole=Auth::user()->role;
-      $client->aprovalID=Auth::user()->id;
-      $client->save();
-      Registration ::where('email',$email)->first()->delete();
-
-      return redirect()->route('Receptionist.ManageClient');
+        return redirect()->route('Receptionist.ManageClient');
     }
-   
 }

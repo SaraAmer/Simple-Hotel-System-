@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ManagerRequest;
 use App\Http\Requests\ManagerUpdateRequest;
+use App\Models\Floor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Manager;
+use App\Models\Receptionist;
+use App\Models\Room;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -89,5 +92,19 @@ class ManagersController extends Controller
             ]);
 
         return redirect()->route('managers.index');
+    }
+    public function home()
+    {
+
+        $manager = Manager::where('email', Auth::user()->email)->first();
+        $receptionist = Receptionist::where('manger_id',$manager->id)->get();
+      
+        $floors = Floor::where('manger_id',$manager->id)->get();
+        
+        return view ('managers.home',[
+            'manager'=> $manager,
+            'receptionists' => $receptionist,
+            'floors' => $floors,
+        ]);
     }
 }

@@ -96,4 +96,13 @@ class RoomsController extends Controller
 
         return redirect()->route('rooms.index');
     }
+    public function showAvailabe()
+    {
+        $rooms= Room::where('status', 'available')->get();
+       
+        return view('rooms.showAvailable', [
+            'rooms' => $rooms,
+        ]);
+    }
+
 }

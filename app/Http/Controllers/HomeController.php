@@ -30,6 +30,6 @@ class HomeController extends Controller
         // return redirect("/".$current_user_role."/home");
         return Redirect::route($current_user_role .".home");
        
-        // return view("home");
+        //return view("home");
     }
 }

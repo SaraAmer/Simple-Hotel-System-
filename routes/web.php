@@ -37,11 +37,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function () {
     Route::get('/receptionists/home', [ReceptionistsController::class, 'home'])->name('receptionist.home');
-    Route::get('/receptionist/profile', [ReceptionistController::class, 'profile'])->name('Receptionist.profile');
-    Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient');
-    Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
-    Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
-    Route::get('/receptionist/acceptClient/{client}', [ReceptionistController::class, 'acceptClient'])->name('acceptClient');
+    Route::get('/receptionist/profile', [ReceptionistsController::class, 'profile'])->name('Receptionist.profile');
+    Route::get('/receptionist/ManageClient', [ClientController::class, 'ManageClient'])->name('Receptionist.ManageClient');
+    Route::get('/receptionist/ClientReservation', [ClientController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
+    Route::get('/receptionist/ApprovedClient', [ClientController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
+    Route::get('/receptionist/acceptClient/{client}', [ClientController::class, 'acceptClient'])->name('acceptClient');
 });
 
 
@@ -59,6 +59,7 @@ Route::middleware(['auth','admin'])->group(function () {
 
 //Admin OR manager can........................
 Route::middleware(['auth','manager'])->group(function () {
+    Route::get('/manager/home', [ManagersController::class, 'home'])->name('manager.home');
     Route::get('/receptionists', [ReceptionistsController::class, 'index'])->name('receptionists.index');
     Route::post('/receptionists', [ReceptionistsController::class, 'store'])->name('receptionists.store');
     Route::get('/receptionists/create', [ReceptionistsController::class, 'create'])->name('receptionists.create');
@@ -84,8 +85,11 @@ Route::middleware(['auth','manager'])->group(function () {
 //Client
 
 Route::middleware('auth')->group(function () {
+    Route::get('/client/home', [ClientController::class, 'home'])->name('client.home');
+    Route::get('/client/browse', [RoomsController::class, 'showAvailabe'])->name('client.browse');
+    Route::get('/client/checkout/{amount}', [ClientController::class, 'checkout'])->name('checkout');
     Route::get('/client/reservation', [ClientController::class, 'reserve'])->name('clientReservation');
-    Route::get('/client/invoice', [ClientController::class, 'viewInvoices'])->name('clientInvoice');
+    Route::get('/client/invoice/{roomNumber}', [ClientController::class, 'viewInvoices'])->name('client.invoice');
     Route::get('/client', [ClientController::class, 'index'])->name('client');
     Route::delete('/clients/{client}', [ClientController::class, 'destory'])->name('clients.destory');
     Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
