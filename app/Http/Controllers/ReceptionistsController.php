@@ -70,13 +70,18 @@ class ReceptionistsController extends Controller
 
     public function store(ReceptionistCreateRequest $request)
     {
-        $manager = Manager::where('email', Auth::user()->email)->first();
+        $manager = User::where('email', Auth::user()->email)->first();
+        $name=time().$request->file('avatar_image')->getClientOriginalName();
+        $file = $request->file('avatar_image')->storeAs(
+            'avatars',
+            $name
+        );
         Receptionist::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'national_id'=>$request->national_id,
-            'manger_id'=> $manager->id
-
+            'manger_id'=> $manager->user_id,
+            'avatar_image'=>$name,
         ]);
         $receptionist= Receptionist::where('email', $request->email)->first();
 
