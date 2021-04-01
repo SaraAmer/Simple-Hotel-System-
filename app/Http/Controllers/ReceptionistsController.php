@@ -57,7 +57,7 @@ class ReceptionistsController extends Controller
 
     public function destroy($ReceptionistId)
     {
-        $receptionist=Receptionist::findorfail($ReceptionistId);
+        $receptionist=Receptionist::find($ReceptionistId);
 
         $user=User::where('email', $receptionist->email)->first();
 
@@ -72,6 +72,7 @@ class ReceptionistsController extends Controller
     {
         $manager = User::where('email', Auth::user()->email)->first();
         $name=time().$request->file('avatar_image')->getClientOriginalName();
+        $name="avatars".$name;
         $file = $request->file('avatar_image')->storeAs(
             'avatars',
             $name
@@ -102,7 +103,7 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::where('id', $ReceptionistId)->first();
         $receptionist->ban();
         $user->ban();
-        return redirect()->route('receptionist.index');
+        return redirect()->route('receptionists.index');
     }
     public function unban($ReceptionistId)
     {
@@ -110,7 +111,7 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::where('id', $ReceptionistId)->first();
         $receptionist->unban();
         $user->unban();
-        return redirect()->route('receptionist.index');
+        return redirect()->route('receptionists.index');
     }
     public function home()
     {
