@@ -8,7 +8,7 @@
     <!-- general form elements -->
     <div class="card card-primary">
       <div class="card-header">
-        <h3 class="card-title">Create New Receptionist Page</h3>
+        <h3 class="card-title">Create New Client </h3>
       </div>
       <!-- /.card-header -->
       <!-- form start -->
@@ -21,12 +21,12 @@
         </ul>
       </div>
       @endif
-      <form role="form" method="post" action="{{route('receptionists.store')}}" enctype="multipart/form-data">
+      <form role="form" method="post" action="{{route('create.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
           <div class="form-group">
             <label for="exampleInputName">Name</label>
-            <input class="form-control" id="exampleInputName" placeholder="Enter Receptionist Name" type="text"
+            <input class="form-control" id="exampleInputName" placeholder="Enter Client Name" type="text"
               name="name" value="{{ old('name') }}">
 
           </div>
@@ -46,10 +46,31 @@
           </div>
 
           <div class="form-group">
-            <label for="exampleInputNationalID">National ID</label>
-            <input class="form-control" id="exampleInputNationalID" pattern="[0-9]*" type="text" name="national_id"
-              placeholder="National ID" value="{{ old('national_id') }}">
+            <select class="custom-select custom-select-lg mb-3">
+                <option selected>Gender</option>
+                <option value="1">Female</option>
+                <option value="2">Male</option>
+
+              </select>
+
           </div>
+          <div class="form-group">
+               <select name="countries" class="form-control @error('countries') is-invalid @enderror">
+                    @foreach($countries as $country)
+                    {
+                    <option value="{{$country['name']}}">{{$country['name']}}</option>
+                    }
+
+                    @endforeach
+
+                </select>
+                @error('countries')
+                <span class="form-control @error('countries') is-invalid @enderror" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+
+            </div>
 
 
           <div class="form-group">

@@ -36,17 +36,17 @@ class ClientController extends Controller
         if (!Auth::user()->hasRole('client')) {
             Auth::user()->assignRole('client');
         }
-      
+
         $client=Client::where('email', Auth::user()->email)->first();
-     
-       
+
+
         return view('client.home', [
-          
+
             'client'=>$client
 
         ]);
     }
-   
+
 
 
 
@@ -59,7 +59,7 @@ class ClientController extends Controller
     {
         $client=Client::where('email', Auth::user()->email)->first();
         $room= Room::where('room_number', $roomNumber)->first();
-        
+
 
         return view('client.invoice', [
             'client'=>$client,
@@ -75,7 +75,7 @@ class ClientController extends Controller
         return view('client.checkout', [
             'amount'=>$amount,
             'client'=>$client,
-            
+
         ]);
     }
     public function ManageClient()
@@ -98,7 +98,6 @@ class ClientController extends Controller
 
     public function ApprovedClient()
     {
-        ;
         if (Auth::user()->role == "Receptionist") {
             $ApprovedClient=Client :: where('aprovalID', Auth::user()->id)->get();
         } else {
@@ -121,24 +120,25 @@ class ClientController extends Controller
     }
     public function ClientReservation()
     {
-        // if (Auth::user()->role=="Receptionist") {
-        //     $receptionist = Receptionist::where('email', Auth::user()->email)->first();
-        //     $ClientReservation=Reservation:: where('aprovalID', $receptionist->id)->get();
-        //     return view(
-        //         'client.ClientReservation',
-        //         ['ClientReservation'=>$ClientReservation]
-        //     );
-        // } else {
-        $ClientReservation=Reservation ::all();
-        
-        return view(
-            'client.ClientReservation',
-            [ 'ClientReservation'=>$ClientReservation]
-        );
-        // }
+        if (Auth::user()->role=="Receptionist") {
+            //$receptionist = Receptionist::where('email', Auth::user()->email)->first();
+            $ClientReservation=Reservation:: all();
+            $ClientReservation=Reservation:: where($ClientReservation->user->aprovalID, Auth::user()->id)->get();
+            return view(
+                'client.ClientReservation',
+                ['ClientReservation'=>$ClientReservation]
+            );
+        } else {
+            $ClientReservation=Reservation ::all();
+
+            return view(
+                'client.ClientReservation',
+                [ 'ClientReservation'=>$ClientReservation]
+            );
+        }
     }
-     
-    
+
+
     public function acceptClient($email)
     {
         $accepteduser=User ::where('email', $email)->first();

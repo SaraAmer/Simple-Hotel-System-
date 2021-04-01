@@ -2,11 +2,17 @@
 @section('title')Manage clients
 @endsection
 @section('content')
+@hasanyrole('admin|manager')
+<a href="{{route('client.create')}}" class="btn btn-success text-center"><i
+    class="ionicons ion-android-create"></i> Create client</a>
+    @endhasanyrole
 <div class="card">
+
   <div class="card-header">
     <h3 class="card-title">Manage clients</h3>
   </div>
   <!-- /.card-header -->
+
         <div class="card-body">
             <table id="example2" class="table table-bordered table-hover display" style="width:100%">
                 <thead>
@@ -16,17 +22,15 @@
                     <th>mobile</th>
                     <th>country</th>
                     <th>gender</th>
+                    @hasanyrole('admin|manager')
                     <th>Action</th>
+                    @endhasanyrole
                   </tr>
                 </thead>
                   <tbody>
                   @foreach ($ManagedClientsdata as $client)
                   <tr>
-                    <!-- <td>Marwa</td>
-                    <td>eng.marwamedhat2020@gmail.com</td>
-                    <td>01777777777</td>
-                    <td>Egypt</td>
-                    <td>female</td> -->
+
                     <td name='name' value='name'>{{ $client['name'] }}</td>
                     <td name='email' value='email'>{{  $client['email']   }}</td>
                     <td name='mobile' value='mobile'>{{  $client['mobile'] }}</td>
@@ -43,28 +47,22 @@
                   @csrf @method('DELETE')
                     <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to delete ?')">Delete</button>
                   </form>
-                    <td>
 
-
-                    <!-- <form>
-                    <button type="submit" class="btn btn-success">Accept</button>
-                    <button type="submit" class="btn btn-success">decline</button>
-
-                    </form> -->
-
-
-                  </tr>
-                  @endforeach
-
-                  </tbody>
+                 @hasanyrole('admin|manager')
+                 <a href="{{route('client.edit',['client' => $client['id']])}}" class="btn btn-secondary"
+                    style="margin-bottom: 20px;">Edit</a>
+                  <meta name="csrf-token" content="{{ csrf_token() }}">
+                  <button class="delete-btn btn btn-danger" style="margin-bottom: 20px;"
+                    value="{{$client->id}}">Delete</button>
+                </td>
+            </tr>
+            @endhasanyrole
+            @endforeach
+                 </tbody>
             </table>
          </div>
 
 </div>
-
-
-
-
 
 @endsection
 

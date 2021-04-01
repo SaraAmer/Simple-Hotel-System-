@@ -59,7 +59,7 @@ class RegisterController extends Controller
             'phoneNumber'=>['digits:11' ,'required'],
             'countries'=>['required'],
             'gender'=>['in:Male,Female'],
-            
+
 
         ]);
     }
@@ -83,7 +83,7 @@ class RegisterController extends Controller
             ]
         );
         $user=Registration::where('email', $data['email'])->first();
-       
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
