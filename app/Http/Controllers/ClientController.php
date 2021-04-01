@@ -121,21 +121,22 @@ class ClientController extends Controller
     }
     public function ClientReservation()
     {
-        // if (Auth::user()->role=="Receptionist") {
-        //     $receptionist = Receptionist::where('email', Auth::user()->email)->first();
-        //     $ClientReservation=Reservation:: where('aprovalID', $receptionist->id)->get();
-        //     return view(
-        //         'client.ClientReservation',
-        //         ['ClientReservation'=>$ClientReservation]
-        //     );
-        // } else {
-        $ClientReservation=Reservation ::all();
+        if (Auth::user()->role=="Receptionist") {
+            //$receptionist = Receptionist::where('email', Auth::user()->email)->first();
+            $ClientReservation=Reservation:: all();
+            $ClientReservation=Reservation:: where($ClientReservation->user->aprovalID, Auth::user()->id)->get();
+            return view(
+                'client.ClientReservation',
+                ['ClientReservation'=>$ClientReservation]
+            );
+        } else {
+            $ClientReservation=Reservation ::all();
         
-        return view(
-            'client.ClientReservation',
-            [ 'ClientReservation'=>$ClientReservation]
-        );
-        // }
+            return view(
+                'client.ClientReservation',
+                [ 'ClientReservation'=>$ClientReservation]
+            );
+        }
     }
      
     

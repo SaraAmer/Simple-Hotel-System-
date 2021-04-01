@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReceptionistCreateRequest;
+use App\Http\Requests\ReceptionistUpdateRequest;
 use App\Models\Manager;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Receptionist;
@@ -32,7 +34,7 @@ class ReceptionistsController extends Controller
             'manager' => Manager::all()
         ]);
     }
-    public function update($ReceptionistId, Request $request)
+    public function update($ReceptionistId, ReceptionistUpdateRequest $request)
     {
         $requestData= $request->all();
         $receptionist= Receptionist::find($ReceptionistId);
@@ -40,7 +42,7 @@ class ReceptionistsController extends Controller
 
 
         $receptionist->save();
-        return redirect()->route('receptionist.index');
+        return redirect()->route('receptionists.index');
     }
     
 
@@ -49,7 +51,7 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::find($ReceptionistId);
         return view('receptionist.edit', [
             'receptionist' => $receptionist,
-            'manager' => Manager::all()
+            'managers' => Manager::all()
         ]);
     }
 
@@ -66,7 +68,7 @@ class ReceptionistsController extends Controller
           ]);
     }
 
-    public function store(Request $request)
+    public function store(ReceptionistCreateRequest $request)
     {
         $manager = Manager::where('email', Auth::user()->email)->first();
         Receptionist::create([

@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\User;
 
-class ManagerUpdateRequest extends FormRequest
+class ReceptionistCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +23,11 @@ class ManagerUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $mangeruser = User::where('user_id', (int)$this->manager)->where('role', 'Manager')->first();
-        $mangeruser=$mangeruser->id;
-       
         return [
-            
             'name' => ['required'],
-            'email'=>['unique:users,email,'.$mangeruser.''],
-            'national_id'=> ['min:14' ,'max:14' , 'unique:managers,national_id,'.$this->manager.''],
+            'email'=>['unique:users'],
+            'national_id'=> ['min:14' ,'max:14','unique:receptionists' ],
+            'password' => ['confirmed' , 'required'],
             'avatar_image' => 'mimes:jpg,png'
         ];
     }
