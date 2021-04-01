@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->enum('gender', ['male', 'female']);
-            $table->integer('mobile');
+            $table->bigInteger('mobile');
             $table->string('country');
             $table->integer('aprovalID');
             $table->string('aprovalRole');
