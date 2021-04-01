@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-
+use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements MustVerifyEmail, BannableContract
 {
-    use HasFactory, Notifiable, HasRoles , Bannable;
+    use HasFactory, Notifiable, HasRoles , Bannable, HasApiTokens;
     /**
      * The attributes that are mass assignable.
      *

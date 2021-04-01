@@ -9,7 +9,7 @@ class Client extends Model
 {
     use HasFactory;
     protected $fillable =
-    [
+    [   'id',
         'name',
         'email',
         'password',
@@ -26,10 +26,10 @@ class Client extends Model
     //     'remember_token',
     // ];
 
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
+    // public function reservations()
+    // {
+    //     return $this->hasMany(Reservation::class);
+    // }
 
 }
 

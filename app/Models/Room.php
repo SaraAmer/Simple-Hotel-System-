@@ -18,6 +18,6 @@ class Room extends Model
     ];
     public function floors()
     {
-        return $this->belongsTo('App\Models\Floor','number');
+        return $this->belongsTo('App\Models\Floor', 'floor_id', 'number');
     }
 }
