@@ -68,12 +68,12 @@ class ReceptionistsController extends Controller
 
     public function store(Request $request)
     {
-        $manager = Manager::where('email', Auth::user()->email)->first();
+        $user = User::where('email', Auth::user()->email)->first();
         Receptionist::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'national_id'=>$request->national_id,
-            'manger_id'=> $manager->id
+            'manger_id'=> $user->id
 
         ]);
         $receptionist= Receptionist::where('email', $request->email)->first();
