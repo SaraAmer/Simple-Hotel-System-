@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReceptionistCreateRequest;
+use App\Http\Requests\ReceptionistUpdateRequest;
 use App\Models\Manager;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Receptionist;
@@ -32,7 +34,7 @@ class ReceptionistsController extends Controller
             'manager' => Manager::all()
         ]);
     }
-    public function update($ReceptionistId, Request $request)
+    public function update($ReceptionistId, ReceptionistUpdateRequest $request)
     {
         $requestData= $request->all();
         $receptionist= Receptionist::find($ReceptionistId);
@@ -40,7 +42,7 @@ class ReceptionistsController extends Controller
 
 
         $receptionist->save();
-        return redirect()->route('receptionist.index');
+        return redirect()->route('receptionists.index');
     }
     
 
@@ -49,13 +51,13 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::find($ReceptionistId);
         return view('receptionist.edit', [
             'receptionist' => $receptionist,
-            'manager' => Manager::all()
+            'managers' => Manager::all()
         ]);
     }
 
     public function destroy($ReceptionistId)
     {
-        $receptionist=Receptionist::findorfail($ReceptionistId);
+        $receptionist=Receptionist::find($ReceptionistId);
 
         $user=User::where('email', $receptionist->email)->first();
    
@@ -66,15 +68,21 @@ class ReceptionistsController extends Controller
           ]);
     }
 
-    public function store(Request $request)
+    public function store(ReceptionistCreateRequest $request)
     {
-        $manager = Manager::where('email', Auth::user()->email)->first();
+        $manager = User::where('email', Auth::user()->email)->first();
+        $name=time().$request->file('avatar_image')->getClientOriginalName();
+        $name="avatars".$name;
+        $file = $request->file('avatar_image')->storeAs(
+            'avatars',
+            $name
+        );
         Receptionist::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'national_id'=>$request->national_id,
-            'manger_id'=> $manager->id
-
+            'manger_id'=> $manager->user_id,
+            'avatar_image'=>$name,
         ]);
         $receptionist= Receptionist::where('email', $request->email)->first();
 
@@ -95,7 +103,7 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::where('id', $ReceptionistId)->first();
         $receptionist->ban();
         $user->ban();
-        return redirect()->route('receptionist.index');
+        return redirect()->route('receptionists.index');
     }
     public function unban($ReceptionistId)
     {
@@ -103,7 +111,7 @@ class ReceptionistsController extends Controller
         $receptionist = Receptionist::where('id', $ReceptionistId)->first();
         $receptionist->unban();
         $user->unban();
-        return redirect()->route('receptionist.index');
+        return redirect()->route('receptionists.index');
     }
     public function home()
     {
