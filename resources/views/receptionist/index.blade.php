@@ -46,7 +46,8 @@
           </td>
           @endrole
           <td>
-
+            <a href="{{route('receptionists.show',['receptionist' => $receptionist['id']])}}" class="btn btn-primary"
+                style="margin-bottom: 20px;">Show</a>
             <a href="{{route('receptionists.edit',['receptionist' => $receptionist['id']])}}" class="btn btn-secondary"
               style="margin-bottom: 20px;">Edit</a>
 

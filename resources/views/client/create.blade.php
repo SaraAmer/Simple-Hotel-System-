@@ -21,7 +21,9 @@
         </ul>
       </div>
       @endif
+
       <form role="form" method="post" action="{{route('client.store')}}" enctype="multipart/form-data">
+
         @csrf
         <div class="card-body">
           <div class="form-group">
@@ -33,12 +35,14 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input class="form-control" id="exampleInputEmail1" placeholder="Enter email" type="email" name="email"
-              value="{{ old('email') }}"> 
+
+              value="{{ old('email') }}">
           </div>
           <div class="form-group">
             <label for="exampleInputMobile">Mobile phone</label>
             <input class="form-control" id="exampleInputMobile" placeholder="Enter Mobile" type="mobile" name="mobile"
               value="{{ old('mobile') }}">
+
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
@@ -51,6 +55,7 @@
           </div>
 
           <div class="form-group">
+
           <label for="exampleInputGender">Gender</label>
             <select name="gender" class="custom-select custom-select-lg mb-3">
                 
@@ -60,7 +65,8 @@
               </select>
 
           </div>
-          
+
+
           <div class="form-group">
           <label for="exampleInputRes">Does this client has reservation?</label>
             <select name="has_reservations" class="custom-select custom-select-lg mb-3">
@@ -74,6 +80,7 @@
           <div class="form-group">
           <label for="exampleInputCountry">Country</label>
                <select name="country" class="form-control @error('countries') is-invalid @enderror">
+
                     @foreach($countries as $country)
                     {
                     <option value="{{$country['name']}}">{{$country['name']}}</option>
@@ -83,12 +90,14 @@
 
                 </select>
 
+
                 @error('countries')
                         <span class="form-control @error('countries') is-invalid @enderror" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
           </div>
+
 
 
 

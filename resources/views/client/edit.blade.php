@@ -27,7 +27,9 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputName">Name</label>
+
                   <input class="form-control" id="exampleInputName"  type="text" name="name" value="{{ $client['name'] }}">
+
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -36,10 +38,10 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Mobile</label>
+
                 <input class="form-control" id="exampleInputEmail1" type="mobile" name="mobile"
                   value="{{ $client['mobile'] }}">
                 </div>
-
 
 
               <div class="form-group">

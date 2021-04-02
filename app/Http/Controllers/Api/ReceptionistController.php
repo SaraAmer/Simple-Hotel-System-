@@ -11,7 +11,9 @@ use App\Models\User;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ReceptionistResource;
-use App\Http\Resources\ReservationController; 
+use App\Http\Resources\ReservationResource; 
+use App\Http\Resources\RoomResource; 
+
 
 class ReceptionistController extends Controller
 {
@@ -48,7 +50,7 @@ class ReceptionistController extends Controller
         $ClientReservation=Reservation :: all();
         // $ClientReservationName=Client :: all();
         // ['ClientReservation'=> $ClientReservation],[ 'ClientReservationName'=>$ClientReservationName]);
-        return ReservationController::collection($ClientReservation);
+        return ReservationResource::collection($ClientReservation);
 
     }
     //display specific client which is pendedclient
@@ -58,4 +60,8 @@ class ReceptionistController extends Controller
     {
       return new ReceptionistResource($client);
     }
+    // function all()
+    // {
+    //     dd("we are in index");
+    // }
 }

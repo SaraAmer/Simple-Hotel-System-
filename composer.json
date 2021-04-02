@@ -11,13 +11,15 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.3",
         "laravel/framework": "^8.12",
+        "laravel/sanctum": "^2.9",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "pragmarx/countries-laravel": "^0.7.0",
         "rinvex/countries": "^7.3",
         "spatie/laravel-permission": "^4.0",
         "stripe/stripe-php": "^7.76",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "cartalyst/stripe-laravel": "^13.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

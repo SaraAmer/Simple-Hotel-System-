@@ -100,16 +100,23 @@ class ManagersController extends Controller
     }
     public function home()
     {
-
         $manager = Manager::where('email', Auth::user()->email)->first();
         $receptionist = Receptionist::where('manger_id', $manager->id)->get();
 
         $floors = Floor::where('manger_id', $manager->id)->get();
 
         return view('managers.home', [
-            'manager' => $manager,
+            'manager'=> $manager,
             'receptionists' => $receptionist,
             'floors' => $floors,
+        ]);
+    }
+    public function show($managerId)
+    {
+        $manager = Manager::find($managerId); //object of Post model
+
+        return view('managers.show', [
+            'manager' => $manager,
         ]);
     }
 }
