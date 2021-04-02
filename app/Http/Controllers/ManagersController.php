@@ -12,25 +12,42 @@ use App\Models\Receptionist;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Yajra\Datatables\Datatables;
 
 class ManagersController extends Controller
 {
     public function index()
     {
-        $allManagers = Manager::all();
+        // $allManagers = Manager::all();
 
      
 
         
-        return view(
-            'managers.index',
-            [
+        // return view(
+        //     'managers.index',
+        //     [
 
-            'Managers' => $allManagers,
-        ]
-        );
+        //     'Managers' => $allManagers,
+        // ]
+        // );
+        return view('managers.index');
     }
-
+    public function getData()
+    {
+        $manager=Manager::query();
+        return Datatables::of($manager)->addColumn('action', function ($manager) {
+            return
+            '<div><a class="btn btn-success btn-sm"" href="' . route('managers.edit', $manager->id) .'"> <i class="fas fa-edit"></i>
+            </a>
+            
+            <button class="delete"  data-id="' .$manager->id .'"> 
+            <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+            </div>'
+               
+               ;
+        })->make(true);
+    }
     public function create()
     {
         return view('managers.create');
@@ -64,13 +81,20 @@ class ManagersController extends Controller
 
     public function destroy($ManagerId)
     {
+        dd("hi");
         $manager = Manager::findorfail($ManagerId);
       
         $user=User::where('email', $manager->email)->first();
    
-         $user->delete();
-         $manager->delete();
-         return redirect()->route('managers.index');
+        $user->delete();
+        $manager->delete();
+        return response()->json([
+            'message' => 'Data deleted successfully!'
+          ]);
+    }
+    public function test()
+    {
+        dd('hi');
     }
 
     public function store(ManagerRequest $request)
@@ -97,13 +121,12 @@ class ManagersController extends Controller
     }
     public function home()
     {
-
         $manager = Manager::where('email', Auth::user()->email)->first();
-        $receptionist = Receptionist::where('manger_id',$manager->id)->get();
+        $receptionist = Receptionist::where('manger_id', $manager->id)->get();
       
-        $floors = Floor::where('manger_id',$manager->id)->get();
+        $floors = Floor::where('manger_id', $manager->id)->get();
         
-        return view ('managers.home',[
+        return view('managers.home', [
             'manager'=> $manager,
             'receptionists' => $receptionist,
             'floors' => $floors,

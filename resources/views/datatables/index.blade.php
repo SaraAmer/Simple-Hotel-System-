@@ -42,9 +42,10 @@
                 data: 'updated_at',
                 name: 'updated_at'
             },
+
             {
                 data: 'action',
-                name: 'Action'
+
             }
         ]
     });

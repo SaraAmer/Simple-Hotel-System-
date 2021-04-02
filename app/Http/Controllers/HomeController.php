@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // if(Auth::user()->role=="pended client"){ 
+        // if(Auth::user()->role=="pended client"){
         //     return Redirect::route('client.pendedclient');
            
         // }

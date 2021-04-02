@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "846e0ed7e1d9dc3e456296537052115d",
+    "content-hash": "fe3afc96b6946e6ecde428e98495617b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1918,7 +1918,6 @@
             ],
             "authors": [
                 {
-<<<<<<< HEAD
                     "name": "Patrick Brouwers",
                     "email": "patrick@maatwebsite.nl"
                 }
@@ -2263,8 +2262,6 @@
             ],
             "authors": [
                 {
-=======
->>>>>>> a792eb3a9470b3305b8783937f92898292507f08
                     "name": "Jordi Boggiano",
                     "email": "j.boggiano@seld.be",
                     "homepage": "https://seld.be"
@@ -7326,11 +7323,7 @@
                     "type": "github"
                 }
             ],
-<<<<<<< HEAD
             "time": "2021-03-31T07:32:54+00:00"
-=======
-            "time": "2021-02-16T12:42:06+00:00"
->>>>>>> a792eb3a9470b3305b8783937f92898292507f08
         },
         {
             "name": "facade/ignition",
@@ -7596,11 +7589,7 @@
                     "type": "github"
                 }
             ],
-<<<<<<< HEAD
             "time": "2021-03-30T12:00:00+00:00"
-=======
-            "time": "2021-03-19T12:00:00+00:00"
->>>>>>> a792eb3a9470b3305b8783937f92898292507f08
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -8342,11 +8331,7 @@
                     "type": "github"
                 }
             ],
-<<<<<<< HEAD
             "time": "2021-03-28T07:26:59+00:00"
-=======
-            "time": "2020-11-28T06:44:49+00:00"
->>>>>>> a792eb3a9470b3305b8783937f92898292507f08
         },
         {
             "name": "phpunit/php-file-iterator",

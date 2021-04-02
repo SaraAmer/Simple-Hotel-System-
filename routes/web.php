@@ -50,12 +50,13 @@ Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function
 
 Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
+    Route::get('/managersdata', [ManagersController::class,'getData'])->name('manager.data');
     Route::get('/managers', [ManagersController::class, 'index'])->name('managers.index');
     Route::post('/managers', [ManagersController::class, 'store'])->name('managers.store');
     Route::get('/managers/create', [ManagersController::class, 'create'])->name('managers.create');
     Route::get('/managers/{manager}/edit', [ManagersController::class, 'edit'])->name('managers.edit');
     Route::put('/managers/{manager}', [ManagersController::class, 'update'])->name('managers.update');
-    Route::delete('/managers/{manager}', [ManagersController::class, 'destroy'])->name('managers.destroy');
+    Route::delete('/managers/{manager}/edit', [ManagersController::class, 'edit'])->name('managers.destroy');
 });
 
 //Admin OR manager can........................
@@ -65,6 +66,8 @@ Route::middleware(['auth','manager'])->group(function () {
     Route::post('/receptionists', [ReceptionistsController::class, 'store'])->name('receptionists.store');
     Route::get('/receptionists/create', [ReceptionistsController::class, 'create'])->name('receptionists.create');
     Route::get('/receptionists/{receptionist}/edit', [ReceptionistsController::class, 'edit'])->name('receptionists.edit');
+    Route::get('/receptionists/{receptionist}/ban', [ReceptionistsController::class, 'ban'])->name('receptionists.ban');
+    Route::get('/receptionists/{receptionist}/unban', [ReceptionistsController::class, 'unban'])->name('receptionists.unban');
     Route::put('/receptionists/{receptionist}', [ReceptionistsController::class, 'update'])->name('receptionists.update');
     Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
     Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms.index');
