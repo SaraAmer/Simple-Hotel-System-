@@ -28,30 +28,28 @@ class ClientController extends Controller
     public function index()
     {
         $client = Client::where('email', Auth::user()->email)->first();
-
+        $rooms=Room::where('status', 'available')->get();
 
         return view('client.index', [
-            'client' => $client
+            'client' => $client,
+            'rooms'=>$rooms
         ]);
     }
 
     public function home()
     {
+        $rooms=Room::where('status', 'available')->get();
         if (!Auth::user()->hasRole('client')) {
             Auth::user()->assignRole('client');
         }
 
         $client = Client::where('email', Auth::user()->email)->first();
 
-
-
         return view('client.home', [
 
-
-            'client' => $client
-
-
-        ]);
+           'client' => $client,
+        'rooms'=> $rooms
+         ]);
     }
 
 
@@ -245,8 +243,10 @@ class ClientController extends Controller
     public function edit($clientId)
     {
         $client = Client::find($clientId);
+        $countries = countries();
         return view('client.edit', [
             'client' => $client,
+            'countries' => $countries
         ]);
     }
 

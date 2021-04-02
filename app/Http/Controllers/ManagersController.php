@@ -114,6 +114,7 @@ class ManagersController extends Controller
 
         return view('managers.show', [
             'manager' => $manager,
+
         ]);
     }
 }

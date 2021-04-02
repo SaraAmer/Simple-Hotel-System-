@@ -2,12 +2,15 @@
 @section('title')Approved client
 @endsection
 @section('content')
-
-<div class="card-body">
 @hasanyrole('admin|manager')
 <a href="{{route('client.create')}}" class="btn btn-success text-center"><i
     class="ionicons ion-android-create"></i> Create client</a>
 @endhasanyrole
+<div class="card ">
+    <div class="card-header">
+      <h3 class="card-title">Create New client </h3>
+    </div>
+
   <table id="example2" class="table table-bordered table-hover">
     <thead>
       <tr>
