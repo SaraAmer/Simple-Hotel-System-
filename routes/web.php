@@ -7,6 +7,7 @@ use  App\Http\Controllers\ManageClientController;
 use  App\Http\Controllers\ClientReservationController;
 use App\Http\Controllers\ApprovedClientController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DatatablesController;
 use App\Http\Controllers\FloorsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomsController;
@@ -30,8 +31,8 @@ Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return view('welcome');
 });
-
-
+Route::get('/datatables', [DatatablesController::class,'getIndex']);
+Route::get('/userdata', [DatatablesController::class,'anyData'])->name('datatables.data');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

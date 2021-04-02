@@ -17,24 +17,25 @@
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-        <style>
-.roomImg{
-  width: 100%;
-  height: 140px;
-}
-.room{
-  transition: ease-in-out 0.5s;
-  margin :10px;
-  border: 1px solid #BFBFBF;
-  box-shadow: 1px 1px 5px 1px #9a9992;
-}
-  
+    <style>
+        .roomImg {
+            width: 100%;
+            height: 140px;
+        }
 
-  .room:hover{
-    transform: scale(1.1);
-    
-  }
-</style>
+        .room {
+            transition: ease-in-out 0.5s;
+            margin: 10px;
+            border: 1px solid #BFBFBF;
+            box-shadow: 1px 1px 5px 1px #9a9992;
+        }
+
+
+        .room:hover {
+            transform: scale(1.1);
+
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -211,33 +212,33 @@
                                         <p>Your Reservations</p>
                                     </a>
                                 </li>
-                           
+
 
                                 @endrole
 
 
 
-                        
-                        <!--------------- -->
-                        @hasanyrole('manager|admin|receptionist')
-                            <li class="nav-item">
-                                <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Client Approval</p>
-                                </a>
-                              </li>
-                              <li class="nav-item">
-                                <a href="{{Route('Receptionist.ClientReservation')}}" class="nav-link ">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Client Reservation</p>
-                                </a>
-                              </li>
-                          
-                         
-                            <!---------------------------->
-                          
-                    @endhasanyrole
-                    </ul>
+
+                                <!--------------- -->
+                                @hasanyrole('manager|admin|receptionist')
+                                <li class="nav-item">
+                                    <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Client Approval</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{Route('Receptionist.ClientReservation')}}" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Client Reservation</p>
+                                    </a>
+                                </li>
+
+
+                                <!---------------------------->
+
+                                @endhasanyrole
+                            </ul>
                 </nav>
             </div>
 
@@ -317,7 +318,7 @@
                 });
             });
         </script>
-        
+
 </body>
 
 </html>

@@ -53,9 +53,7 @@
 
 
           <div class="form-group">
-            <label for="exampleInputFile">Image Upload</label>
-            <br>
-            <input id="exampleInputFile" type="file" name="avatar_image" multiple>
+            <input type="file" name="avatar_image" multiple>
             <p class="help-block">Uploaded Image must be an image with extensions jpg,jpeg.</p>
           </div>
 

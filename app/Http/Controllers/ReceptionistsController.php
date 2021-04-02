@@ -10,6 +10,7 @@ use App\Models\Receptionist;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\AUTH;
+use Illuminate\Support\Facades\Storage;
 
 class ReceptionistsController extends Controller
 {
@@ -70,19 +71,21 @@ class ReceptionistsController extends Controller
 
     public function store(ReceptionistCreateRequest $request)
     {
+        $file = $request->file('avatar_image');
+    
+        
         $manager = User::where('email', Auth::user()->email)->first();
+        
         $name=time().$request->file('avatar_image')->getClientOriginalName();
-        $name="avatars".$name;
-        $file = $request->file('avatar_image')->storeAs(
-            'avatars',
-            $name
-        );
+       
+        $file->move('avatars', $name);
+
         Receptionist::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'national_id'=>$request->national_id,
             'manger_id'=> $manager->user_id,
-            'avatar_image'=>$name,
+            'avatar_image'=>"avatars/".$name,
         ]);
         $receptionist= Receptionist::where('email', $request->email)->first();
 

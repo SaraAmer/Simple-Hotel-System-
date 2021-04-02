@@ -124,7 +124,7 @@ class ClientController extends Controller
         if (Auth::user()->role=="Receptionist") {
             //$receptionist = Receptionist::where('email', Auth::user()->email)->first();
             $ClientReservation=Reservation:: all();
-            $ClientReservation=Reservation:: where($ClientReservation->user->aprovalID, Auth::user()->id)->get();
+            $ClientReservation=Client:: where($ClientReservation->user->aprovalID, Auth::user()->id)->get();
             return view(
                 'client.ClientReservation',
                 ['ClientReservation'=>$ClientReservation]
