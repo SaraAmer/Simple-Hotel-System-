@@ -18,7 +18,9 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputName">Name</label>
-                  <input class="form-control" id="exampleInputName"  type="text" name="name" placeholder="{{ $floor['name'] }}">
+
+                  <input class="form-control" id="exampleInputName"  type="text" name="name" value="{{ $client['name'] }}">
+
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -27,25 +29,9 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Mobile</label>
-                <input class="form-control" id="exampleInputEmail1" type="email" name="email"
-                  value="{{ $client['mobil'] }}">
-                </div>
-                  <div class="form-group">
-                    <select name="countries" class="form-control @error('countries') is-invalid @enderror " value="{{ $client['country'] }}">
-                        @foreach($countries as $country)
-                        {
-                        <option value="{{$country['name']}}">{{$country['name']}}</option>
-                        }
 
-                        @endforeach
-
-                    </select>
-                    @error('countries')
-                    <span class="form-control @error('countries') is-invalid @enderror" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
+                <input class="form-control" id="exampleInputEmail1" type="mobile" name="mobile"
+                  value="{{ $client['mobile'] }}">
                 </div>
 
 

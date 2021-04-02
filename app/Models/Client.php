@@ -28,10 +28,6 @@ class Client extends Model
 
     public function reservations()
     {
-       
-        return $this->belongsto(Reservation::class,'client_id');
-
+        return $this->belongsTo(Reservation::class, 'client_id');
     }
-
 }
-

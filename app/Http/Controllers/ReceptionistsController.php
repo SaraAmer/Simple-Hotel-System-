@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Reciptionist;
 use App\Http\Requests\ReceptionistCreateRequest;
 use App\Http\Requests\ReceptionistUpdateRequest;
 use App\Models\Manager;
@@ -39,9 +40,11 @@ class ReceptionistsController extends Controller
         $requestData= $request->all();
         $receptionist= Receptionist::find($ReceptionistId);
         $receptionist->update($requestData);
-
-
         $receptionist->save();
+
+        $user=User::where('user_id', $ReceptionistId)->first();
+        $user->update($requestData);
+        $user->save();
         return redirect()->route('receptionists.index');
     }
 
@@ -132,5 +135,13 @@ class ReceptionistsController extends Controller
             // @dd($Receptionist);
             return view('receptionist/home', ['Receptionist'=> $Receptionist]);
         }
+    }
+    public function show($receptionistId)
+    {
+        $receptionist = Receptionist :: find($receptionistId); //object of Post model
+
+        return view('receptionist.show', [
+            'receptionist' => $receptionist,
+        ]);
     }
 }

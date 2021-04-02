@@ -70,6 +70,7 @@ return [
         'array' => [
             'transport' => 'array',
         ],
+
     ],
 
     /*
@@ -106,5 +107,6 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+
 
 ];

@@ -19,9 +19,9 @@ class ManagersController extends Controller
     {
         $allManagers = Manager::all();
 
-     
 
-        
+
+
         return view(
             'managers.index',
             [
@@ -39,23 +39,25 @@ class ManagersController extends Controller
     public function update($ManagerId, ManagerUpdateRequest  $request)
     {
         $manager = Manager::find($ManagerId);
-        
-    
         // $manageruser=$manageruser->id;
-       
         $requestData= $request->all();
         $manager->update($requestData);
         $manager->save();
+
+
+        $user=User::where('user_id', $ManagerId)->first();
+        $user->update($requestData);
+        $user->save();
         return redirect()->route('managers.index');
     }
     public function edit($ManagerId)
     {
         $manager = Manager::find($ManagerId);
-       
-       
+
+
         return view('managers.edit', [
             'manager' => $manager,
-            
+
 
         ]);
     }
@@ -63,12 +65,12 @@ class ManagersController extends Controller
     public function destroy($ManagerId)
     {
         $manager = Manager::findorfail($ManagerId);
-      
+
         $user=User::where('email', $manager->email)->first();
-   
-         $user->delete();
-         $manager->delete();
-         return redirect()->route('managers.index');
+
+        $user->delete();
+        $manager->delete();
+        return redirect()->route('managers.index');
     }
 
     public function store(ManagerRequest $request)
@@ -78,7 +80,7 @@ class ManagersController extends Controller
                 'name'=> $request->name,
                 'email'=>$request->email,
                 'national_id'=>$request->national_id,
-                
+
             ]);
         $manager= Manager::where('email', $request->email)->first();
 
@@ -95,16 +97,23 @@ class ManagersController extends Controller
     }
     public function home()
     {
-
         $manager = Manager::where('email', Auth::user()->email)->first();
-        $receptionist = Receptionist::where('manger_id',$manager->id)->get();
-      
-        $floors = Floor::where('manger_id',$manager->id)->get();
-        
-        return view ('managers.home',[
+        $receptionist = Receptionist::where('manger_id', $manager->id)->get();
+
+        $floors = Floor::where('manger_id', $manager->id)->get();
+
+        return view('managers.home', [
             'manager'=> $manager,
             'receptionists' => $receptionist,
             'floors' => $floors,
+        ]);
+    }
+    public function show($managerId)
+    {
+        $manager = Manager::find($managerId); //object of Post model
+
+        return view('managers.show', [
+            'manager' => $manager,
         ]);
     }
 }

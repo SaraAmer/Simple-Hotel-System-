@@ -18,8 +18,8 @@
         <tr>
           <th style="width: 10px">ID</th>
 
-          <th>Name</th>
-          <th>Email</th>
+          <th>Receptionist's Name</th>
+          <th>Receptionist's Email</th>
           <th>Created_at</th>
           <th>Updated at</th>
           @role('admin')
@@ -46,7 +46,8 @@
           </td>
           @endrole
           <td>
-
+            <a href="{{route('receptionists.show',['receptionist' => $receptionist['id']])}}" class="btn btn-primary"
+                style="margin-bottom: 20px;">Show</a>
             <a href="{{route('receptionists.edit',['receptionist' => $receptionist['id']])}}" class="btn btn-secondary"
               style="margin-bottom: 20px;">Edit</a>
             @if($receptionist->isBanned())
