@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -24,6 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // if(Auth::user()->role=="pended client"){ 
+        //     return Redirect::route('client.pendedclient');
+           
+        // }
+        // else{
+        $current_user_role=Str::lower(Auth::user()->role);
+        // // // return redirect("/".$current_user_role."/home");
+        return Redirect::route($current_user_role .".home");
+        // }
+        // return view("home");
     }
 }
