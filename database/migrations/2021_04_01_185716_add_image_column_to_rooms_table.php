@@ -13,7 +13,6 @@ class AddImageColumnToRoomsTable extends Migration
      */
     public function up()
     {
-       
         Schema::table('rooms', function (Blueprint $table) {
             $table->string('image')->default('roomImgs/default.jpeg');
         });
@@ -26,6 +25,5 @@ class AddImageColumnToRoomsTable extends Migration
      */
     public function down()
     {
-       
     }
 }

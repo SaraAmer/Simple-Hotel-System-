@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ManagerCreateRequest;
 use App\Http\Requests\ManagerRequest;
 use App\Http\Requests\ManagerUpdateRequest;
 use App\Models\Floor;
@@ -81,7 +82,7 @@ class ManagersController extends Controller
 
     public function destroy($ManagerId)
     {
-        dd("hi");
+       
         $manager = Manager::findorfail($ManagerId);
       
         $user=User::where('email', $manager->email)->first();
@@ -92,12 +93,9 @@ class ManagersController extends Controller
             'message' => 'Data deleted successfully!'
           ]);
     }
-    public function test()
-    {
-        dd('hi');
-    }
+  
 
-    public function store(ManagerRequest $request)
+    public function store(ManagerCreateRequest $request)
     {
         // $requestData = $request->all();
         Manager::create([

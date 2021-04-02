@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Reciptionist;
 use App\Http\Requests\ReceptionistCreateRequest;
 use App\Http\Requests\ReceptionistUpdateRequest;
 use App\Models\Manager;
@@ -47,7 +48,7 @@ class ReceptionistsController extends Controller
         $user->save();
         return redirect()->route('receptionists.index');
     }
-    
+
 
     public function edit($ReceptionistId)
     {
@@ -63,7 +64,7 @@ class ReceptionistsController extends Controller
         $receptionist=Receptionist::find($ReceptionistId);
 
         $user=User::where('email', $receptionist->email)->first();
-   
+
         $user->delete();
         $receptionist->delete();
         return response()->json([
@@ -124,7 +125,7 @@ class ReceptionistsController extends Controller
             Auth::user()->assignRole('receptionist');
         }
         $receptionist = Receptionist::where('email', Auth::user()->email)->first();
-       
+
         return view('receptionist.home', [
             'Receptionist' => $receptionist
         ]);
@@ -137,5 +138,13 @@ class ReceptionistsController extends Controller
             // @dd($Receptionist);
             return view('receptionist/home', ['Receptionist'=> $Receptionist]);
         }
+    }
+    public function show($receptionistId)
+    {
+        $receptionist = Receptionist :: find($receptionistId); //object of Post model
+
+        return view('receptionist.show', [
+            'receptionist' => $receptionist,
+        ]);
     }
 }

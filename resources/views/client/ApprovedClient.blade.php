@@ -24,17 +24,16 @@
     <tbody>
       @foreach ($ApprovedClient as $client)
       <tr>
-        <!-- <td>Marwa</td>
-                    <td>eng.marwamedhat2020@gmail.com</td>
-                    <td>012588888888</td>
-                    <td>Egypt</td>
-                    <td> famle</td> -->
+
         <td>{{ $client['name'] }}</td>
         <td>{{ $client['email'] }}</td>
         <td>{{ $client['mobile'] }}</td>
         <td>{{ $client['country'] }}</td>
         <td> {{ $client['gender'] }}</td>
-        <td>                  @hasanyrole('admin|manager')
+        <td>
+              @hasanyrole('admin|manager')
+              <a href="{{route('client.show',['client' => $client['id']])}}" class="btn btn-primary"
+                style="margin-bottom: 20px;">Show</a>
                  <a href="{{route('client.edit',['client' => $client['id']])}}" class="btn btn-secondary"
                     style="margin-bottom: 20px;">Edit</a>
                     <form method="POST" action="{{route('client.destroy',['client' => $client['id']])}}" style="display:inline;margin:0px;padding:0px">

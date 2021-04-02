@@ -81,11 +81,12 @@
             });
             $.ajax({
                     type: "DELETE",
-                    url: '@Url.Action("ManagersController","destroy")',
+                    url: '/managers/' + id,
                     data: {
                         "manager": id,
                     },
                     success: function(data) {
+                        alert(data);
                         $('#managers-table').DataTable().ajax.reload();
 
                     }
