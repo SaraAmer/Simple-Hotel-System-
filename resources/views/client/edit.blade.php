@@ -4,6 +4,15 @@
 @section('content')
 <div class="container">
 <div class="container-fluid">
+@if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
 
         <!-- general form elements -->
         <div class="card card-primary">
@@ -24,7 +33,7 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input class="form-control" id="exampleInputEmail1" type="email" name="email"
+                <input class="form-control" id="exampleInputName" type="email" name="email"
                   value="{{ $client['email'] }}">
               </div>
               <div class="form-group">

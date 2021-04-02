@@ -58,10 +58,9 @@
 
           <label for="exampleInputGender">Gender</label>
             <select name="gender" class="custom-select custom-select-lg mb-3">
-
-
-                <option value="1">Female</option>
-                <option value="2">Male</option>
+                
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
 
               </select>
 

@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Requests;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
+use App\Models\Manager;
 
 class ManagerUpdateRequest extends FormRequest
 {
@@ -30,8 +31,9 @@ class ManagerUpdateRequest extends FormRequest
         return [
             
             'name' => ['required'],
-            'email'=>['unique:users,email,'.$mangeruser.''],
-            'national_id'=> ['min:14' ,'max:14' , 'unique:managers,national_id,'.$this->manager.''],
+            'email'=>[Rule::unique('managers', 'email')->ignore($this->manager)],
+        
+            'national_id'=> ['digits:14' , 'unique:managers,national_id,'.$this->manager.''],
             'avatar_image' => 'mimes:jpg,png'
         ];
     }
