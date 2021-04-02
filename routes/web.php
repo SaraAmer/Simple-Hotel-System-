@@ -89,6 +89,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/client/reservation', [ClientController::class, 'reserve'])->name('clientReservation');
     Route::get('/client/invoice/{roomNumber}', [ClientController::class, 'viewInvoices'])->name('client.invoice');
     Route::get('/client', [ClientController::class, 'index'])->name('client');
-    Route::delete('/clients/{client}', [ClientController::class, 'destory'])->name('clients.destory');
-    Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
+    Route::delete('/clients/{client}', [ClientController::class, 'delete'])->name('clients.delete');
+    
+    Route::post('/clients', [clientController::class, 'store'])->name('client.store');
+    Route::get('/client/create', [clientController::class, 'create'])->name('client.create');
+    Route::get('/client/{client}/edit', [clientController::class, 'edit'])->name('client.edit');
+    Route::put('/client/{client}', [clientController::class, 'update'])->name('client.update');
+    Route::delete('/client/{client}', [clientController::class, 'destroy'])->name('client.destroy');
+    
 });

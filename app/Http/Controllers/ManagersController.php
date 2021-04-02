@@ -39,13 +39,15 @@ class ManagersController extends Controller
     public function update($ManagerId, ManagerUpdateRequest  $request)
     {
         $manager = Manager::find($ManagerId);
-        
-    
         // $manageruser=$manageruser->id;
-       
         $requestData= $request->all();
         $manager->update($requestData);
         $manager->save();
+
+
+        $user=User::where('user_id', $ManagerId)->first();
+        $user->update($requestData);
+        $user->save();
         return redirect()->route('managers.index');
     }
     public function edit($ManagerId)
