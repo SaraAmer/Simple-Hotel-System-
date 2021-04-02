@@ -2,9 +2,17 @@
 @section('title')Manage clients
 @endsection
 @section('content')
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover display" style="width:100%">
-                    <thead>
+
+<div class="card">
+ 
+  <div class="card-header">
+    <h3 class="card-title">Manage clients</h3>
+  </div>
+  <!-- /.card-header -->
+ 
+        <div class="card-body">
+            <table id="example2" class="table table-bordered table-hover display" style="width:100%">
+                <thead>
                   <tr>
                     <th>Client Name</th>
                     <th>Email</th>
@@ -12,47 +20,37 @@
                     <th>country</th>
                     <th>gender</th>
                     <th>Action</th>
+             
                   </tr>
-                  </thead>
+                </thead>
                   <tbody>
                   @foreach ($ManagedClientsdata as $client)
                   <tr>
-                    <!-- <td>Marwa</td>
-                    <td>eng.marwamedhat2020@gmail.com</td>
-                    <td>01777777777</td>
-                    <td>Egypt</td>
-                    <td>female</td> -->
+ 
                     <td name='name' value='name'>{{ $client['name'] }}</td>
                     <td name='email' value='email'>{{  $client['email']   }}</td>
                     <td name='mobile' value='mobile'>{{  $client['mobile'] }}</td>
                     <td name='country' value='country'>{{  $client['country'] }}</td>
                     <td name='gender' value='gender'> {{  $client['gender'] }}</td>
-
-
+ 
                     <td>
                     <form method="GET" action="{{route('acceptClient',['client' => $client['email']])}}" style="display:inline;margin:0px;padding:0px">
-                    <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to Accept ?')">Accept</button>
+                    <button class="btn btn-success" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to Accept ?')">Accept Request</button>
                   </form>
-
-                  <form method="POST" action="{{route('clients.destory',['client' => $client['id']])}}" style="display:inline;margin:0px;padding:0px">
+ 
+                  <form method="POST" action="{{route('clients.delete',['client' => $client['id']])}}" style="display:inline;margin:0px;padding:0px">
                   @csrf @method('DELETE')
-                    <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to delete ?')">Delete</button>
+                    <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to delete ?')">Delete Request</button>
                   </form>
-                    <td>
+ 
 
-
-                    <!-- <form>
-                    <button type="submit" class="btn btn-success">Accept</button>
-                    <button type="submit" class="btn btn-success">decline</button>
-
-                    </form> -->
-
-
-                  </tr>
-                  @endforeach
-
-                  </tbody>
-                </table>
-              </div>
+            @endforeach
+                 </tbody>
+            </table>
+         </div>
+ 
+</div>
+ 
 @endsection
 
+ 

@@ -179,10 +179,11 @@
                                     </a>
                                 </li>
 
+
                                 <li class="nav-item">
                                     <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Client</p>
+                                        <p>Manage Client's Requests</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -222,9 +223,15 @@
                                 <!--------------- -->
                                 @hasanyrole('manager|admin|receptionist')
                                 <li class="nav-item">
+                                    <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Manage Client</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Client Approval</p>
+                                        <p>Approved Clients</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -308,7 +315,7 @@
             $(function() {
                 $('#example2').DataTable({
                     "paging": true,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": true,
                     "ordering": true,
                     "info": true,

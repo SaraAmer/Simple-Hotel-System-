@@ -4,6 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\ReceptionistController;
+use App\Http\Controllers\Api\RoomController;
+
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,10 +24,46 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 //http://127.0.0.1:8000/api/receptionist/ManageClient
-// Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function () {
-    Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient');
+//Authanticatioon using package sanctum not web application
+//so send token in header 
+//Authorization Bearer
+//Accept application/json
+    Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient')->middleware('auth:sanctum');
     Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
     Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
     Route::get('/receptionist/acceptClient/{client}', [ReceptionistController::class, 'acceptClient'])->name('acceptClient');
+   
+// http://127.0.0.1:8000/api/rooms
+//implement index ,show,store
+// Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
 
-    // });
+// Route::get('/allrooms', [ReceptionistController::class, 'all']);
+
+//to get token for login user 
+//validate data then comapre email user with existinng users and compare  password 
+//if correct so create token ,, if not through exception
+//Method post , header Accept json ,body form data write the same email i want to login with it
+//write password and device name 
+//http://127.0.0.1:8000/api/sanctum/token
+//token of  1|xVJh4CTjZEYXbRm8uqkC7ucsULBAw07HCucg6vnn
+//eng.marwamedhat2020@gmail.com
+//password:123456789
+//device_name:samsung.
+
+Route::post('/sanctum/token', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+        'device_name' => 'required',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if (! $user || ! Hash::check($request->password, $user->password)) {
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+
+    return $user->createToken($request->device_name)->plainTextToken;
+});

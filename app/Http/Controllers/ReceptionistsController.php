@@ -40,9 +40,11 @@ class ReceptionistsController extends Controller
         $requestData= $request->all();
         $receptionist= Receptionist::find($ReceptionistId);
         $receptionist->update($requestData);
-
-
         $receptionist->save();
+
+        $user=User::where('user_id', $ReceptionistId)->first();
+        $user->update($requestData);
+        $user->save();
         return redirect()->route('receptionists.index');
     }
     
