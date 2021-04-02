@@ -32,7 +32,6 @@ Route::get('/', function () {
 });
 
 
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function () {
@@ -87,12 +86,20 @@ Route::middleware(['auth','manager'])->group(function () {
 //Client
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/client/home', [ClientController::class, 'home'])->name('client.home');
     Route::get('/client/browse', [RoomsController::class, 'showAvailabe'])->name('client.browse');
-    Route::get('/client/checkout/{amount}', [ClientController::class, 'checkout'])->name('checkout');
+    Route::get('/client/invoice/{room}', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
+
     Route::get('/client/reservation', [ClientController::class, 'reserve'])->name('clientReservation');
-    Route::get('/client/invoice/{roomNumber}', [ClientController::class, 'viewInvoices'])->name('client.invoice');
+    
+    Route::get('/client/checkout/{room}', [App\Http\Controllers\StripeController::class, 'payWithStripe'])->name('checkout');    
+    Route::post('/client/checkout/{room}', [App\Http\Controllers\StripeController::class, 'postPaymentWithStripe'])->name('paywithstripe');    
     Route::get('/client', [ClientController::class, 'index'])->name('client');
+    Route::delete('/clients/{client}', [ClientController::class, 'destory'])->name('clients.destory');
+    Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/pendedclient', [ClientController::class, 'pendedclienthome'])->name('pendedclient.home');
+
     Route::delete('/clients/{client}', [ClientController::class, 'delete'])->name('clients.delete');
 
     Route::post('/clients', [clientController::class, 'store'])->name('client.store');

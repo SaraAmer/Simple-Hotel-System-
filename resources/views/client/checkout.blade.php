@@ -4,32 +4,147 @@
 @section('content')
 
 
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+</head>
+<body class="hold-transition sidebar-mini">
 
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-9">
-                        <p class="mb-4">
-                            Total Amount is <strong>{{$amount}}$</strong>  
-                        </p>
-                    </div>
+<script src="https://js.stripe.com/v2/"></script>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                @if ($message = Session::get('success'))
+                <div class="custom-alerts alert alert-success fade in">
+                    <button type="button" class="close" data-dismiss="alert" ></button>
+                    {{ $message }}
                 </div>
+                <?php Session::forget('success');?>
+                @endif
+                @if ($message = Session::get('error'))
+                <div class="custom-alerts alert alert-danger fade in">
+                    <button type="button" class="close" data-dismiss="alert" ></button>
+                    {!! $message !!}
+                </div>
+                <?php Session::forget('error');?>
+                @endif
+                <div class="panel-heading"> <strong>Complete Payment</strong> </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{!! URL::route('paywithstripe', ['room' => $room ]) !!}" >
+                        {{ csrf_field() }}
+                        
+                        @if ($errors->any())
+ <div class="alert alert-danger">
+ <ul>
+ @foreach ($errors->all() as $error)
+ <li>{{ $error }}</li>
+ @endforeach
+ </ul>
+ </div>
+ @endif
+                        
+                        <div class="form-group{{ $errors->has('card_no') ? ' has-error' : '' }}">
+                            <label for="card_no" class="col-md-4 control-label">Card No</label>
+                            <div class="col-md-6">
+                                <input id="card_no" type="text" class="form-control" name="card_no" value="{{ old('card_no') }}" autofocus>
+                                @if ($errors->has('card_no'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('card_no') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('ccExpiryMonth') ? ' has-error' : '' }}">
+                            <label for="ccExpiryMonth" class="col-md-4 control-label">Expiry Month</label>
+                            <div class="col-md-6">
+                                <input id="ccExpiryMonth" type="text" class="form-control" name="ccExpiryMonth" value="{{ old('ccExpiryMonth') }}" autofocus>
+                                @if ($errors->has('ccExpiryMonth'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('ccExpiryMonth') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('ccExpiryYear') ? ' has-error' : '' }}">
+                            <label for="ccExpiryYear" class="col-md-4 control-label">Expiry Year</label>
+                            <div class="col-md-6">
+                                <input id="ccExpiryYear" type="text" class="form-control" name="ccExpiryYear" value="{{ old('ccExpiryYear') }}" autofocus>
+                                @if ($errors->has('ccExpiryYear'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('ccExpiryYear') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('cvvNumber') ? ' has-error' : '' }}">
+                            <label for="cvvNumber" class="col-md-4 control-label">CVV No.</label>
+                            <div class="col-md-6">
+                                <input id="cvvNumber" type="text" class="form-control" name="cvvNumber" value="{{ old('cvvNumber') }}" autofocus>
+                                @if ($errors->has('cvvNumber'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('cvvNumber') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+                            <label for="amount" class="col-md-4 control-label">Price</label>
+                            <div class="col-md-6">
+                                <input id="amount" type="text" class="form-control" name="amount" value="{{ $reservedRoom['price'] }}$" autofocus readonly>
+                                @if ($errors->has('amount'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('amount') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Pay
+                                </button>
+                                <a href="{{ route('clientHome') }}" class="btn btn-success">
+                                    Return to home page
+                                </a>
+                            </div>
+                        </div>
+                   
+
+                   
+                    </form>
+
             </div>
-
-
-            <form action="/charge" method="post" id="payment-form">
-  <div class="form-row">
-    <label for="card-element">
-      Credit or debit card
-    </label>
-    <div id="card-element">
-      <!-- A Stripe Element will be inserted here. -->
+        </div>
     </div>
 
-    <!-- Used to display Element errors. -->
-    <div id="card-errors" role="alert"></div>
-  </div>
+</div>
 
-  <button>Submit Payment</button>
-</form>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('pk_test_51IbCDpAaLrjgDGnF28ASPV9jHzXJrGQqwk8SOzzosVvx3LMWoU5wJpMhue4zZUYOERSTMCNaRVkpyISxL421JOCt00HB3rjP9w');
+    var elements = stripe.elements();
+</script>
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+</body>
+</html>
+
+
 @endsection

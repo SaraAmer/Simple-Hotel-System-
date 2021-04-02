@@ -26,10 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // if(Auth::user()->role=="pended client"){ 
+        //     return Redirect::route('client.pendedclient');
+           
+        // }
+        // else{
         $current_user_role=Str::lower(Auth::user()->role);
-        // return redirect("/".$current_user_role."/home");
+        // // // return redirect("/".$current_user_role."/home");
         return Redirect::route($current_user_role .".home");
-       
-        //return view("home");
+        // }
+        // return view("home");
     }
 }

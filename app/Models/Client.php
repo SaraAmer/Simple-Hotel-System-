@@ -9,7 +9,7 @@ class Client extends Model
 {
     use HasFactory;
     protected $fillable =
-    [
+    [   'id',
         'name',
         'email',
         'password',
@@ -25,6 +25,7 @@ class Client extends Model
     //     'password',
     //     'remember_token',
     // ];
+
 
     public function reservations()
     {
