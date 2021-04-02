@@ -147,18 +147,21 @@ class ClientController extends Controller
         // }
         if (Auth::user()->role == "Receptionist") 
         {
-        //     // dd(Auth::user()->user_id);
-            $ClientApprovedByReceptionist = Client ::where('aprovalID', Auth::user()->user_id);
+            // dd(Auth::user()->user_id);
+            // $ClientApprovedByReceptionist = Client ::where('aprovalID', Auth::user()->user_id);
+            $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->get();
+            // dd( $ApprovedClient);
 
-            foreach($ClientApprovedByReceptionist as $client )
+            foreach($ApprovedClient as $client )
             {
                 // @dd($client);
-            //    if($client->has_reservations == 'yes')
-            //    {
+                // dd($client->has_reservations);
+               if($client->has_reservations == "yes")
+               {
             // // // if ($ClientApprovedByReceptionist->has_reservations == 'yes')
-            $ClientReservation=Reservation:: where('client_id', $ClientApprovedByReceptionist->id)->get();
+            $ClientReservation=Reservation:: where('client_id', $client->id)->get();
             //         // dd($ClientReservation);
-            //    }
+               }
             }
         }
         //if role not receptionist so appear All client
@@ -166,7 +169,6 @@ class ClientController extends Controller
         {
             $ClientReservation=Reservation:: all();
         }
-        $ClientReservation=Reservation:: all();
 
             return view(
                 'client.ClientReservation',
