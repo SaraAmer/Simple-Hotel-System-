@@ -110,8 +110,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/client/home', [App\Http\Controllers\ClientController::class, 'home'])->name('clientHome');
     Route::get('/client/reservation', [App\Http\Controllers\ClientController::class, 'reserve'])->name('clientReservation');
-    Route::get('/client/invoice/{roomNumber}', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
-    Route::get('/client/checkout/{amount}', [App\Http\Controllers\ClientController::class, 'checkout'])->name('checkout');    
+    Route::get('/client/invoice/{room}', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
+   // Route::get('/client/checkout/{amount}', [App\Http\Controllers\ClientController::class, 'checkout'])->name('checkout');    
+   
+    Route::get('/client/checkout/{room}', [App\Http\Controllers\StripeController::class, 'payWithStripe'])->name('checkout');    
+    Route::post('/client/checkout/{room}', [App\Http\Controllers\StripeController::class, 'postPaymentWithStripe'])->name('paywithstripe');    
+
+   // Route::get('stripe', 'StripeController@payWithStripe')->('stripform');
+// Route for stripe post request.
+//Route::post('stripe', 'StripeController@postPaymentWithStripe')->('paywithstripe');
+
 
 });
 

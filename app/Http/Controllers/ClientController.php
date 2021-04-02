@@ -47,11 +47,11 @@ class ClientController extends Controller
     }
 
 
-    public function viewInvoices($roomNumber){
-       
+    public function viewInvoices($roomNumber, Request $request){
+       //dd($request);
         $client=Client::where('email', Auth::user()->email)->first();
         $room= Room::where('room_number', $roomNumber)->first();
-        
+        //dd($room);
 
         return view('client.invoice', [
             'client'=>$client,
@@ -60,12 +60,12 @@ class ClientController extends Controller
     }
 
 
-    public function checkout($amount){
+    public function checkout($room){
         $client=Client::where('email', Auth::user()->email)->first();
 
         //dd($amount);
         return view('client.checkout', [
-            'amount'=>$amount,
+            'room'=>$room,
             'client'=>$client,
             
         ]);

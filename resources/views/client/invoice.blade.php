@@ -267,7 +267,7 @@
                       </tr>
                       <tr>
                         <th>accompany number:</th>
-                        <td> <input name="accompany_number" type="number" value="{{$room['capacity']}}"> </td>
+                        <td> <input name="accompany_number" type="number" > </td>
                       </tr>
                       <tr>
                         <th style="width:50%">Total:</th>
@@ -284,7 +284,7 @@
               <div class="row no-print">
                 <div class="col-12">
                   <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                  <a href="{{ route('checkout', ['amount' => $room['price']]) }}"  class="btn btn-success float-right"><i class="far fa-credit-card"></i> Checkout
+                  <a href="{{ route('checkout', ['room' => $room['room_number']]) }}"  class="btn btn-success float-right"><i class="far fa-credit-card"></i> Checkout
                   </a>
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF
