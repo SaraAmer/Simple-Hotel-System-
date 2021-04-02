@@ -49,7 +49,7 @@ class ClientController extends Controller
         return view('client.home', [
 
            'client' => $client,
-        'rooms'=> $rooms
+           'rooms'=> $rooms
          ]);
     }
 
@@ -239,7 +239,11 @@ class ClientController extends Controller
         $user=User::where('email', $clientEmail)->first();
         $user->update($requestData);
         $user->save();
-        return redirect()->route('Receptionist.ApprovedClient');
+        if (Auth::user()->role=="client") {
+            return redirect()->route('client.home');
+        } else {
+            return redirect()->route('Receptionist.ApprovedClient');
+        }
     }
 
     public function edit($clientId)

@@ -126,11 +126,8 @@
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
 
-                        <img src="/uploads/avatars/{{Auth::user()->avatar_image}}" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
+                    <div class="info font-weight-bold mr-4">
                         <a href="/home" class="d-block"> {{ Auth::user() ? Auth::user()->name : "username"}}</a>
                     </div>
                 </div>
@@ -154,54 +151,99 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+                        @role('admin')
                         <li class="nav-item menu-open">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Manage
+                                    Manage Managers
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{route('managers.index')}}" class="nav-link ">
-                                        @role('admin')
+
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Manager</p>
-                                        @endrole
+                                        <p> Managers</p>
+
                                     </a>
                                 </li>
-                                @hasanyrole('manager|admin')
+
+
+                            </ul>
+                            @endrole
+                            @hasanyrole('manager|admin')
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Manage Receptionists
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+
                                 <li class="nav-item">
                                     <a href="{{route('receptionists.index')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Receptionists</p>
+                                        <p> Receptionists</p>
                                     </a>
                                 </li>
+                               </ul>
+                            </li>
 
 
-
+                                <li class="nav-item menu-open">
+                                    <a href="#" class="nav-link active">
+                                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                                        <p>
+                                            Manage clients
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
+                                              <i class="far fa-circle nav-icon"></i>
+                                              <p>Clients</p>
+                                            </a>
+                                          </li>
                                 <li class="nav-item">
                                     <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Client's Requests</p>
+                                        <p> Client's Requests</p>
                                     </a>
                                 </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-header border-top"></li>
                                 <li class="nav-item">
 
                                     <a href="{{route('floors.index')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-circle nav-icon"></i>
+
                                         <p>Manage Floors </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('rooms.index')}}" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-circle nav-icon"></i>
                                         <p>Manage Rooms</p>
                                     </a>
                                 </li>
-                                @endhasanyrole
+                               @endhasanyrole
                                 @role('client')
+                                <ul class="nav nav-treeview">
+                                    <a href="#" class="nav-link active">
+                                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                                        <p>
+                                            Reservations
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
                                 <li class="nav-item">
                                     <a href="{{ route('client.browse') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -214,25 +256,21 @@
                                         <p>Your Reservations</p>
                                     </a>
                                 </li>
+                                 @endrole
+                        @role('receptionist')
+                        <ul class="nav nav-treeview">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Reservations
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
 
-
-                                @endrole
-
-
-
-
-                        <!--------------- -->
-                        @hasanyrole('manager|admin|receptionist')
-                        <li class="nav-item">
-                                    <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Client</p>
-                                    </a>
-                                </li>
                             <li class="nav-item">
                                 <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>Approved Clients</p>
+                                  <p> My Approved Clients</p>
                                 </a>
                               </li>
                               <li class="nav-item">
@@ -241,17 +279,22 @@
                                   <p>Client Reservation</p>
                                 </a>
                               </li>
-
-
-                            <!---------------------------->
-
-                    @endhasanyrole
+                    @endrole
                     </ul>
+
                 </nav>
             </div>
 
         </aside>
-
+ <!-- Control Sidebar -->
+ <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+        <h5>Title</h5>
+        <p>Sidebar content</p>
+    </div>
+</aside>
+<!-- /.control-sidebar -->
 
         <main class="py-1">
             <div class="content-wrapper">
@@ -261,33 +304,21 @@
             </div>
         </main>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
-       <div>
-        <footer class="main-footer sticky-bottom ">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-            reserved.
-        </footer>
-    </div>
 
 
-        <!-- ./wrapper -->
-        <!-- Page specific script -->
 
+        <div class="container-fluid">
+            <footer class="main-footer sticky-bottom ">
 
-        <!-- REQUIRED SCRIPTS -->
+                <!-- To the right -->
+                <div class="float-right d-none d-sm-inline">
+                    Anything you want</div>
+
+                <!-- Default to the left -->
+                <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+                reserved.
+            </footer>
+        </div>
 
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
