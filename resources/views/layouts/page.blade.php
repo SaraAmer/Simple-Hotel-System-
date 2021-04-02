@@ -28,11 +28,11 @@
   border: 1px solid #BFBFBF;
   box-shadow: 1px 1px 5px 1px #9a9992;
 }
-  
+
 
   .room:hover{
     transform: scale(1.1);
-    
+
   }
 </style>
 </head>
@@ -127,7 +127,8 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+
+                        <img src="/uploads/avatars/{{Auth::user()->avatar_image}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="/home" class="d-block"> {{ Auth::user() ? Auth::user()->name : "username"}}</a>
@@ -178,7 +179,8 @@
                                     </a>
                                 </li>
 
-                                
+
+
                                 <li class="nav-item">
                                     <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -212,13 +214,13 @@
                                         <p>Your Reservations</p>
                                     </a>
                                 </li>
-                           
+
 
                                 @endrole
 
 
 
-                        
+
                         <!--------------- -->
                         @hasanyrole('manager|admin|receptionist')
                         <li class="nav-item">
@@ -239,10 +241,10 @@
                                   <p>Client Reservation</p>
                                 </a>
                               </li>
-                          
-                         
+
+
                             <!---------------------------->
-                          
+
                     @endhasanyrole
                     </ul>
                 </nav>
@@ -268,7 +270,7 @@
             </div>
         </aside>
         <!-- /.control-sidebar -->
-
+       <div>
         <footer class="main-footer sticky-bottom ">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
@@ -278,6 +280,7 @@
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
             reserved.
         </footer>
+    </div>
 
 
         <!-- ./wrapper -->
@@ -323,7 +326,7 @@
                 });
             });
         </script>
-        
+
 </body>
 
 </html>

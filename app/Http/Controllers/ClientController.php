@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
+use App\Http\Requests\ClientCreateRequest;
+use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Registration;
 use App\Models\Client;
 use App\Models\Receptionist;
@@ -22,22 +24,24 @@ use Notifiable;
 class ClientController extends Controller
 {
     //
-    // User::where('last_login_at', '>=', new DateTime('-1 months'))->get(); 
+    // User::where('last_login_at', '>=', new DateTime('-1 months'))->get();
     // now()->format('Y-m-d')
     // dd( new DateTime('-1 months'));
 
     public function index()
     {
         $client = Client::where('email', Auth::user()->email)->first();
-
+        $rooms=Room::where('status', 'available')->get();
 
         return view('client.index', [
-            'client' => $client
+            'client' => $client,
+            'rooms'=>$rooms
         ]);
     }
 
     public function home()
     {
+        $rooms=Room::where('status', 'available')->get();
         if (!Auth::user()->hasRole('client')) {
             Auth::user()->assignRole('client');
         }
@@ -52,6 +56,14 @@ class ClientController extends Controller
         return view('client.home', [
             'client' => $client
         ]);
+
+        // $client = Client::where('email', Auth::user()->email)->first();
+
+        // return view('client.home', [
+
+        //    'client' => $client,
+        // 'rooms'=> $rooms
+        //  ]);
     }
 
 
@@ -62,10 +74,14 @@ class ClientController extends Controller
     }
 
 
-    public function viewInvoices($roomNumber)
+
+    public function viewInvoices($roomNumber, Request $request)
     {
-        $client = Client::where('email', Auth::user()->email)->first();
-        $room = Room::where('room_number', $roomNumber)->first();
+        //dd($request);
+        $client=Client::where('email', Auth::user()->email)->first();
+        $room= Room::where('room_number', $roomNumber)->first();
+        //dd($room);
+
 
 
         return view('client.invoice', [
@@ -75,13 +91,17 @@ class ClientController extends Controller
     }
 
 
-    public function checkout($amount)
+
+    public function checkout($room)
     {
-        $client = Client::where('email', Auth::user()->email)->first();
+        $client=Client::where('email', Auth::user()->email)->first();
+
 
         return view('client.checkout', [
-            'amount' => $amount,
-            'client' => $client,
+
+            'room'=>$room,
+            'client'=>$client,
+
 
         ]);
     }
@@ -109,16 +129,16 @@ class ClientController extends Controller
 
     public function ApprovedClient()
     {
-        //if who login system is receptionist so 
-        //go to client table where all accepted client store in it 
+        //if who login system is receptionist so
+        //go to client table where all accepted client store in it
         //and id of receptionist is equal to approvalID so get client
         //Approval role is receptionist
         if (Auth::user()->role == "Receptionist") {
             $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->get();
-            // dd(Auth::user()->id);
+        // dd(Auth::user()->id);
             // dd($ApprovedClient);
         }
-        //if another user (any Approval Role) except receptionist so Appear all accepted client  
+        //if another user (any Approval Role) except receptionist so Appear all accepted client
         else {
             $ApprovedClient=Client :: all();
         }
@@ -140,8 +160,8 @@ class ClientController extends Controller
     //Show
     public function ClientReservation()
     {
-        //has reservation if yes y3rd al data bta3t al clent da 
-       
+        //has reservation if yes y3rd al data bta3t al clent da
+
         //if Role is Receptionist so appear all client who accept them and its reservation
         //2li da5l recieptionst w al w al id bta3o howa id al approve
 
@@ -150,15 +170,13 @@ class ClientController extends Controller
         //     // dd(Auth::user()->id);
         //     dd($ApprovedClient);
         // }
-        if (Auth::user()->role == "Receptionist") 
-        {
+        if (Auth::user()->role == "Receptionist") {
             // dd(Auth::user()->user_id);
             // $ClientApprovedByReceptionist = Client ::where('aprovalID', Auth::user()->user_id);
             $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->get();
             // dd( $ApprovedClient);
 
-            foreach($ApprovedClient as $client )
-            {
+            foreach ($ApprovedClient as $client) {
                 // @dd($client);
                 // dd($client->has_reservations);
             //    if($client->has_reservations == "yes")
@@ -170,16 +188,15 @@ class ClientController extends Controller
             }
         }
         //if role not receptionist so appear All client
-        else
-        {
+        else {
             $ClientReservation=Reservation:: all();
         }
 
-            return view(
-                'client.ClientReservation',
-                ['ClientReservation' => $ClientReservation]
-            );
 
+        return view(
+            'client.ClientReservation',
+            ['ClientReservation' => $ClientReservation]
+        );
     }
 
 
@@ -215,41 +232,40 @@ class ClientController extends Controller
     public function pendedclienthome()
     {
         return view('client.pendedclient');
-
     }
 
 
     public function create()
     {
-
-
         $countries = countries();
 
         return view(
-                'client.create',
-                ['countries' => $countries]
-
-            );
+            'client.create',
+            ['countries' => $countries]
+        );
     }
 
-    public function update($clientId, Request  $request)
+    public function update($clientId, ClientUpdateRequest  $request)
     {
         $client = Client::find($clientId);
         $requestData= $request->all();
         $client->update($requestData);
         $client->save();
-
-        $user=User::where('user_id', $clientId)->first();
+        //dd($clientId);
+        $clientEmail=$client['email'];
+        $user=User::where('email', $clientEmail)->first();
         $user->update($requestData);
         $user->save();
-        return redirect()->route('client.ApprovedClient');
+        return redirect()->route('Receptionist.ApprovedClient');
     }
 
     public function edit($clientId)
     {
         $client = Client::find($clientId);
+        $countries = countries();
         return view('client.edit', [
             'client' => $client,
+            'countries' => $countries
         ]);
     }
 
@@ -261,11 +277,11 @@ class ClientController extends Controller
 
         $user->delete();
         $client->delete();
-        return redirect()->route('client.ApprovedClient');
+        return redirect()->route('Receptionist.ApprovedClient');
     }
 
 
-    public function store(Request $request)
+    public function store(ClientCreateRequest $request)
     {
         // $requestData = $request->all();
         Client::create([
@@ -274,13 +290,13 @@ class ClientController extends Controller
             'gender'=>$request->gender,
             'mobile'=>$request->mobile,
             'country'=>$request->country,
-            'aprovalID'=>Auth::user()->id,     
+            'aprovalID'=>Auth::user()->id,
             'aprovalRole'=>Auth::user()->role,
             'has_reservations'=>$request->has_reservations,
             'avatar_image'=>$request->avatar_image,
             'created_at'=>$request->created_at,
             'updated_at'=>$request->updated_at
-            
+
         ]);
         $client= Client::where('email', $request->email)->first();
 
@@ -294,5 +310,17 @@ class ClientController extends Controller
         ]);
 
         return redirect()->route('Receptionist.ApprovedClient');
+    }
+    public function show($clientId)
+    {
+        $client = Client::find($clientId);
+        $user = User::where('id', $client->aprovalID)->first();
+        // dd($user->name);
+        $countries = countries();
+        return view('client.show', [
+            'client' => $client,
+            'countries' => $countries,
+            'user'=>$user,
+        ]);
     }
 }

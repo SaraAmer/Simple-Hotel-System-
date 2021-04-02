@@ -30,14 +30,16 @@
         <th scope="row">{{ $manager->id }}</th>
         <td>{{ $manager->name }}</td>
         <td>{{ $manager->email }}</td>
-        
+
         <td> {{$manager->created_at}}</td>
         <td> {{$manager->updated_at}}</td>
 
         <td>
-
+            <a href="{{route('managers.show',['manager' => $manager['id']])}}" class="btn btn-primary"
+                style="margin-bottom: 20px;">Show</a>
             <a href="{{route('managers.edit',['manager' => $manager['id']])}}" class="btn btn-secondary"
                 style="margin-bottom: 20px;">Edit</a>
+
             <form style="display:inline" method="POST"
                 action="{{route('managers.destroy',['manager' => $manager['id']])}}">
                 @csrf

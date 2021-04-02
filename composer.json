@@ -18,7 +18,8 @@
         "rinvex/countries": "^7.3",
         "spatie/laravel-permission": "^4.0",
         "stripe/stripe-php": "^7.76",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "cartalyst/stripe-laravel": "^13.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
