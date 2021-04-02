@@ -22,6 +22,8 @@ class ClientController extends Controller
     //
     // User::where('last_login_at', '>=', new DateTime('-1 months'))->get(); 
     // now()->format('Y-m-d')
+    // dd( new DateTime('-1 months'));
+
     public function index()
     {
         $client=Client::where('email', Auth::user()->email)->first();
@@ -85,7 +87,6 @@ class ClientController extends Controller
         //So get data from user table where role is pended client
         //OR for more information get data from Registration table which store All pended client in it 
     //    $ManagedClients=User ::where('role', 'pended client')->get();
-   dd( new DateTime('-1 months'));
         $ManagedClientsdata= Registration:: all();
         return view(
             'client.ManageClient',
@@ -110,6 +111,7 @@ class ClientController extends Controller
         if (Auth::user()->role == "Receptionist") {
             $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->get();
             // dd(Auth::user()->id);
+            // dd($ApprovedClient);
         }
         //if another user (any Approval Role) except receptionist so Appear all accepted client  
         else {
@@ -138,15 +140,25 @@ class ClientController extends Controller
         //if Role is Receptionist so appear all client who accept them and its reservation
         //2li da5l recieptionst w al w al id bta3o howa id al approve
 
-        if (Auth::user()->role=="Receptionist") 
+        // if (Auth::user()->role == "Receptionist") {
+        //     $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->get();
+        //     // dd(Auth::user()->id);
+        //     dd($ApprovedClient);
+        // }
+        if (Auth::user()->role == "Receptionist") 
         {
+        //     // dd(Auth::user()->user_id);
             $ClientApprovedByReceptionist = Client ::where('aprovalID', Auth::user()->user_id);
-            // dd($ClientApprovedByReceptionist);
-            while ($ClientApprovedByReceptionist->has_reservations == 'yes')
+
+            foreach($ClientApprovedByReceptionist as $client )
             {
-            // // if ($ClientApprovedByReceptionist->has_reservations == 'yes')
+                // @dd($client);
+            //    if($client->has_reservations == 'yes')
+            //    {
+            // // // if ($ClientApprovedByReceptionist->has_reservations == 'yes')
             $ClientReservation=Reservation:: where('client_id', $ClientApprovedByReceptionist->id)->get();
-            dd($ClientReservation);
+            //         // dd($ClientReservation);
+            //    }
             }
         }
         //if role not receptionist so appear All client
@@ -154,6 +166,8 @@ class ClientController extends Controller
         {
             $ClientReservation=Reservation:: all();
         }
+        $ClientReservation=Reservation:: all();
+
             return view(
                 'client.ClientReservation',
                 ['ClientReservation'=>$ClientReservation]
