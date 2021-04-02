@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
+use App\Http\Requests\ClientCreateRequest;
+use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Registration;
 use App\Models\Client;
 use App\Models\Receptionist;
@@ -178,17 +179,18 @@ class ClientController extends Controller
             );
     }
 
-    public function update($clientId, Request  $request)
+    public function update($clientId, ClientUpdateRequest  $request)
     {
         $client = Client::find($clientId);
         $requestData= $request->all();
         $client->update($requestData);
         $client->save();
-
-        $user=User::where('user_id', $clientId)->first();
+        //dd($clientId);
+        $clientEmail=$client['email'];
+        $user=User::where('email', $clientEmail)->first();
         $user->update($requestData);
         $user->save();
-        return redirect()->route('client.ApprovedClient');
+        return redirect()->route('Receptionist.ApprovedClient');
     }
 
     public function edit($clientId)
@@ -207,11 +209,11 @@ class ClientController extends Controller
 
         $user->delete();
         $client->delete();
-        return redirect()->route('client.ApprovedClient');
+        return redirect()->route('Receptionist.ApprovedClient');
     }
 
 
-    public function store(Request $request)
+    public function store(ClientCreateRequest $request)
     {
         // $requestData = $request->all();
         Client::create([

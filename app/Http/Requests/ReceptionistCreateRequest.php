@@ -26,7 +26,7 @@ class ReceptionistCreateRequest extends FormRequest
         return [
             'name' => ['required'],
             'email'=>['unique:users'],
-            'national_id'=> ['min:14' ,'max:14','unique:receptionists' ],
+            'national_id'=> ['digits:14','unique:receptionists' ],
             'password' => ['confirmed' , 'required'],
             'avatar_image' => 'mimes:jpg,png'
         ];

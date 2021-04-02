@@ -49,13 +49,7 @@
 
             <a href="{{route('receptionists.edit',['receptionist' => $receptionist['id']])}}" class="btn btn-secondary"
               style="margin-bottom: 20px;">Edit</a>
-            @if($receptionist->isBanned())
-            <a href="{{route('receptionists.unban',['receptionist' => $receptionist['id']])}}" class="btn btn-success"
-              style="margin-bottom: 20px;">UnBan</a>
-            @else
-            <a href="{{route('receptionists.ban',['receptionist' => $receptionist['id']])}}" class="btn btn-danger"
-              style="margin-bottom: 20px;">Ban</a>
-            @endif
+
             <meta name="csrf-token" content="{{ csrf_token() }}">
             <button class="delete-btn btn btn-danger" style="margin-bottom: 20px;" value="{{$receptionist->id}}"
               data-id="{{$receptionist->id}}">Delete</button>
