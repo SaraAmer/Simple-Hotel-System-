@@ -24,13 +24,12 @@ class ReceptionistUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $Recetionistuser = User::where('user_id', (int)$this->receptionist)->where('role', 'Receptionist')->first();
-        $receptionistuser=$Recetionistuser->id;
+      
         
         return [
             'name' => ['required'],
-            'email'=>['unique:users,email,'.$receptionistuser.''],
-            'national_id'=> ['min:14' ,'max:14' , 'unique:receptionists,national_id,'.$this->receptionist.''],
+            'email'=>['unique:users,email,'.$this->receptionist.''],
+            'national_id'=> ['digits:14' , 'unique:receptionists,national_id,'.$this->receptionist.''],
             'avatar_image' => 'mimes:jpg,png'
         ];
     }
