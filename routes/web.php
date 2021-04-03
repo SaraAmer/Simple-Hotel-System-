@@ -93,7 +93,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/client/reservation', [ClientController::class, 'reserve'])->name('clientReservation');
 
     Route::get('/client/checkout/{room}', [App\Http\Controllers\StripeController::class, 'payWithStripe'])->name('checkout');
-    Route::post('/client/checkout/{room}', [App\Http\Controllers\StripeController::class, 'postPaymentWithStripe'])->name('paywithstripe');
+    Route::post('/client/checkout/{room}/{accompany_number}', [App\Http\Controllers\StripeController::class, 'postPaymentWithStripe'])->name('paywithstripe');
     Route::get('/client', [ClientController::class, 'index'])->name('client');
     Route::delete('/clients/{client}', [ClientController::class, 'destory'])->name('clients.destory');
     Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');

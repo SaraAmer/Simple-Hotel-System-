@@ -26,6 +26,7 @@
             </li>
         </ul>
         <div class="d-flex justify-content-end">
+
         <a href="{{route('client.edit',['client' => $client['id']])}}" class="btn btn-primary"
             style="margin-bottom: 10px;">Edit  your Profile</a></div>
     </div>

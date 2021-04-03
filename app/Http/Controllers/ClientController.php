@@ -50,14 +50,18 @@ class ClientController extends Controller
         }
         //update value of lastlogin in usertable for the specificuser with now
         $client = User::where('email', Auth::user()->email)->first();
+
         // $client->lastlogin=now()->format('Y-m-d');
         $client->update(['lastlogin' => now()->format('Y-m-d')]);
+
         $client->save();
         // dd(now()->format('Y-m-d'));
-        // dd($client);
+
 
         return view('client.home', [
-            'client' => $client,'rooms'=> $rooms
+            'client' => $client,
+
+            'rooms'=> $rooms
         ]);
 
         // $client = Client::where('email', Auth::user()->email)->first();
@@ -268,6 +272,7 @@ class ClientController extends Controller
     public function edit($clientId)
     {
         $client = Client::find($clientId);
+        dd($client);
         $countries = countries();
         return view('client.edit', [
             'client' => $client,
