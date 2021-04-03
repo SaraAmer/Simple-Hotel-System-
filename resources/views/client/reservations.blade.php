@@ -24,7 +24,7 @@
                         <img class="roomImg" style="max-width: 100%;" src="{{asset($room['image'])}}" class="img-fluid mb-2" alt="black sample"/>
                         
                         <p style="margin-bottom: 0; color: black;">Paid price: {{ (float)number_format(($room['price']/100), 2, '.', '') }}$</p>
-                      <p style="margin-bottom: 0; color:black; "> Capacity: {{ $room['capacity'] }}</p>
+                      <p style="margin-bottom: 0; color:black; "> : {{ $room['capacity'] }}</p>
                       <div style="text-align: center;">
 
                       
