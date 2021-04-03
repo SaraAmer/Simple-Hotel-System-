@@ -15,18 +15,15 @@
 
                 <p class="text-muted text-center">Receptionist</p>
 
-                <ul class="list-group list-group-unbordered mb-3">
+   
                   <li class="list-group-item">
-                    <b>Gender</b> <a class="float-right">Famele</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Phone number</b> <a class="float-right">177777777</a>
+                    <b>National ID </b> <a class="float-right">{{  $Receptionist['national_id'] }}</a>
                   </li>
                   <li class="list-group-item">
                     <b>Email</b> <a class="float-right">{{   $Receptionist['email']   }}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Country</b> <a class="float-right">Egypt</a>
+                    <b>status </b> <a class="float-right">{{   $Receptionist['status']   }}</a>
                   </li>
                 </ul>
 

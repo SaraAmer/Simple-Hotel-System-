@@ -20,7 +20,7 @@
                 </div>
                 <?php Session::forget('error');?>
                 @endif
-                <div class="card container mt-3 ml-5">
+                <div class="card mt-3 ml-5">
                     <div class="card-header bg-light">
                         <h3 class="card-title"><strong>Complete Payment</strong></h3>
                     </div>
