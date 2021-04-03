@@ -24,13 +24,13 @@
 
                 <p class="text-muted text-center">Receptionist</p>
 
-                <ul class="list-group list-group-unbordered mb-3">
+                <!-- <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
                     <b>Gender</b> <a class="float-right">Famele</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Phone number</b> <a class="float-right">177777777</a>
-                  </li>
+                  </li> -->
+                  <!-- <li class="list-group-item">
+                    <b>National ID</b> <a class="float-right">{{  $Receptionist['national_id'] }}</a>
+                  </li> -->
                   <li class="list-group-item">
                     <b>email</b> <a class="float-right">{{   $Receptionist['email']   }}</a>
                   </li>

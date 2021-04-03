@@ -28,14 +28,13 @@
         <div class="card-body">
           <div class="form-group">
             <label for="exampleInputName">Name</label>
-            <input class="form-control" id="exampleInputName" placeholder="Enter Client Name" type="text"
-              name="name" value="{{ old('name') }}">
+            <input class="form-control" id="exampleInputName" placeholder="Enter Client Name" type="text" name="name"
+              value="{{ old('name') }}">
 
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input class="form-control" id="exampleInputEmail1" placeholder="Enter email" type="email" name="email"
-
               value="{{ old('email') }}">
           </div>
           <div class="form-group">
@@ -56,46 +55,46 @@
 
           <div class="form-group">
 
-          <label for="exampleInputGender">Gender</label>
+            <label for="exampleInputGender">Gender</label>
             <select name="gender" class="custom-select custom-select-lg mb-3">
-                
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
 
-              </select>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+
+            </select>
 
           </div>
 
 
           <div class="form-group">
-          <label for="exampleInputRes">Does this client has reservation?</label>
+            <label for="exampleInputRes">Does this client has reservation?</label>
             <select name="has_reservations" class="custom-select custom-select-lg mb-3">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
 
-              </select>
+            </select>
 
           </div>
 
           <div class="form-group">
-          <label for="exampleInputCountry">Country</label>
-               <select name="country" class="form-control @error('countries') is-invalid @enderror">
+            <label for="exampleInputCountry">Country</label>
+            <select name="country" class="form-control @error('countries') is-invalid @enderror">
 
-                    @foreach($countries as $country)
-                    {
-                    <option value="{{$country['name']}}">{{$country['name']}}</option>
-                    }
+              @foreach($countries as $country)
+              {
+              <option value="{{$country['name']}}">{{$country['name']}}</option>
+              }
 
-                    @endforeach
+              @endforeach
 
-                </select>
+            </select>
 
 
-                @error('countries')
-                        <span class="form-control @error('countries') is-invalid @enderror" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+            @error('countries')
+            <span class="form-control @error('countries') is-invalid @enderror" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
           </div>
 
 

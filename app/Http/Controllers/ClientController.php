@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use App\Http\Requests\ClientCreateRequest;
 use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Registration;
@@ -10,22 +11,20 @@ use App\Models\Client;
 use App\Models\Receptionist;
 use App\Models\Room;
 use DateTime;
-
+use Yajra\Datatables\Datatables;
+use App\Models\Manager;
 use App\Models\User;
 use App\Models\Reservation;
 // use App\Http\Auth;
 use Illuminate\Support\Facades\Auth;
 // use Illuminate\Notifications\Notifiable;
 use App\Notifications\WelcomeClient;
+use App\Notifications\remindClient;
+
 use Notifiable;
 
 class ClientController extends Controller
 {
-    //
-    // User::where('last_login_at', '>=', new DateTime('-1 months'))->get();
-    // now()->format('Y-m-d')
-    // dd( new DateTime('-1 months'));
-
     public function index()
     {
         $client = Client::where('email', Auth::user()->email)->first();
@@ -36,6 +35,7 @@ class ClientController extends Controller
             'rooms'=>$rooms
         ]);
     }
+ 
 
     public function home()
     {
@@ -43,14 +43,21 @@ class ClientController extends Controller
         if (!Auth::user()->hasRole('client')) {
             Auth::user()->assignRole('client');
         }
-    
-        $client = Client::where('email', Auth::user()->email)->first();
+       
+        $client = User::where('email', Auth::user()->email)->first();
+
+        
+        $client->update(['lastlogin' => now()->format('Y-m-d')]);
+
+        $client->save();
+       
+
 
         return view('client.home', [
+            'client' => $client,
 
-           'client' => $client,
-        'rooms'=> $rooms
-         ]);
+            'rooms'=> $rooms
+        ]);
     }
 
 
@@ -93,44 +100,72 @@ class ClientController extends Controller
     }
     public function ManageClient()
     {
-        //to show all client who haven't approved and approve them
-        //So get data from user table where role is pended client
-        //OR for more information get data from Registration table which store All pended client in it
-        //    $ManagedClients=User ::where('role', 'pended client')->get();
         $ManagedClientsdata= Registration:: all();
         return view(
             'client.ManageClient',
-            // ['ManagedClients'=> $ManagedClients],
             ['ManagedClientsdata'=> $ManagedClientsdata]
         );
     }
-
+    public function getClientsData()
+    {
+        $RequestedClient=Registration::query();
+        return Datatables::of($RequestedClient)->addColumn('action', function ($client) {
+            return
+           
+                    ' <a "  href="' . route('acceptClient', $client->email) .'"><i class="fa fa-check" aria-hidden="true"></i></button>
+                    <a href="" class="delete"  data-id="' .$client->id .'"> 
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>'
+                     ;
+            ;
+        }) ->editColumn('created_at', function ($request) {
+            return $request->created_at->format('Y-m-d');
+        }) ->editColumn('updated_at', function ($request) {
+            return $request->updated_at->format('Y-m-d');
+        })->make(true);
+    }
 
     public function delete($clientId)
     {
-        Registration::find($clientId)->delete();
-        return redirect()->route('Receptionist.ManageClient');
+        $client=  Registration::findorfail($clientId);
+        $user=User::where('email', $client->email);
+        $client->delete();
+        $user->delete();
+        return response()->json([
+            'message' => 'Data deleted successfully!'
+          ]);
     }
 
     public function ApprovedClient()
     {
-        //if who login system is receptionist so
-        //go to client table where all accepted client store in it
-        //and id of receptionist is equal to approvalID so get client
-        //Approval role is receptionist
-        if (Auth::user()->role == "Receptionist") {
-            $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->get();
-        // dd(Auth::user()->id);
-            // dd($ApprovedClient);
+        return view('client.ApprovedClient');
+    }
+    public function getData()
+    {
+        if (Auth::user()->hasRole('admin')||Auth::user()->hasRole('manager')) {
+            $client=Client::query();
+            return Datatables::of($client)->addColumn('action', function ($client) {
+                return
+                '<div><a  href="' . route('client.edit', $client->id) .'"> <i class="fas fa-edit"></i>
+                </a>
+                <a  href="' . route('client.show', $client->id) .'"> <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+                <a href="" class="delete"  data-id="' .$client->id .'"> 
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+                
+                </div>'
+                   
+                   ;
+            })->make(true);
+        } else {
+
+            // $client=Client::select()->where('aprovalID',Auth::user()->user_id)->where('aprovalRole','Receptionist');
+            $client= Client::query()->where(function ($query) {
+                $query->where('aprovalID', Auth::user()->user_id)->Where('aprovalRole', 'Receptionist');
+            });
+            return Datatables::of($client)->make(true);
         }
-        //if another user (any Approval Role) except receptionist so Appear all accepted client
-        else {
-            $ApprovedClient=Client :: all();
-        }
-        return view(
-            'client.ApprovedClient',
-            ['ApprovedClient' =>  $ApprovedClient]
-        );
     }
 
     public function deleteclient($id)
@@ -145,30 +180,13 @@ class ClientController extends Controller
     //Show
     public function ClientReservation()
     {
-        //has reservation if yes y3rd al data bta3t al clent da
-       
-
-        //if Role is Receptionist so appear all client who accept them and its reservation
-        //2li da5l recieptionst w al w al id bta3o howa id al approve
-
-        // if (Auth::user()->role == "Receptionist") {
-        //     $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->get();
-        //     // dd(Auth::user()->id);
-        //     dd($ApprovedClient);
-        // }
         if (Auth::user()->role == "Receptionist") {
-            // dd(Auth::user()->user_id);
-            // $ClientApprovedByReceptionist = Client ::where('aprovalID', Auth::user()->user_id);
             $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->get();
-            // dd( $ApprovedClient);
+           
 
             foreach ($ApprovedClient as $client) {
-                // @dd($client);
-                // dd($client->has_reservations);
                 if ($client->has_reservations == "yes") {
-                    // // // if ($ClientApprovedByReceptionist->has_reservations == 'yes')
                     $ClientReservation=Reservation:: where('client_id', $client->id)->get();
-                    //         // dd($ClientReservation);
                 }
             }
         }
@@ -187,15 +205,12 @@ class ClientController extends Controller
 
     public function acceptClient($email)
     {
-        //2li 3aml account
         $accepteduser=User ::where('email', $email)->first();
         $accepteduser->update(['role' => "client"]);
         $accepteduser->notify(new WelcomeClient());
-
-        //search in registeration table with email and when
-        //find it store in Client table and delete it from registeration
+       
         $acceptedClient=Registration ::where('email', $email)->first();
-        // $acceptedid=User ::where('email',Auth::user()->email)->first();
+      
 
         $client = new Client;
         $client->name = $acceptedClient->name;
@@ -203,7 +218,6 @@ class ClientController extends Controller
         $client->mobile = $acceptedClient->mobile;
         $client->country = $acceptedClient->country;
         $client->gender = $acceptedClient->gender;
-        //   $client->password = $acceptedClient->password;
         $client->has_reservations = "no";
         $client->aprovalRole = Auth::user()->role;
         $client->aprovalID = Auth::user()->user_id;
@@ -234,17 +248,22 @@ class ClientController extends Controller
         $requestData= $request->all();
         $client->update($requestData);
         $client->save();
-        //dd($clientId);
+       
         $clientEmail=$client['email'];
         $user=User::where('email', $clientEmail)->first();
         $user->update($requestData);
         $user->save();
-        return redirect()->route('Receptionist.ApprovedClient');
+        if (Auth::user()->role=="client") {
+            return redirect()->route('client.home');
+        } else {
+            return redirect()->route('Receptionist.ApprovedClient');
+        }
     }
 
     public function edit($clientId)
     {
         $client = Client::find($clientId);
+        
         $countries = countries();
         return view('client.edit', [
             'client' => $client,
@@ -266,17 +285,16 @@ class ClientController extends Controller
 
     public function store(ClientCreateRequest $request)
     {
-        // $requestData = $request->all();
         Client::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'gender'=>$request->gender,
             'mobile'=>$request->mobile,
             'country'=>$request->country,
-            'aprovalID'=>Auth::user()->id,
+            'aprovalID'=>Auth::user()->user_id,
             'aprovalRole'=>Auth::user()->role,
             'has_reservations'=>$request->has_reservations,
-            'avatar_image'=>$request->avatar_image,
+            'avatar_image'=>$request->avatar_image?$request->avatar_image:"avatars/default.png",
             'created_at'=>$request->created_at,
             'updated_at'=>$request->updated_at
 
@@ -297,8 +315,8 @@ class ClientController extends Controller
     public function show($clientId)
     {
         $client = Client::find($clientId);
-        $user = User::where('id', $client->aprovalID)->first();
-        // dd($user->name);
+        $user = User::where('user_id', $client->aprovalID)->where('role', $client->aprovalRole)->first();
+        
         $countries = countries();
         return view('client.show', [
             'client' => $client,

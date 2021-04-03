@@ -6,7 +6,6 @@
     <div class="card-header">
         <h4 class="card-title"> Your Profile</h4>
     </div>
-
     <div class="card-body">
         <div class="text-center">
             <img class="profile-user-img img-fluid img-circle" src="{{asset($client['avatar_image'])}}"
@@ -28,9 +27,9 @@
             </li>
         </ul>
         <div class="d-flex justify-content-end">
-            <a href="{{route('client.edit',['client' => $client['id']])}}" class="btn btn-primary"
-                style="margin-bottom: 10px;">Edit your Profile</a>
-        </div>
+
+        <a href="{{route('client.edit',['client' => $client['id']])}}" class="btn btn-primary"
+            style="margin-bottom: 10px;">Edit  your Profile</a></div>
     </div>
 
 </div>

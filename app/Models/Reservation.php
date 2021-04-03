@@ -14,14 +14,12 @@ class Reservation extends Model
         'client_id',
         'accompany_number',
         'room_number',
-        'paid price', 
+        'paid price',
     ];
     public function client()
     {
-
-       return $this->belongsTo(Client::class)->withDefault([
-        'name' => 'Guest Author',
+        return $this->belongsTo(Client::class, 'user_id')->withDefault([
+        'name' => 'deleted client',
     ]) ;
-       
     }
 }

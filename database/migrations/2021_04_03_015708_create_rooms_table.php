@@ -17,15 +17,16 @@ class CreateRoomsTable extends Migration
             $table->increments('room_number')->start_from(1000);
             // $table->integer('floor_id');
              $table->unsignedInteger('floor_id');///foriegn key to the floorstable
+             $table->string('status')->default('available');
 
-             $table->foreign('floor_id')->nullable()
+            $table->foreign('floor_id')->nullable()
 
              ->references('number')->on('floors')
 
              ->onDelete('cascade');
             //  $table->string('status');
             $table->integer('capacity');
-            $table->float('price_inCents', 8, 3);
+            $table->float('price', 8, 3);
 
             $table->timestamps();
         });

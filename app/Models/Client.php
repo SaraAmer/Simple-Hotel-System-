@@ -31,4 +31,8 @@ class Client extends Model
     {
         return $this->belongsTo(Reservation::class, 'client_id');
     }
+    public function Receptionist()
+    {
+        return $this->belongsTo(Receptionist::class, 'aprovalID');
+    }
 }

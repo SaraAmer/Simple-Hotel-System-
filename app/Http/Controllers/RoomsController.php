@@ -16,30 +16,9 @@ class RoomsController extends Controller
 
         $priceInDollars=[];
         foreach ($allrooms as $room) {
-            $priceInDollars[]= $room->price_inCents *0.01;
+            $priceInDollars[]= $room->price *0.01;
         }
-        //dd($priceInDollars);
-        //dd($priceInDollars);
-
-        //  $priceInCents = $allrooms->map(function ($allrooms) {
-        //     return collect($allrooms->toArray())
-        //         ->only(['price_inCents'])
-        //         ->all();
-        //      });
-        //     dd($priceInCents);
-
-
-        // $priceInCents= Room::all('price_inCents');
-        // dd($priceInCents);
-
-        // $priceInDollars=money_format('$%i', ($priceInCents / 100);
-        //  dd($priceInDollars);
-        //     $allfloors=[];
-        //   foreach ( $allrooms as $room ){
-        //     $allfloors[]=Floor::all()->where('number','=',$room->floor_id);}
-        // $allfloors=Floor::all()
-
-        // dd($allfloors);
+        
         return view(
             'rooms.index',
             [
@@ -90,7 +69,14 @@ class RoomsController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
-        Room::create($requestData);
+        
+        Room::create([
+            'floor_id'=> $request->floor_id,
+            'capacity'=>$request->capacity,
+            'price' => $request->price_inCents,
+           
+
+        ]);
 
         return redirect()->route('rooms.index');
     }
@@ -102,5 +88,4 @@ class RoomsController extends Controller
             'rooms' => $rooms,
         ]);
     }
-
 }

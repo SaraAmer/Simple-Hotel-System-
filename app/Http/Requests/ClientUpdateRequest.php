@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Requests;
+
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Client;
 use App\Models\User;
+
 class ClientUpdateRequest extends FormRequest
 {
     /**
@@ -24,16 +26,14 @@ class ClientUpdateRequest extends FormRequest
      */
     public function rules()
     {
-      
-
         $client = Client::find($this->client);
      
         $user= User::where('email', $client['email'])->first();
-       // dd($user['id']);
+      
         $userId=$user['id'];
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 
+            'email' => ['required', 'string', 'email', 'max:255',
             'unique:clients,email,'.$this->client.'',
             Rule::unique('users', 'email')->ignore($userId)],
             'mobile'=>['digits:11' ,'required'],

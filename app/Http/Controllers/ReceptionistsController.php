@@ -26,28 +26,55 @@ class ReceptionistsController extends Controller
         $receptionist=Receptionist::with(['manager']);
       
         return Datatables::of($receptionist) ->addColumn('managers', function (Receptionist $receptionist) {
-            if (Auth::user()->role=='Admin') {
+            if (Auth::user()->role=='Admin'&&$receptionist->manager) {
                 return empty($receptionist->manager->name) ? $receptionist->manager->name : $receptionist->manager->name;
             } else {
+                if(!$receptionist->manager)
+                return "BY Admin";
             }
         })->addColumn('action', function ($receptionist) {
-            return
-            '<div><a  href="' . route('receptionists.edit', $receptionist->id) .'"> <i class="fas fa-edit"></i>
-            </a>
-            <a  href="' . route('receptionists.show', $receptionist->id) .'"> <i class="fa fa-eye" aria-hidden="true"></i>
-            </a>
-            <a href="" class="delete"  data-id="' . $receptionist->id .'"> 
-            <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
+            if (Auth::user()->user_id==$receptionist->manger_id||Auth::user()->hasRole('admin')) {
+                if($receptionist->isBanned())
+                {
+                    return '<div><a  href="' . route('receptionists.edit', $receptionist->id) .'"> <i class="fas fa-edit"></i>
+                    </a>
+                    <a  href="' . route('receptionists.show', $receptionist->id) .'"> <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <a href="" class="delete"  data-id="' . $receptionist->id .'"> 
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>   
+                    <a href="' . route('receptionists.unban', $receptionist->id) .'">
+                    <i class="fas fa-lock-open"></i>
+                    <a>
+                    </div>'
+                     ;
+                }
+                else {
+                    return '<div><a  href="' . route('receptionists.edit', $receptionist->id) .'"> <i class="fas fa-edit"></i>
+                    </a>
+                    <a  href="' . route('receptionists.show', $receptionist->id) .'"> <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <a href="" class="delete"  data-id="' . $receptionist->id .'"> 
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    <a href="' . route('receptionists.ban', $receptionist->id) .'">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                    <a>
+                    </div>'
+                     ;
+                }
+
+                }
+             
+     
             
-            </div>'
-               
-               ;
         })->editColumn('created_at', function ($request) {
             return $request->created_at->format('Y-m-d');
         }) ->editColumn('updated_at', function ($request) {
             return $request->updated_at->format('Y-m-d');
         })
+
+       
         ->make(true);
     }
     public function create()

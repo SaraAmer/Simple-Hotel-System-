@@ -6,7 +6,7 @@
   <div class="container-fluid">
     @if ($errors->any())
     <div class="alert alert-danger">
-      <ul>  
+      <ul>
         @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
         @endforeach
@@ -21,17 +21,17 @@
       <!-- /.card-header -->
       <!-- form start -->
       <form role="form" method="post" action="{{route('rooms.store')}}" enctype="multipart/form-data">
-            @csrf
-            <div class="card-body">
-         
-            <div class="form-group">
-                <label for="manger_id">Floor Name</label>
-                <select name="floor_id" class="form-control" id="floor_id">
-                  @foreach ($floors as $floor)
-                    <option value="{{$floor->number}}">{{$floor->name}}</option>
-                  @endforeach
-                </select>
-             
+        @csrf
+        <div class="card-body">
+
+          <div class="form-group">
+            <label for="manger_id">Floor Name</label>
+            <select name="floor_id" class="form-control" id="floor_id">
+              @foreach ($floors as $floor)
+              <option value="{{$floor->number}}">{{$floor->name}}</option>
+              @endforeach
+            </select>
+
 
           </div>
           <div class="form-group">
@@ -42,9 +42,10 @@
 
           <div class=" form-group">
             <label for="exampleInputprice_inCents">Price In Cents</label>
-            <input class="form-control" id="exampleInputprice_inCents" pattern="[0-9]*" type="text" name="price_inCents">
+            <input class="form-control" id="exampleInputprice_inCents" pattern="[0-9]*" type="text"
+              name="price_inCents">
           </div>
-          
+
 
         </div>
         <!-- /.card-body -->

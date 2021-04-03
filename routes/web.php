@@ -18,6 +18,7 @@ use App\Http\Middleware\Reciptionist;
 use App\Models\Receptionist;
 use App\Models\User;
 use App\Models\Manager;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,7 +32,7 @@ use App\Models\Manager;
 //Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('home');
 });
 Route::get('/datatables', [DatatablesController::class,'getIndex']);
 Route::get('/userdata', [DatatablesController::class,'anyData'])->name('datatables.data');
@@ -42,8 +43,10 @@ Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function
     Route::get('/receptionists/home', [ReceptionistsController::class, 'home'])->name('receptionist.home');
     Route::get('/receptionist/profile', [ReceptionistsController::class, 'profile'])->name('Receptionist.profile');
     Route::get('/receptionist/ManageClient', [ClientController::class, 'ManageClient'])->name('Receptionist.ManageClient');
+    Route::get('/receptionist/ManageClient/data', [ClientController::class, 'getClientsData'])->name('Receptionist.ManageClient.data');
     Route::get('/receptionist/ClientReservation', [ClientController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
     Route::get('/receptionist/ApprovedClient', [ClientController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
+    Route::get('/receptionist/ApprovedClient/gata', [ClientController::class, 'getData'])->name('Receptionist.ApprovedClient.data');
     Route::get('/receptionist/acceptClient/{client}', [ClientController::class, 'acceptClient'])->name('acceptClient');
 });
 
@@ -61,7 +64,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::put('/managers/{manager}', [ManagersController::class, 'update'])->name('managers.update');
     // Route::delete('/managers/{manager}/edit', [ManagersController::class, 'edit'])->name('managers.destroy');
     Route::delete('/managers/{manager}', [ManagersController::class, 'destroy'])->name('managers.destroy');
-     Route::get('/managers/{manager}', [ManagersController::class, 'show'])->name('managers.show');
+    Route::get('/managers/{manager}', [ManagersController::class, 'show'])->name('managers.show');
 });
 // Route::delete('/managers/{manager}',function($ManagerId)
 // {
@@ -78,7 +81,7 @@ Route::middleware(['auth','admin'])->group(function () {
 
 //Admin OR manager can........................
 Route::middleware(['auth','manager'])->group(function () {
-     Route::get('/manager/data', [ReceptionistsController::class,'getData'])->name('receptionist.data');
+    Route::get('/manager/data', [ReceptionistsController::class,'getData'])->name('receptionist.data');
     Route::get('/manager/home', [ManagersController::class, 'home'])->name('manager.home');
     Route::get('/receptionists', [ReceptionistsController::class, 'index'])->name('receptionists.index');
     Route::post('/receptionists', [ReceptionistsController::class, 'store'])->name('receptionists.store');
@@ -90,7 +93,7 @@ Route::middleware(['auth','manager'])->group(function () {
     Route::delete('/receptionists/{receptionist}', [ReceptionistsController::class, 'destroy'])->name('receptionists.destroy');
     Route::get('/receptionists/{receptionist}', [ReceptionistsController::class, 'show'])->name('receptionists.show');
     Route::get('/clients/{client}', [ClientController::class, 'show'])->name('client.show');
-
+    Route::delete('/client/{client}', [clientController::class, 'destroy'])->name('client.destroy');
     Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms.index');
     Route::post('/rooms', [RoomsController::class, 'store'])->name('rooms.store');
     Route::get('/rooms/create', [RoomsController::class, 'create'])->name('rooms.create');
@@ -108,25 +111,23 @@ Route::middleware(['auth','manager'])->group(function () {
 //Client
 
 Route::middleware('auth')->group(function () {
-
     Route::get('/client/home', [ClientController::class, 'home'])->name('client.home');
     Route::get('/client/browse', [RoomsController::class, 'showAvailabe'])->name('client.browse');
-    Route::get('/client/invoice/{room}', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('clientInvoice');
+    Route::get('/client/invoice/{room}', [App\Http\Controllers\ClientController::class, 'viewInvoices'])->name('client.invoice');
 
     Route::get('/client/reservation', [ClientController::class, 'reserve'])->name('clientReservation');
-    
-    Route::get('/client/checkout/{room}', [App\Http\Controllers\StripeController::class, 'payWithStripe'])->name('checkout');    
-    Route::post('/client/checkout/{room}', [App\Http\Controllers\StripeController::class, 'postPaymentWithStripe'])->name('paywithstripe');    
+
+    Route::get('/client/checkout/{room}', [App\Http\Controllers\StripeController::class, 'payWithStripe'])->name('checkout');
+    Route::post('/client/checkout/{room}/{accompany_number}', [App\Http\Controllers\StripeController::class, 'postPaymentWithStripe'])->name('paywithstripe');
     Route::get('/client', [ClientController::class, 'index'])->name('client');
     Route::delete('/clients/{client}', [ClientController::class, 'destory'])->name('clients.destory');
     Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
     Route::get('/pendedclient', [ClientController::class, 'pendedclienthome'])->name('pendedclient.home');
 
-    Route::delete('/clients/{client}', [ClientController::class, 'delete'])->name('clients.delete');
+    Route::delete('/clients/delete/{client}', [ClientController::class, 'delete'])->name('clients.delete');
 
     Route::post('/clients', [clientController::class, 'store'])->name('client.store');
     Route::get('/client/create', [clientController::class, 'create'])->name('client.create');
     Route::get('/client/{client}/edit', [clientController::class, 'edit'])->name('client.edit');
     Route::put('/client/{client}', [clientController::class, 'update'])->name('client.update');
-    Route::delete('/client/{client}', [clientController::class, 'destroy'])->name('client.destroy');
 });

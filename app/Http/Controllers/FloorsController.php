@@ -45,29 +45,27 @@ class FloorsController extends Controller
 
     public function destroy($floorId)
     {
-        
         $Floor=Floor::where('number', $floorId)->first();
-       
+
 
         $room=Room::where('floor_id', $floorId)->first();
-        if($room==null){
-         Floor::where('number',$floorId)->delete();
-        }
-        else{
-            Session::flash('message', "Floor rooms are not empty it can't be deleted!"); 
-          
+        if ($room==null) {
+            Floor::where('number', $floorId)->delete();
+        } else {
+            Session::flash('message', "Floor rooms are not empty it can't be deleted!");
         }
         return redirect()->route('floors.index');
     }
 
     public function store(Request $request)
     {
-        $manager = Manager::where('email', Auth::user()->email)->first();
+        // $manager = Manager::where('email', Auth::user()->email)->first();
+
         Floor::create([
 
             'name'=> $request->name,
             'number'=>rand(1, 9999),
-            'manger_id'=>$manager->id
+            'manger_id'=>Auth::user()->user_id,
 
 
         ]);

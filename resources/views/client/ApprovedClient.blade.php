@@ -1,19 +1,22 @@
+@extends('layouts.master')
 @extends('layouts.page')
-@section('title')Approved client
+@section('title')Manage Manager
 @endsection
 @section('content')
-@hasanyrole('admin|manager')
 <a href="{{route('client.create')}}" class="btn btn-success text-center"><i
     class="ionicons ion-android-create"></i> Create client</a>
-@endhasanyrole
-<div class="card ">
+<div class="card">
     <div class="card-header">
-      <h3 class="card-title">Create New client </h3>
+        <h3 class="card-title">Managers</h3>
     </div>
 
-  <table id="example2" class="table table-bordered table-hover">
-    <thead>
-      <tr>
+    <div class="card-body">
+        <table id="clients-table" class="table table-bordered table-hover display" style="width:100%">
+
+
+            <thead>
+
+                <tr>
         <th>Client Name</th>
         <th>Client Email</th>
         <th>Client Mobile</th>
@@ -22,38 +25,118 @@
         @hasanyrole('admin|manager')
         <th>Action</th>
         @endhasanyrole
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($ApprovedClient as $client)
-      <tr>
+                </tr>
+            </thead>
 
-        <td>{{ $client['name'] }}</td>
-        <td>{{ $client['email'] }}</td>
-        <td>{{ $client['mobile'] }}</td>
-        <td>{{ $client['country'] }}</td>
-        <td> {{ $client['gender'] }}</td>
-        <td>
-              @hasanyrole('admin|manager')
-              <a href="{{route('client.show',['client' => $client['id']])}}" class="btn btn-primary"
-                style="margin-bottom: 20px;">Show</a>
-                 <a href="{{route('client.edit',['client' => $client['id']])}}" class="btn btn-secondary"
-                    style="margin-bottom: 20px;">Edit</a>
-                    <form method="POST" action="{{route('client.destroy',['client' => $client['id']])}}" style="display:inline;margin:0px;padding:0px">
-                  @csrf @method('DELETE')
-                    <button class="btn btn-danger" style="margin-bottom:20px;" onclick="return confirm('Are you sure you want to delete ?')">Delete</button>
-                  </form>
-                </td>
-            </tr>
-            @endhasanyrole
-            </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
-</div>
-</div>
-</div>
+        </table>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    </div>
 </div>
 
-@endsection
+@stop
+
+@push('scripts')
+@hasanyrole('admin|manager')
+<script>
+    $('#clients-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('Receptionist.ApprovedClient.data') !!}",
+        columns: [
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'email',
+                name: 'email'
+            },
+            {
+                data: 'mobile',
+                name: 'mobile'
+            },
+            {
+                data: 'country',
+                name: 'country'
+            },
+            {
+                data: 'gender',
+                name: 'gender'
+            },
+
+            {
+                data: 'action',
+
+            }
+        ]
+    });
+    $(document).on('click', '.delete', function(e) {
+        let id = $(this).data("id");
+        let answer = confirm("are you sure you want to delete this Manager?");
+
+        if (answer) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                    type: "DELETE",
+                    url: '/client/' + id,
+                    data: {
+                        "manager": id,
+                    },
+                    success: function(data) {
+                       
+                        $('#managers-table').DataTable().ajax.reload();
+                        
+
+                    }
+                }
+
+
+            );
+        }
+
+    });
+</script>
+
+@endhasanyrole
+@hasrole('receptionist')
+<script>
+    $('#clients-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('Receptionist.ApprovedClient.data') !!}",
+        columns: [
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'email',
+                name: 'email'
+            },
+            {
+                data: 'mobile',
+                name: 'mobile'
+            },
+            {
+                data: 'country',
+                name: 'country'
+            },
+            {
+                data: 'gender',
+                name: 'gender'
+            },
+
+           
+        ]
+    });
+  
+</script>
+
+@endrole
+@endpush

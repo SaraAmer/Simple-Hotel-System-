@@ -275,7 +275,7 @@
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    My Reservations
+                                   Manage Clients
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -293,6 +293,12 @@
                                     </a>
                                 </li>
                         </li>
+                        <li class="nav-item">
+                                    <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> Client's Requests</p>
+                                    </a>
+                                </li>
                         @endrole
                     </ul>
 

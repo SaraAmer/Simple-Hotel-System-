@@ -29,22 +29,25 @@ class StripeController extends Controller
 {
 
     public function payWithStripe($room, Request $request){
-        dd($request->getContent());
+        
+        //dd($request->accompany_number);
         $client=Client::where('email', Auth::user()->email)->first();
         $reservedRoom= Room::where('room_number', $room)->first();
        
         return view('client.checkout', [
             'room'=>$room,
             'client'=>$client,
-            'reservedRoom' => $reservedRoom
+            'reservedRoom' => $reservedRoom,
+            'accompany_number'=> $request->accompany_number
             
         ]);
     }
 
 
 
-    public function postPaymentWithStripe(Request $request, $room)
+    public function postPaymentWithStripe($room, $accompany_number, Request $request)
     {   
+       // dd($accompany_number);  
         $reservedRoom= Room::where('room_number', $room)->first();
 
         $client=Client::where('email', Auth::user()->email)->first();
@@ -73,7 +76,7 @@ class StripeController extends Controller
                 ]);
                 if (!isset($token['id'])) {
                     \Session::put('error','The Stripe Token was not generated correctly');
-                    return redirect()->route('checkout', ['room' => $room]);
+                    return redirect()->route('checkout', ['room' => $room, 'accompany_number' => $accompany_number]);
                 }
                 $charge = $stripe->charges()->create([
                     'card' => $token['id'],
@@ -86,27 +89,39 @@ class StripeController extends Controller
                     * Write Here Your Database insert logic.
                    
                     */
+                   // $reservedRoom->update(['status'=> 'unavailable']);
+                  // dd($reservedRoom);
+                    $reservedRoom->update(['status'=> 'unavailable']);
                     $client->update(['has_reservations'=> 'yes']);
+                    $reservation= new Reservation;
+                    $reservation->client_id= $client['id'];
+                    $reservation->accompany_number= $accompany_number;
+                    $reservation->room_number= $room;
                    
+                    $reservation['paid price']= $reservedRoom['price'];
+                    $reservation->save();
+
+
+
 
                     \Session::put('success','Money add successfully in wallet');
-                    return redirect()->route('checkout', ['room' => $room]);
+                    return redirect()->route('checkout', ['room' => $room , 'accompany_number' => $accompany_number]);
                 } else {
                     \Session::put('error','Money not add in wallet!!');
-                    return redirect()->route('checkout', ['room' => $room]);
+                    return redirect()->route('checkout', ['room' => $room, 'accompany_number' => $accompany_number]);
                 }
             } catch (Exception $e) {
                 \Session::put('error',$e->getMessage());
-                return redirect()->route('checkout', ['room' => $room]);
+                return redirect()->route('checkout', ['room' => $room, 'accompany_number' => $accompany_number]);
             } catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
                 \Session::put('error',$e->getMessage());
-                return redirect()->route('checkout', ['room' => $room]);
+                return redirect()->route('checkout', ['room' => $room, 'accompany_number' => $accompany_number]);
             } catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
                 \Session::put('error',$e->getMessage());
-                return redirect()->route('checkout', ['room' => $room]);
+                return redirect()->route('checkout', ['room' => $room, 'accompany_number' => $accompany_number]);
             }
         }
         \Session::put('error','All fields are required!!');
-        return redirect()->route('checkout', ['room' => $room]);
+        return redirect()->route('checkout', ['room' => $room, 'accompany_number' => $accompany_number]);
     }    
 }
