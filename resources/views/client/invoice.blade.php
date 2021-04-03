@@ -83,7 +83,7 @@
                       <tr>
                       
                         <th style="width:50%">Total:</th>
-                        <td>{{$room['price']}}$</td>
+                        <td>{{(float)number_format(($room['price']/100), 2, '.', '')}}$</td>
                       </tr>
                     </table>
                   </div>

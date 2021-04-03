@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ClientCreateRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Registration;
 use App\Models\Client;
@@ -63,6 +64,34 @@ class ClientController extends Controller
 
     public function reserve()
     {
+        $client = Client::where('email', Auth::user()->email)->first();
+        $rooms=Array();
+        
+        if($client['has_reservations'] == "yes"){
+            $reservations=Reservation::where('client_id', $client['id'])->get();
+            //dd($reservedRoomsId[0]['room_number']);
+            //dd(sizeof($reservedRoomsId));
+            
+            foreach($reservations as $reserve){
+               // dd($reserve['room_number']);
+              
+               $room= Room::where('room_number', $reserve['room_number'])->first();
+            
+               array_push($rooms, $room);
+            }
+            
+        }
+        
+        if (!Auth::user()->hasRole('client')) {
+            Auth::user()->assignRole('client');
+        }
+
+
+        return view('client.reservations', [
+
+            'client' => $client,
+            'rooms'=> $rooms
+        ]);
     }
 
 
