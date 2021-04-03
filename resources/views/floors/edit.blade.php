@@ -4,6 +4,15 @@
 @section('content')
 <div class="container">
 <div class="container-fluid">
+@if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
 
         <!-- general form elements -->
         <div class="card card-primary">
@@ -18,7 +27,7 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputName">Name</label>
-                  <input class="form-control" id="exampleInputName"  type="text" name="name" placeholder="{{ $floor['name'] }}">
+                  <input class="form-control" id="exampleInputName"  type="text" name="name" value="{{ $floor['name'] }}">
               </div>
 
             </div>
