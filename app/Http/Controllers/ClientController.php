@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ClientCreateRequest;
 use App\Http\Requests\ClientUpdateRequest;
+use Illuminate\Http\Request;
 use App\Models\Registration;
 use App\Models\Client;
 use App\Models\Receptionist;
@@ -59,7 +60,7 @@ class ClientController extends Controller
         // dd($client);
        
         return view('client.home', [
-            'client' => $client
+            'client' => $client,'rooms'=> $rooms
         ]);
 
         // $client = Client::where('email', Auth::user()->email)->first();
@@ -184,12 +185,12 @@ class ClientController extends Controller
             foreach ($ApprovedClient as $client) {
                 // @dd($client);
                 // dd($client->has_reservations);
-            //    if($client->has_reservations == "yes")
-            //    {
-            // // // if ($ClientApprovedByReceptionist->has_reservations == 'yes')
+               if($client->has_reservations == "yes")
+               {
+            // // if ($ClientApprovedByReceptionist->has_reservations == 'yes')
             $ClientReservation=Reservation:: where('client_id', $client->id)->get();
             //         // dd($ClientReservation);
-            //    }
+               }
             }
         }
         //if role not receptionist so appear All client
