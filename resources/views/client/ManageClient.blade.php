@@ -17,9 +17,9 @@
       <thead>
 
         <tr>
-          <th>Manager's ID</th>
-          <th>Managers's Name</th>
-          <th>Manager's Email</th>
+          <th>client's ID</th>
+          <th>clientss's Name</th>
+          <th>client's Email</th>
           <th>Created at</th>
           <th>Updated at</th>
           <th>Actions</th>

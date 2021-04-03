@@ -1,42 +1,70 @@
+@extends('layouts.master')
 @extends('layouts.page')
-@section('title') Client Reservation
+@section('title')Manage Receptionist
 @endsection
 @section('content')
-<!-- <div class="card-header">
-                <h3 class="card-title">DataTable with minimal features & hover style</h3>
-              </div> -->
+
+<div class="card-header">
+  <h3 class="card-title">Receptionists</h3>
+</div>
 
 <div class="card-body">
-  <table id="example2" class="table table-bordered table-hover">
+  <table id="managers-table" class="table table-bordered table-hover display" style="width:100%">
+
     <thead>
       <tr>
-        <th>Client Name</th>
+
+
+        <th>Client's Name</th>
         <th>Accompany Number</th>
         <th>Room Number</th>
         <th>Client paid price</th>
+
+
       </tr>
     </thead>
-    <tbody>
-
-      @foreach ($ClientReservation as $client)
-      <tr>
-
-        <td>{{ $client->client->name }}</td>
-        <td>{{ $client->accompany_number }}</td>
-        <td>{{ $client->room_number}}</td>
-        <td>{{ $client['paid price']}}</td>
-
-      </tr>
-
-      @endforeach
-    </tbody>
   </table>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
 </div>
-</div>
-</div>
-</div>
-</section>
 </div>
 
-</body>
-@endsection
+@stop
+
+@push('scripts')
+
+<script>
+  $('#managers-table').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "{!! route('Receptionist.ClientReservation.data') !!}",
+    columns: [{
+
+
+        data: 'name',
+        name: 'name'
+      },
+      {
+        data: 'email',
+        name: 'email'
+      },
+      {
+        data: 'created_at',
+        name: 'created_at'
+      },
+      {
+        data: 'updated_at',
+        name: 'updated_at'
+      }
+
+
+
+    ]
+  });
+</script>
+
+</script>
+
+
+@endpush

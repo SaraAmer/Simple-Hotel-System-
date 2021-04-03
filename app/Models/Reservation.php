@@ -18,7 +18,7 @@ class Reservation extends Model
     ];
     public function client()
     {
-        return $this->belongsTo(Client::class, 'user_id')->withDefault([
+        return $this->belongsTo(Client::class, 'client_id')->withDefault([
         'name' => 'deleted client',
     ]) ;
     }

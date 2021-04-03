@@ -29,7 +29,7 @@ use App\Models\Manager;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Auth::routes();
+
 Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return redirect()->route('home');
@@ -45,6 +45,7 @@ Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function
     Route::get('/receptionist/ManageClient', [ClientController::class, 'ManageClient'])->name('Receptionist.ManageClient');
     Route::get('/receptionist/ManageClient/data', [ClientController::class, 'getClientsData'])->name('Receptionist.ManageClient.data');
     Route::get('/receptionist/ClientReservation', [ClientController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
+    Route::get('/receptionist/ClientReservation/data', [ClientController::class, 'ClientReservationData'])->name('Receptionist.ClientReservation.data');
     Route::get('/receptionist/ApprovedClient', [ClientController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
     Route::get('/receptionist/ApprovedClient/gata', [ClientController::class, 'getData'])->name('Receptionist.ApprovedClient.data');
     Route::get('/receptionist/acceptClient/{client}', [ClientController::class, 'acceptClient'])->name('acceptClient');
@@ -66,18 +67,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::delete('/managers/{manager}', [ManagersController::class, 'destroy'])->name('managers.destroy');
     Route::get('/managers/{manager}', [ManagersController::class, 'show'])->name('managers.show');
 });
-// Route::delete('/managers/{manager}',function($ManagerId)
-// {
-//     $manager = Manager::findorfail($ManagerId);
-      
-//     $user=User::where('email', $manager->email)->first();
 
-//     $user->delete();
-//     $manager->delete();
-//     return response()->json([
-//         'message' => 'Data deleted successfully!'
-//       ]);
-// });
 
 //Admin OR manager can........................
 Route::middleware(['auth','manager'])->group(function () {

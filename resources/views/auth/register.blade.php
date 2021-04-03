@@ -141,6 +141,13 @@
 
                     </div>
 
+                    <div class="form-group">
+                        <label for="exampleInputFile">profile picture</label>
+                        <br>
+                        <input id="exampleInputFile" type="file" name="avatar_image" multiple>
+                        <p class="help-block">Uploaded Image must be an image with extensions jpg,jpeg.</p>
+                    </div>
+
 
                     <div class="row">
                         <div class="col-8">
@@ -166,6 +173,7 @@
         </div><!-- /.card -->
     </div>
     <!-- /.register-box -->
+
 
     <!-- jQuery -->
     <script src="../../plugins/jquery/jquery.min.js"></script>

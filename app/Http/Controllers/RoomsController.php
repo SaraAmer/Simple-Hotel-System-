@@ -79,16 +79,16 @@ class RoomsController extends Controller
         if ($request->has('room_image')) {
             $file = $request->file('room_image');
             $name=time().$request->file('room_image')->getClientOriginalName();
-       
+            
             $file->move('roomImgs', $name);
         }
-        $requestData = $request->all();
+   
         
         Room::create([
             'floor_id'=> $request->floor_id,
             'capacity'=>$request->capacity,
             'price' => $request->price_inCents,
-             'image'=>$name ? "roomImgs/".$name :"",
+            'image'=>$name ? "roomImgs/".$name :"room",
 
         ]);
 
