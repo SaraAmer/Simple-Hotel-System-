@@ -6,7 +6,6 @@
     <div class="card-header">
         <h4 class="card-title"> Your Profile</h4>
     </div>
-
     <div class="card-body">
         <div class="text-center">
             <img class="profile-user-img img-fluid img-circle" src="{{asset($client['avatar_image'])}}" alt="User profile picture">

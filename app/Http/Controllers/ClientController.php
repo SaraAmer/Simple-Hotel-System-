@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use App\Http\Requests\ClientCreateRequest;
 use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Registration;
@@ -26,6 +27,8 @@ class ClientController extends Controller
     // now()->format('Y-m-d')
     // dd( new DateTime('-1 months'));
 
+
+
     public function index()
     {
         $client = Client::where('email', Auth::user()->email)->first();
@@ -48,9 +51,9 @@ class ClientController extends Controller
 
         return view('client.home', [
 
- 'client' => $client,
- 'rooms'=> $rooms
- ]);
+            'client' => $client,
+            'rooms'=> $rooms
+        ]);
     }
 
 
