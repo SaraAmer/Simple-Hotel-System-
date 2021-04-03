@@ -46,7 +46,12 @@
               name="price_inCents">
           </div>
 
-
+          <div class="form-group">
+            <label for="exampleInputFile">Image Upload</label>
+            <br>
+            <input id="exampleInputFile" type="file" name="room_image" multiple>
+            <p class="help-block">Uploaded Image must be an image with extensions jpg,jpeg.</p>
+          </div>
         </div>
         <!-- /.card-body -->
 

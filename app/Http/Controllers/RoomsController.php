@@ -44,11 +44,9 @@ class RoomsController extends Controller
 
     public function update($roomId, RoomRequest  $request)
     {
-       
-        
         $requestData= $request->except(['_token', '_method' ]);
         $room= Room::where('room_number', $roomId)->first();
-        $floor=Floor::where('name',$request->floor_name)->first();
+        $floor=Floor::where('name', $request->floor_name)->first();
         Room::where('room_number', $roomId)
                   ->update([
                       'capacity'=> $request->capacity,
@@ -77,13 +75,20 @@ class RoomsController extends Controller
 
     public function store(RoomRequest $request)
     {
+        $name=false;
+        if ($request->has('room_image')) {
+            $file = $request->file('room_image');
+            $name=time().$request->file('room_image')->getClientOriginalName();
+       
+            $file->move('roomImgs', $name);
+        }
         $requestData = $request->all();
         
         Room::create([
             'floor_id'=> $request->floor_id,
             'capacity'=>$request->capacity,
             'price' => $request->price_inCents,
-           
+             'image'=>$name ? "roomImgs/".$name :"",
 
         ]);
 

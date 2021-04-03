@@ -3,9 +3,6 @@
 @endsection
 @section('content')
 <div class="container">
-<<<<<<< HEAD
-  <div class="container-fluid">
-=======
 <div class="container-fluid">
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -16,7 +13,6 @@
       </ul>
     </div>
     @endif
->>>>>>> e72fb3b8289d441e1adfdb8c15be0b04b054ec7a
 
     <!-- general form elements -->
     <div class="card card-primary">
@@ -34,8 +30,6 @@
             <label for="exampleInputName">Name</label>
             <input class="form-control" id="exampleInputName" type="text" name="name" value="{{ $floor['name'] }}">
           </div>
-<<<<<<< HEAD
-=======
           <!-- /.card-header -->
           <!-- form start -->
           <form role="form" method="POST" action="{{route('floors.update',['floor' => $floor['number']])}}"  enctype="multipart/form-data">
@@ -46,7 +40,6 @@
                 <label for="exampleInputName">Name</label>
                   <input class="form-control" id="exampleInputName"  type="text" name="name" value="{{ $floor['name'] }}">
               </div>
->>>>>>> e72fb3b8289d441e1adfdb8c15be0b04b054ec7a
 
         </div>
         <!-- /.card-body -->

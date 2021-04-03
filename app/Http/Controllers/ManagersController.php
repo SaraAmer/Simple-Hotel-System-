@@ -91,10 +91,19 @@ class ManagersController extends Controller
     public function store(ManagerCreateRequest $request)
     {
         // $requestData = $request->all();
+        $name=false;
+        if ($request->has('avatar_image')) {
+            $file = $request->file('avatar_image');
+            $name=time().$request->file('avatar_image')->getClientOriginalName();
+       
+            $file->move('avatars', $name);
+        }
+    
         Manager::create([
                 'name'=> $request->name,
                 'email'=>$request->email,
                 'national_id'=>$request->national_id,
+                'avatar_image'=>$name ? "avatars/".$name :"avatars/default.png",
                 
             ]);
         $manager= Manager::where('email', $request->email)->first();

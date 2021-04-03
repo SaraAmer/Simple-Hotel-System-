@@ -29,13 +29,13 @@ class ReceptionistsController extends Controller
             if (Auth::user()->role=='Admin'&&$receptionist->manager) {
                 return empty($receptionist->manager->name) ? $receptionist->manager->name : $receptionist->manager->name;
             } else {
-                if(!$receptionist->manager)
-                return "BY Admin";
+                if (!$receptionist->manager) {
+                    return "BY Admin";
+                }
             }
         })->addColumn('action', function ($receptionist) {
             if (Auth::user()->user_id==$receptionist->manger_id||Auth::user()->hasRole('admin')) {
-                if($receptionist->isBanned())
-                {
+                if ($receptionist->isBanned()) {
                     return '<div><a  href="' . route('receptionists.edit', $receptionist->id) .'"> <i class="fas fa-edit"></i>
                     </a>
                     <a  href="' . route('receptionists.show', $receptionist->id) .'"> <i class="fa fa-eye" aria-hidden="true"></i>
@@ -48,8 +48,7 @@ class ReceptionistsController extends Controller
                     <a>
                     </div>'
                      ;
-                }
-                else {
+                } else {
                     return '<div><a  href="' . route('receptionists.edit', $receptionist->id) .'"> <i class="fas fa-edit"></i>
                     </a>
                     <a  href="' . route('receptionists.show', $receptionist->id) .'"> <i class="fa fa-eye" aria-hidden="true"></i>
@@ -63,11 +62,7 @@ class ReceptionistsController extends Controller
                     </div>'
                      ;
                 }
-
-                }
-             
-     
-            
+            }
         })->editColumn('created_at', function ($request) {
             return $request->created_at->format('Y-m-d');
         }) ->editColumn('updated_at', function ($request) {
@@ -89,7 +84,6 @@ class ReceptionistsController extends Controller
         $receptionist= Receptionist::find($ReceptionistId);
         $receptionist->update($requestData);
         $receptionist->save();
-
         $user=User::where('user_id', $ReceptionistId)->first();
         $user->update($requestData);
         $user->save();
@@ -121,21 +115,25 @@ class ReceptionistsController extends Controller
 
     public function store(ReceptionistCreateRequest $request)
     {
-        $file = $request->file('avatar_image');
+        $name=false;
+        if ($request->has('avatar_image')) {
+            $file = $request->file('avatar_image');
+            $name=time().$request->file('avatar_image')->getClientOriginalName();
+       
+            $file->move('avatars', $name);
+        }
     
         
         $manager = User::where('email', Auth::user()->email)->first();
         
-        $name=time().$request->file('avatar_image')->getClientOriginalName();
        
-        $file->move('avatars', $name);
 
         Receptionist::create([
             'name'=> $request->name,
             'email'=>$request->email,
             'national_id'=>$request->national_id,
             'manger_id'=> $manager->user_id,
-            'avatar_image'=>"avatars/".$name,
+            'avatar_image'=>$name ? "avatars/".$name :"avatars/default.png",
         ]);
         $receptionist= Receptionist::where('email', $request->email)->first();
 
@@ -179,10 +177,7 @@ class ReceptionistsController extends Controller
         function profile()
         {
             $Receptionist= Receptionist  :: where('id', 1)->first();
-            //Check on Email get from url which i can  get using parameter input as it's different from one to another
-            // $Receptionist= Receptionist  :: where('email',)->first();
-
-            // @dd($Receptionist);
+         
             return view('receptionist/home', ['Receptionist'=> $Receptionist]);
         }
     }

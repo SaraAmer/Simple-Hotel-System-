@@ -96,59 +96,52 @@
                                     @endif
                                 </div>
                             </div>
-<<<<<<< HEAD
-                            <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                <label for="amount" class="col-md-4 control-label">Price</label>
-                                <div class="col-md-6">
-                                    <input id="amount" type="text" class="form-control" name="amount"
-                                        value="{{ $reservedRoom['price'] }}$" autofocus readonly>
-                                    @if ($errors->has('amount'))
-=======
-                        </div>
-                        <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                            <label for="amount" class="col-md-4 control-label">Price</label>
-                            <div class="col-md-6">
-                                <input id="amount" type="text" class="form-control" name="amount" value="{{ (float)number_format(($reservedRoom['price']/100), 2, '.', '') }}$" autofocus readonly>
-                                @if ($errors->has('amount'))
->>>>>>> e72fb3b8289d441e1adfdb8c15be0b04b054ec7a
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('amount') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Pay
-                                    </button>
-                                    <a href="{{ route('client.home') }}" class="btn btn-success">
-                                        Return to home page
-                                    </a>
-                                </div>
-                            </div>
-
-
-
-                        </form>
-
                     </div>
+                    <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+                        <label for="amount" class="col-md-4 control-label">Price</label>
+                        <div class="col-md-6">
+                            <input id="amount" type="text" class="form-control" name="amount"
+                                value="{{ (float)number_format(($reservedRoom['price']/100), 2, '.', '') }}$" autofocus
+                                readonly>
+                            @if ($errors->has('amount'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('amount') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <button type="submit" class="btn btn-primary">
+                                Pay
+                            </button>
+                            <a href="{{ route('client.home') }}" class="btn btn-success">
+                                Return to home page
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                    </form>
+
                 </div>
             </div>
-
         </div>
 
-
-        <script src="https://js.stripe.com/v3/"></script>
-        <script>
-            var stripe = Stripe(
-                'pk_test_51IbCDpAaLrjgDGnF28ASPV9jHzXJrGQqwk8SOzzosVvx3LMWoU5wJpMhue4zZUYOERSTMCNaRVkpyISxL421JOCt00HB3rjP9w'
-                );
-            var elements = stripe.elements();
-        </script>
+    </div>
 
 
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe(
+            'pk_test_51IbCDpAaLrjgDGnF28ASPV9jHzXJrGQqwk8SOzzosVvx3LMWoU5wJpMhue4zZUYOERSTMCNaRVkpyISxL421JOCt00HB3rjP9w'
+        );
+        var elements = stripe.elements();
+    </script>
 
 
-        @endsection
+
+
+    @endsection

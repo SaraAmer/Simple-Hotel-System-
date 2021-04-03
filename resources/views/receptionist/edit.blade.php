@@ -54,11 +54,7 @@
               <label>Profile Image</label>
               <br />
               <img src="{{asset($receptionist['avatar_image'])}}" width="100" heigth="100" />
-              <br />
-              <label for="exampleInputFile"> Upload New Image Profile</label>
-              <br>
-              <input type="file" name="avatar_image">
-              <p class="help-block">Uploaded Image must be an image with extensions jpg,jpeg.</p>
+
             </div>
 
             <!-- /.card-body -->
