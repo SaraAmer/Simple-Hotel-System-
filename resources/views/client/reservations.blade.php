@@ -4,7 +4,6 @@
 @section('content')
 <div class="card card-primary">
     <div class="card-header">
-        <h4 class="card-title"> Your Profile</h4>
     </div>
 
   
@@ -24,29 +23,14 @@
                         <img class="roomImg" style="max-width: 100%;" src="{{asset($room['image'])}}" class="img-fluid mb-2" alt="black sample"/>
                         
                         <p style="margin-bottom: 0; color: black;">Paid price: {{ (float)number_format(($room['price']/100), 2, '.', '') }}$</p>
-                      <p style="margin-bottom: 0; color:black; "> : {{ $room['capacity'] }}</p>
+                      <p style="margin-bottom: 0; color:black; ">Capacity : {{ $room['capacity'] }}</p>
                       <div style="text-align: center;">
 
                       
                       @endforeach
 
 
-            <h3 class="profile-username text-center">{{$client['name']}}</h3>
-
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Gender</b> <a class="float-right">{{$client['gender']}}</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Phone </b> <a class="float-right">{{$client['mobile']}}</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Email</b> <a class="float-right">{{$client['email']}}</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Country</b> <a class="float-right">{{$client['country']}}</a>
-                  </li>
-                </ul>
+  
 
               </div>
             </div>

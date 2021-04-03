@@ -5,7 +5,7 @@
 
 
       <!-- Main content -->
-    
+
 
               <!-- Profile Image -->
               <div class="card card-primary card-outline">
@@ -17,14 +17,14 @@
 
                   <h3 class="profile-username text-center">{{$manager['name']}}</h3>
 
-
+                  <p class="text-muted text-center">Manager</p>
 
                   <ul class="list-group list-group-unbordered mb-3">
-                
+
                     <li class="list-group-item">
                       <b>Email</b> <a class="float-right">{{$manager['email']}}</a>
                     </li>
-                   
+
                     <li class="list-group-item">
                       <b>Receptionist</b> <a class="float-right">{{$receptionists->count()}}</a>
                     </li>

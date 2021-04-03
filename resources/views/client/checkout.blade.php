@@ -3,14 +3,8 @@
 @endsection
 @section('content')
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
 </head>
 <body class="hold-transition sidebar-mini">
 
@@ -40,7 +34,7 @@
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{!! URL::route('paywithstripe', ['room' => $room , 'accompany_number' => $accompany_number]) !!}" >
                         {{ csrf_field() }}
-                        
+
                         @if ($errors->any())
  <div class="alert alert-danger">
  <ul>
@@ -50,7 +44,7 @@
  </ul>
  </div>
  @endif
-                        
+
                         <div class="form-group{{ $errors->has('card_no') ? ' has-error' : '' }}">
                             <label for="card_no" class="col-md-4 control-label">Card No</label>
                             <div class="col-md-6">
@@ -106,7 +100,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -117,9 +111,9 @@
                                 </a>
                             </div>
                         </div>
-                   
 
-                   
+
+
                     </form>
 
             </div>
@@ -135,16 +129,7 @@
     var elements = stripe.elements();
 </script>
 
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
-</body>
-</html>
+
 
 
 @endsection

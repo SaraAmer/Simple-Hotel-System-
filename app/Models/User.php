@@ -24,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail, BannableContract
         'password',
         'role',
         'user_id',
+        'lastlogin',
     ];
     /**
      * The attributes that should be hidden for arrays.

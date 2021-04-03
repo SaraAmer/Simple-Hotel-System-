@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\ClientCreateRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\ClientCreateRequest;
 use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Registration;
 use App\Models\Client;
@@ -18,6 +18,8 @@ use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 // use Illuminate\Notifications\Notifiable;
 use App\Notifications\WelcomeClient;
+use App\Notifications\remindClient;
+
 use Notifiable;
 
 class ClientController extends Controller
@@ -28,10 +30,7 @@ class ClientController extends Controller
     // dd( new DateTime('-1 months'));
 
 
-    public function profile(){
 
-        return view('client.profile');
-    }
     public function index()
     {
         $client = Client::where('email', Auth::user()->email)->first();
@@ -49,14 +48,29 @@ class ClientController extends Controller
         if (!Auth::user()->hasRole('client')) {
             Auth::user()->assignRole('client');
         }
+        //update value of lastlogin in usertable for the specificuser with now
+        $client = User::where('email', Auth::user()->email)->first();
 
-        $client = Client::where('email', Auth::user()->email)->first();
+        // $client->lastlogin=now()->format('Y-m-d');
+        $client->update(['lastlogin' => now()->format('Y-m-d')]);
+
+        $client->save();
+        // dd(now()->format('Y-m-d'));
+
 
         return view('client.home', [
-
             'client' => $client,
+
             'rooms'=> $rooms
         ]);
+
+        // $client = Client::where('email', Auth::user()->email)->first();
+
+        // return view('client.home', [
+
+        //    'client' => $client,
+        // 'rooms'=> $rooms
+        //  ]);
     }
 
 
@@ -132,6 +146,7 @@ class ClientController extends Controller
         //So get data from user table where role is pended client
         //OR for more information get data from Registration table which store All pended client in it
         //    $ManagedClients=User ::where('role', 'pended client')->get();
+
         $ManagedClientsdata= Registration:: all();
         return view(
             'client.ManageClient',
@@ -200,7 +215,7 @@ class ClientController extends Controller
                 // @dd($client);
                 // dd($client->has_reservations);
                 if ($client->has_reservations == "yes") {
-                    // // // if ($ClientApprovedByReceptionist->has_reservations == 'yes')
+                    // // if ($ClientApprovedByReceptionist->has_reservations == 'yes')
                     $ClientReservation=Reservation:: where('client_id', $client->id)->get();
                     //         // dd($ClientReservation);
                 }
@@ -225,7 +240,9 @@ class ClientController extends Controller
         $accepteduser=User ::where('email', $email)->first();
         $accepteduser->update(['role' => "client"]);
         $accepteduser->notify(new WelcomeClient());
-
+        // $delay = now()->addSeconds(10);
+        // $accepteduser>notify((new WelcomeClient())->delay($delay));
+        // dd("accept client");
         //search in registeration table with email and when
         //find it store in Client table and delete it from registeration
         $acceptedClient=Registration ::where('email', $email)->first();
@@ -273,12 +290,17 @@ class ClientController extends Controller
         $user=User::where('email', $clientEmail)->first();
         $user->update($requestData);
         $user->save();
-        return redirect()->route('Receptionist.ApprovedClient');
+        if (Auth::user()->role=="client") {
+            return redirect()->route('client.home');
+        } else {
+            return redirect()->route('Receptionist.ApprovedClient');
+        }
     }
 
     public function edit($clientId)
     {
         $client = Client::find($clientId);
+        dd($client);
         $countries = countries();
         return view('client.edit', [
             'client' => $client,

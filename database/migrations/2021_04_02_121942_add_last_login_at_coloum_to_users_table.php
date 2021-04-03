@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageColumnToRoomsTable extends Migration
+class AddLastLoginAtColoumToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddImageColumnToRoomsTable extends Migration
      */
     public function up()
     {
-        Schema::table('rooms', function (Blueprint $table) {
-            $table->string('image')->default('roomImgs/default.jpeg');
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->date('lastlogin')->nullable();
+
         });
     }
 
@@ -25,5 +27,8 @@ class AddImageColumnToRoomsTable extends Migration
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

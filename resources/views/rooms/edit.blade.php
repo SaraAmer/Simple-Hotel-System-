@@ -26,8 +26,8 @@
         @csrf
         <div class="card-body">
           <div class="form-group">
-            <label for="exampleInputfloor_id">Floor id</label>
-            <input class="form-control" id="exampleInputfloor_id" type="text" name="floor_id" value="{{ $room['floor_id'] }}">
+            <label for="exampleInputfloor_id">Floor Name</label>
+            <input class="form-control" id="exampleInputfloor_id" type="text" name="floor_name" value="{{ $room->floors ? $room->floors->name : 'floor name'}}">
 
           </div>
           <div class="form-group">

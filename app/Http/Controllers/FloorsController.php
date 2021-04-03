@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\AUTH;
 use App\Models\Room;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\FloorCreateRequest; 
+use App\Http\Requests\FloorUpdateRequest;
 
 use App\Models\Floor;
 use App\Models\Manager;
@@ -27,7 +29,7 @@ class FloorsController extends Controller
             'floors.create'
         );
     }
-    public function update($FloorId, Request $request)
+    public function update($FloorId, FloorUpdateRequest $request)
     {
         $floors=  Floor::where("number", $FloorId)->first();
         Floor::where("number", $FloorId)->update($request->except(['_method', '_token']));
@@ -45,29 +47,27 @@ class FloorsController extends Controller
 
     public function destroy($floorId)
     {
-        
         $Floor=Floor::where('number', $floorId)->first();
-       
+
 
         $room=Room::where('floor_id', $floorId)->first();
-        if($room==null){
-         Floor::where('number',$floorId)->delete();
-        }
-        else{
-            Session::flash('message', "Floor rooms are not empty it can't be deleted!"); 
-          
+        if ($room==null) {
+            Floor::where('number', $floorId)->delete();
+        } else {
+            Session::flash('message', "Floor rooms are not empty it can't be deleted!");
         }
         return redirect()->route('floors.index');
     }
 
-    public function store(Request $request)
+    public function store(FloorCreateRequest $request)
     {
-        $manager = Manager::where('email', Auth::user()->email)->first();
+        // $manager = Manager::where('email', Auth::user()->email)->first();
+
         Floor::create([
 
             'name'=> $request->name,
             'number'=>rand(1, 9999),
-            'manger_id'=>$manager->id
+            'manger_id'=>Auth::user()->user_id,
 
 
         ]);
