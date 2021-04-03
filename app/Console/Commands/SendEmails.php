@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Console\Commands;
-
+use App\Models\User;
 use Illuminate\Console\Command;
 use App\Notifications\remindClient;
+use Notifiable;
+use DateTime;
 
 class SendEmails extends Command
 {
@@ -45,6 +47,8 @@ class SendEmails extends Command
             $loginusers= User::where('lastlogin', '<=', new DateTime('-1 months'))->get(); 
             foreach($loginusers as $user){
                 // dd($user);
+                $output = new \Symfony\Component\Console\Output\ConsoleOutput(2);
+                $output->writeln('hello');
                 $user->notify(new remindClient());
             }
 

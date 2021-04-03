@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Notifications\remindClient;
+use App\Console\Commands\SendEmails;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         // SendEmails:: class
+        'App\console\commands\SendEmails',
     ];
 
     /**
@@ -30,10 +32,13 @@ class Kernel extends ConsoleKernel
         // $loginusers= User::where('lastlogin', '<=', new DateTime('-1 months'))->get(); 
         // foreach($loginusers as $user){
         //     // dd($user);
-        //     // $schedule->command(remindClient::class)->daily();
+            $schedule->command('reminder:emails')->daily();
         //     //for test Only
-            $schedule->command(SendEmails:: class)->everyMinute();
+            // $schedule->command(SendEmails:: class)->everyMinute()->withoutOverlapping()->runInBackground();
+            // $schedule->command('reminder:emails')->everyMinute();
+            // $schedule->command('reminder:emails')->everySecond();
         //     // $user->notify(new remindClient()); //byb3t al message
+
         // }
       
     }
