@@ -28,6 +28,11 @@ class ClientController extends Controller
     // now()->format('Y-m-d')
     // dd( new DateTime('-1 months'));
 
+
+    public function profile(){
+
+        return view('client.profile');
+    }
     public function index()
     {
         $client = Client::where('email', Auth::user()->email)->first();
