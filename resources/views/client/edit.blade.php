@@ -4,15 +4,6 @@
 @section('content')
 <div class="container">
 <div class="container-fluid">
-@if ($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-    @endif
 
         <!-- general form elements -->
         <div class="card card-primary">
@@ -33,7 +24,7 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input class="form-control" id="exampleInputName" type="email" name="email"
+                <input class="form-control" id="exampleInputEmail1" type="email" name="email"
                   value="{{ $client['email'] }}">
               </div>
               <div class="form-group">
@@ -42,6 +33,27 @@
                 <input class="form-control" id="exampleInputEmail1" type="mobile" name="mobile"
                   value="{{ $client['mobile'] }}">
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputCountry">Country</label>
+                         <select name="country" class="form-control @error('countries') is-invalid @enderror">
+
+                              @foreach($countries as $country)
+                              {
+                              <option value="{{$country['name']}}">{{$country['name']}}</option>
+                              }
+
+                              @endforeach
+
+                          </select>
+
+
+                          @error('countries')
+                                  <span class="form-control @error('countries') is-invalid @enderror" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                  @enderror
+                    </div>
+
 
 
               <div class="form-group">

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+
 class User extends Authenticatable implements MustVerifyEmail, BannableContract
 {
     use HasFactory, Notifiable, HasRoles , Bannable, HasApiTokens;
@@ -23,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail, BannableContract
         'password',
         'role',
         'user_id',
+        'lastlogin',
     ];
     /**
      * The attributes that should be hidden for arrays.

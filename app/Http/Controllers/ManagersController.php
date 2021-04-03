@@ -29,7 +29,7 @@ class ManagersController extends Controller
 
     public function show($managerId)
     {
-        $manager = Manager::find($managerId); //object of Post model
+        $manager = Manager::find($managerId);
 
         return view('managers.show', [
             'manager' => $manager,
@@ -51,7 +51,7 @@ class ManagersController extends Controller
         $manager->save();
 
         $managerEmail=$manager['email'];
-        $user = User::where('email',$managerEmail)->first();
+        $user = User::where('email', $managerEmail)->first();
         $user->update($requestData);
         $user->save();
         return redirect()->route('managers.index');
@@ -98,6 +98,7 @@ class ManagersController extends Controller
 
         return redirect()->route('managers.index');
     }
+
     public function home()
     {
         $manager = Manager::where('email', Auth::user()->email)->first();
@@ -109,14 +110,6 @@ class ManagersController extends Controller
             'manager'=> $manager,
             'receptionists' => $receptionist,
             'floors' => $floors,
-        ]);
-    }
-    public function show($managerId)
-    {
-        $manager = Manager::find($managerId); //object of Post model
-
-        return view('managers.show', [
-            'manager' => $manager,
         ]);
     }
 }

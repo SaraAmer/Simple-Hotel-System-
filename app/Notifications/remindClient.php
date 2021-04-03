@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeClient extends Notification implements ShouldQueue
+class remindClient extends Notification
 {
     use Queueable;
 
@@ -41,8 +41,8 @@ class WelcomeClient extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/home'))
+                    ->line('Our hotel miss you login now.')
+                    ->action('Notification Action', url('/login'))
                     ->line('Thank you for using our application!');
     }
 

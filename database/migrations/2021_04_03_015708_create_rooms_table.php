@@ -25,7 +25,7 @@ class CreateRoomsTable extends Migration
              ->onDelete('cascade');
             //  $table->string('status');
             $table->integer('capacity');
-            $table->float('price_inCents', 8, 3);
+            $table->float('price', 8, 3);
 
             $table->timestamps();
         });

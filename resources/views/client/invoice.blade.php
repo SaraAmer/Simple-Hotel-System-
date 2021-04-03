@@ -66,7 +66,8 @@
                 <!-- /.col -->
                 <div class="col-6">
                   <p class="lead">Amount Due 2/22/2014</p>
-
+<form action="{{ route('checkout', ['room' => $room['room_number']]) }}" method="GET">
+                  @csrf
                   <div class="table-responsive">
                     <table class="table">
                       
@@ -76,11 +77,13 @@
                       </tr>
                       <tr>
                         <th>accompany number:</th>
-                        <td> <input name="accompany_number" type="number" > </td>
-                      </tr>
+                        <td> <input name="accompany_number" type="number" >note: your accompany number must be less than or equal room capacity</td>
+                      
+                         </tr>
                       <tr>
+                      
                         <th style="width:50%">Total:</th>
-                        <td>{{$room['price_inCents']}}$</td>
+                        <td>{{$room['price']}}$</td>
                       </tr>
                     </table>
                   </div>
@@ -93,12 +96,10 @@
               <div class="row no-print">
                 <div class="col-12">
 
-                  <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                  <a href="{{ route('checkout', ['room' => $room['room_number']]) }}"  class="btn btn-success float-right"><i class="far fa-credit-card"></i> Checkout
-
-                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                    <i class="fas fa-download"></i> Generate PDF
-                  </button>
+                  <button  class="btn btn-success float-right"><i class="far fa-credit-card"></i> Checkout
+</button>
+              
+                  </form>
                 </div>
               </div>
             </div>
