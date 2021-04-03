@@ -48,9 +48,9 @@ class ClientController extends Controller
 
         return view('client.home', [
 
-           'client' => $client,
-           'rooms'=> $rooms
-         ]);
+ 'client' => $client,
+ 'rooms'=> $rooms
+ ]);
     }
 
 

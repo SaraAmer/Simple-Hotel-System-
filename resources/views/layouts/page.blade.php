@@ -151,8 +151,9 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
                         @role('admin')
-                        <li class="nav-item menu-open">
+                        <li class="nav-item menu-close">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -175,15 +176,15 @@
                             </ul>
                             @endrole
                             @hasanyrole('manager|admin')
-                            <li class="nav-item menu-open">
-                                <a href="#" class="nav-link active">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Manage Receptionists
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
+                        <li class="nav-item menu-close">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Manage Receptionists
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
 
 
                                 <li class="nav-item">
@@ -192,73 +193,59 @@
                                         <p> Receptionists</p>
                                     </a>
                                 </li>
-                               </ul>
-                            </li>
+                            </ul>
+                        </li>
 
 
-                                <li class="nav-item menu-open">
-                                    <a href="#" class="nav-link active">
-                                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                                        <p>
-                                            Manage clients
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
+                        <li class="nav-item menu-close">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Manage clients
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Clients</p>
                                     </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
-                                              <i class="far fa-circle nav-icon"></i>
-                                              <p>Clients</p>
-                                            </a>
-                                          </li>
+                                </li>
                                 <li class="nav-item">
                                     <a href="{{Route('Receptionist.ManageClient')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p> Client's Requests</p>
                                     </a>
                                 </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-header border-top"></li>
                                 <li class="nav-item">
-
-                                    <a href="{{route('floors.index')}}" class="nav-link">
-                                        <i class="fas fa-circle nav-icon"></i>
-
-                                        <p>Manage Floors </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('rooms.index')}}" class="nav-link ">
-                                        <i class="fas fa-circle nav-icon"></i>
-                                        <p>Manage Rooms</p>
-                                    </a>
-                                </li>
-                               @endhasanyrole
-                                @role('client')
-                                <ul class="nav nav-treeview">
-                                    <a href="#" class="nav-link active">
-                                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                                        <p>
-                                            Reservations
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                <li class="nav-item">
-                                    <a href="{{ route('client.browse') }}" class="nav-link">
+                                    <a href="{{Route('Receptionist.ClientReservation')}}" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Browse Hotel</p>
+                                        <p>Client Reservation</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('clientReservation') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Your Reservations</p>
-                                    </a>
-                                </li>
-                                 @endrole
-                        @role('receptionist')
-                        <ul class="nav nav-treeview">
+                            </ul>
+                        </li>
+                        <li class="nav-header border-top"></li>
+                        <li class="nav-item">
+
+                            <a href="{{route('floors.index')}}" class="nav-link">
+                                <i class="fas fa-circle nav-icon"></i>
+
+                                <p>Manage Floors </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('rooms.index')}}" class="nav-link ">
+                                <i class="fas fa-circle nav-icon"></i>
+                                <p>Manage Rooms</p>
+                            </a>
+                        </li>
+
+                        @endhasanyrole
+
+                        @role('client')
+                        <li class="nav-item menu-close">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -266,26 +253,54 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-
+                            <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('client.browse') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Browse Hotel</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('clientReservation') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Your Reservations</p>
+                                </a>
+                            </li>
+                            </ul>
+                        </li>
+                            @endrole
+                             @role('receptionist')
+                        <li class="nav-item menu-close">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                     My Reservations
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{Route('Receptionist.ApprovedClient')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p> My Approved Clients</p>
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p> My Approved Clients</p>
                                 </a>
-                              </li>
-                              <li class="nav-item">
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{Route('Receptionist.ClientReservation')}}" class="nav-link ">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Client Reservation</p>
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Client Reservation</p>
                                 </a>
-                              </li>
-                    @endrole
-                    </ul>
+                            </li>
+                        </li>
+                            @endrole
+                        </ul>
 
-                </nav>
-            </div>
 
-        </aside>
+                            </nav>
+                            </div>
+
+                            </aside>
+
  <!-- Control Sidebar -->
  <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
