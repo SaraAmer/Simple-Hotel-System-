@@ -14,6 +14,7 @@ use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\ManagersController;
 use App\Http\Controllers\ReceptionistsController;
 use App\Http\Controllers\ReceptionistController;
+use App\Http\Middleware\Reciptionist;
 use App\Models\Receptionist;
 use App\Models\User;
 use App\Models\Manager;
@@ -51,7 +52,8 @@ Route::middleware(['auth','receptionist' ,'forbid-banned-user'])->group(function
 
 Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
-    Route::get('/managersdata', [ManagersController::class,'getData'])->name('manager.data');
+   
+    Route::get('/recptionist/sdata', [ManagersController::class,'getData'])->name('manager.data');
     Route::get('/managers', [ManagersController::class, 'index'])->name('managers.index');
     Route::post('/managers', [ManagersController::class, 'store'])->name('managers.store');
     Route::get('/managers/create', [ManagersController::class, 'create'])->name('managers.create');
@@ -59,7 +61,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::put('/managers/{manager}', [ManagersController::class, 'update'])->name('managers.update');
     // Route::delete('/managers/{manager}/edit', [ManagersController::class, 'edit'])->name('managers.destroy');
     Route::delete('/managers/{manager}', [ManagersController::class, 'destroy'])->name('managers.destroy');
-    // Route::get('/managers/{manager}', [ManagersController::class, 'show'])->name('managers.show');
+     Route::get('/managers/{manager}', [ManagersController::class, 'show'])->name('managers.show');
 });
 // Route::delete('/managers/{manager}',function($ManagerId)
 // {
@@ -76,6 +78,7 @@ Route::middleware(['auth','admin'])->group(function () {
 
 //Admin OR manager can........................
 Route::middleware(['auth','manager'])->group(function () {
+     Route::get('/manager/data', [ReceptionistsController::class,'getData'])->name('receptionist.data');
     Route::get('/manager/home', [ManagersController::class, 'home'])->name('manager.home');
     Route::get('/receptionists', [ReceptionistsController::class, 'index'])->name('receptionists.index');
     Route::post('/receptionists', [ReceptionistsController::class, 'store'])->name('receptionists.store');

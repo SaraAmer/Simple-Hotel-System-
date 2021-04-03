@@ -28,7 +28,7 @@ class Receptionist extends Model implements BannableContract
     ];
     public function manager()
     {
-        return $this->belongsTo('App\Models\Manager', 'manger_id');
+        return $this->belongsTo('App\Models\Manager', 'manger_id', 'id');
     }
     public function user()
     {

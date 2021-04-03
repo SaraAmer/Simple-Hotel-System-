@@ -61,24 +61,11 @@
               <p class="help-block">Uploaded Image must be an image with extensions jpg,jpeg.</p>
             </div>
 
-          </div>
+            <!-- /.card-body -->
 
-                <div class="form-group">
-                    <label>Profile Image</label>
-                    <br />
-                    <img src="{{asset( $receptionist['avatar_image'] )}}" width="100" heigth="100" />
-                    <br />
-                    <label for="exampleInputFile"> Upload New Image Profile</label>
-                    <br>
-                    <input id="exampleInputFile" type="file" name="avatar_image" multiple>
-                    <p class="help-block">Uploaded Image must be an image with extensions jpg,jpeg.</p>
-                  </div>
-        </div>
-        <!-- /.card-body -->
-
-        <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
-        </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
       </form>
     </div>
   </div>

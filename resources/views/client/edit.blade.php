@@ -42,6 +42,27 @@
                 <input class="form-control" id="exampleInputEmail1" type="mobile" name="mobile"
                   value="{{ $client['mobile'] }}">
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputCountry">Country</label>
+                         <select name="country" class="form-control @error('countries') is-invalid @enderror">
+
+                              @foreach($countries as $country)
+                              {
+                              <option value="{{$country['name']}}">{{$country['name']}}</option>
+                              }
+
+                              @endforeach
+
+                          </select>
+
+
+                          @error('countries')
+                                  <span class="form-control @error('countries') is-invalid @enderror" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                  @enderror
+                    </div>
+
 
 
               <div class="form-group">

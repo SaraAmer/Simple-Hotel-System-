@@ -3,7 +3,7 @@
 @endsection
 @section('content')
       @if(Session::has('message'))
-    
+
 <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('message') }}</p>
 @endif
  <a href="{{route('floors.create')}}" class="btn btn-success text-center"  ><i class="ionicons ion-android-create"></i>  Create Floors</a>
@@ -46,6 +46,7 @@
         <td>{{ \Carbon\Carbon::parse( $floor->updated_at)->isoFormat('Y-M-D') }}</td>
         <td>
             {{-- mfrod tban ly el manager bs ely 3aml create ly el sf7a dih  --}}
+
             <a href="{{route('floors.edit',['floor' => $floor['number']])}}" class="btn btn-secondary" style="margin-bottom: 20px;">Edit</a>
             <form style="display:inline" method="POST"
                 action="{{route('floors.destroy',['floor' => $floor['number']])}}">

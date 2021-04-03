@@ -12,23 +12,43 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\AUTH;
 use Illuminate\Support\Facades\Storage;
+use Yajra\Datatables\Datatables;
 
 class ReceptionistsController extends Controller
 {
     //Display All Receptionists
     public function index()
     {
-        $allReceptionist = Receptionist::all();
-
-        return view(
-            'receptionist.index',
-            [
-                'Receptionist' =>  $allReceptionist,
-                'manager' => Manager::all()
-
-
-            ]
-        );
+        return view('receptionist.index');
+    }
+    public function getData()
+    {
+        $receptionist=Receptionist::with(['manager']);
+      
+        return Datatables::of($receptionist) ->addColumn('managers', function (Receptionist $receptionist) {
+            if (Auth::user()->role=='Admin') {
+                return empty($receptionist->manager->name) ? $receptionist->manager->name : $receptionist->manager->name;
+            } else {
+            }
+        })->addColumn('action', function ($receptionist) {
+            return
+            '<div><a  href="' . route('receptionists.edit', $receptionist->id) .'"> <i class="fas fa-edit"></i>
+            </a>
+            <a  href="' . route('receptionists.show', $receptionist->id) .'"> <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>
+            <a href="" class="delete"  data-id="' . $receptionist->id .'"> 
+            <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+            
+            </div>'
+               
+               ;
+        })->editColumn('created_at', function ($request) {
+            return $request->created_at->format('Y-m-d');
+        }) ->editColumn('updated_at', function ($request) {
+            return $request->updated_at->format('Y-m-d');
+        })
+        ->make(true);
     }
     public function create()
     {
@@ -125,7 +145,7 @@ class ReceptionistsController extends Controller
             Auth::user()->assignRole('receptionist');
         }
         $receptionist = Receptionist::where('email', Auth::user()->email)->first();
-
+       
         return view('receptionist.home', [
             'Receptionist' => $receptionist
         ]);

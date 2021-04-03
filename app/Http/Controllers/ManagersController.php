@@ -19,18 +19,6 @@ class ManagersController extends Controller
 {
     public function index()
     {
-        // $allManagers = Manager::all();
-
-     
-
-        
-        // return view(
-        //     'managers.index',
-        //     [
-
-        //     'Managers' => $allManagers,
-        // ]
-        // );
         return view('managers.index');
     }
     public function getData()
@@ -38,15 +26,21 @@ class ManagersController extends Controller
         $manager=Manager::query();
         return Datatables::of($manager)->addColumn('action', function ($manager) {
             return
-            '<div><a class="btn btn-success btn-sm"" href="' . route('managers.edit', $manager->id) .'"> <i class="fas fa-edit"></i>
+            '<div><a  href="' . route('managers.edit', $manager->id) .'"> <i class="fas fa-edit"></i>
+            </a>
+            <a  href="' . route('managers.show', $manager->id) .'"> <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>
+            <a href="" class="delete"  data-id="' .$manager->id .'"> 
+            <i class="fa fa-trash" aria-hidden="true"></i>
             </a>
             
-            <button class="delete"  data-id="' .$manager->id .'"> 
-            <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
             </div>'
                
                ;
+        }) ->editColumn('created_at', function ($request) {
+            return $request->created_at->format('Y-m-d');
+        }) ->editColumn('updated_at', function ($request) {
+            return $request->updated_at->format('Y-m-d');
         })->make(true);
     }
     public function create()
@@ -62,8 +56,8 @@ class ManagersController extends Controller
         $manager->update($requestData);
         $manager->save();
 
-
-        $user=User::where('user_id', $ManagerId)->first();
+        $managerEmail=$manager['email'];
+        $user = User::where('email', $managerEmail)->first();
         $user->update($requestData);
         $user->save();
         return redirect()->route('managers.index');
@@ -82,7 +76,6 @@ class ManagersController extends Controller
 
     public function destroy($ManagerId)
     {
-       
         $manager = Manager::findorfail($ManagerId);
       
         $user=User::where('email', $manager->email)->first();
@@ -117,6 +110,7 @@ class ManagersController extends Controller
 
         return redirect()->route('managers.index');
     }
+
     public function home()
     {
         $manager = Manager::where('email', Auth::user()->email)->first();
@@ -128,6 +122,14 @@ class ManagersController extends Controller
             'manager'=> $manager,
             'receptionists' => $receptionist,
             'floors' => $floors,
+        ]);
+    }
+    public function show($managerId)
+    {
+        $manager = Manager::find($managerId);
+
+        return view('managers.show', [
+            'manager' => $manager,
         ]);
     }
 }
