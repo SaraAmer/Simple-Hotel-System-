@@ -28,18 +28,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        // $loginusers= User::where('lastlogin', '<=', new DateTime('-1 months'))->get(); 
-        // foreach($loginusers as $user){
-        //     // dd($user);
+       
             $schedule->command('reminder:emails')->daily();
-        //     //for test Only
-            // $schedule->command(SendEmails:: class)->everyMinute()->withoutOverlapping()->runInBackground();
-            // $schedule->command('reminder:emails')->everyMinute();
-            // $schedule->command('reminder:emails')->everySecond();
-        //     // $user->notify(new remindClient()); //byb3t al message
+            $schedule->command('reminder:emails')->everyMinute();
 
-        // }
       
     }
 

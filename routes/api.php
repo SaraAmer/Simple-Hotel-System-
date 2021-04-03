@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\ReceptionistController;
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\RoomController;
 
 use App\Models\User;
@@ -28,16 +28,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //so send token in header 
 //Authorization Bearer
 //Accept application/json
-    Route::get('/receptionist/ManageClient', [ReceptionistController::class, 'ManageClient'])->name('Receptionist.ManageClient')->middleware('auth:sanctum');
-    Route::get('/receptionist/ApprovedClient', [ReceptionistController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
-    Route::get('/receptionist/ClientReservation', [ReceptionistController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
-    Route::get('/receptionist/acceptClient/{client}', [ReceptionistController::class, 'acceptClient'])->name('acceptClient');
+    Route::get('/receptionist/ManageClient', [ClientController::class, 'ManageClient'])->name('Receptionist.ManageClient')->middleware('auth:sanctum');
+    Route::get('/receptionist/ApprovedClient', [ClientController::class, 'ApprovedClient'])->name('Receptionist.ApprovedClient');
+    Route::get('/receptionist/ClientReservation', [ClientController::class, 'ClientReservation'])->name('Receptionist.ClientReservation');
+    Route::get('/receptionist/acceptClient/{client}', [ClientController::class, 'acceptClient'])->name('acceptClient');
    
-// http://127.0.0.1:8000/api/rooms
-//implement index ,show,store
-// Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
-
-// Route::get('/allrooms', [ReceptionistController::class, 'all']);
 
 //to get token for login user 
 //validate data then comapre email user with existinng users and compare  password 

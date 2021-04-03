@@ -43,19 +43,19 @@ class ClientController extends Controller
         if (!Auth::user()->hasRole('client')) {
             Auth::user()->assignRole('client');
         }
-       
+ 
         $client = User::where('email', Auth::user()->email)->first();
 
-        
+
+ 
         $client->update(['lastlogin' => now()->format('Y-m-d')]);
-
+ 
         $client->save();
-       
-
-
+        $clientData=client::where('email', Auth::user()->email)->first();
+ 
         return view('client.home', [
             'client' => $client,
-
+             'clientData'=>$clientData,
             'rooms'=> $rooms
         ]);
     }
@@ -209,24 +209,28 @@ class ClientController extends Controller
     public function ClientReservation()
     {
         if (Auth::user()->role == "Receptionist") {
-            $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->get();
-           
-
-            foreach ($ApprovedClient as $client) {
-                if ($client->has_reservations == "yes") {
-                    $ClientReservation=Reservation:: where('client_id', $client->id)->get();
+            $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->first();
+            $reservations=Array();
+            if($ApprovedClient){
+                $ApprovedClients=Client :: where('aprovalID', Auth::user()->user_id)->get();
+                $reservations=Array();
+                foreach ($ApprovedClients as $client) {
+                    if ($client->has_reservations == "yes") {
+                        $ClientReservation=Reservation:: where('client_id', $client->id)->first();
+                        array_push($reservations, $ClientReservation);
+                    }
                 }
-            }
+                }
+        
         }
         //if role not receptionist so appear All client
         else {
-            $ClientReservation=Reservation:: all();
+            $reservations=Reservation:: all();
         }
-
-
+        //dd($reservations);
         return view(
             'client.ClientReservation',
-            ['ClientReservation' => $ClientReservation]
+            ['ClientReservation' => $reservations]
         );
     }
 
@@ -271,7 +275,8 @@ class ClientController extends Controller
     }
 
     public function update($clientId, ClientUpdateRequest  $request)
-    {
+    {   
+        
         $client = Client::find($clientId);
         $requestData= $request->all();
         $client->update($requestData);

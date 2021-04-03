@@ -121,34 +121,39 @@ class ReceptionistsController extends Controller
 
     public function store(ReceptionistCreateRequest $request)
     {
-        $file = $request->file('avatar_image');
-    
+        $name=false;
+ if ($request->has('avatar_image')) {
+ $file = $request->file('avatar_image');
+ $name=time().$request->file('avatar_image')->getClientOriginalName();
+ 
+ $file->move('avatars', $name);
+ }
+ 
+ 
+ $manager = User::where('email', Auth::user()->email)->first();
+ 
+ 
+ 
+ Receptionist::create([
+ 'name'=> $request->name,
+ 'email'=>$request->email,
+ 'national_id'=>$request->national_id,
+ 'manger_id'=> $manager->user_id,
+ 'avatar_image'=>$name ? "avatars/".$name :"avatars/default.png",
+ ]);
+ $receptionist= Receptionist::where('email', $request->email)->first();
+ 
+ User::create([
+ 'name'=> $request->name,
+ 'email'=>$request->email,
+ 'password' => Hash::make($request['password']),
+ 'role'=>'Receptionist',
+ 'user_id'=>$receptionist->id
+ 
+ ]);
+ 
+ return redirect()->route('receptionists.index');
         
-        $manager = User::where('email', Auth::user()->email)->first();
-        
-        $name=time().$request->file('avatar_image')->getClientOriginalName();
-       
-        $file->move('avatars', $name);
-
-        Receptionist::create([
-            'name'=> $request->name,
-            'email'=>$request->email,
-            'national_id'=>$request->national_id,
-            'manger_id'=> $manager->user_id,
-            'avatar_image'=>"avatars/".$name,
-        ]);
-        $receptionist= Receptionist::where('email', $request->email)->first();
-
-        User::create([
-            'name'=> $request->name,
-            'email'=>$request->email,
-            'password' => Hash::make($request['password']),
-            'role'=>'Receptionist',
-            'user_id'=>$receptionist->id
-
-        ]);
-
-        return redirect()->route('receptionists.index');
     }
     public function ban($ReceptionistId)
     {

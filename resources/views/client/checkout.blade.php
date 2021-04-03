@@ -2,7 +2,7 @@
 @section('title')Index Page
 @endsection
 @section('content')
-
+<head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     crossorigin="anonymous">
 
@@ -35,7 +35,7 @@
                     <div class="panel-heading"> <strong>Complete Payment</strong> </div>
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" id="payment-form" role="form"
-                            action="{!! URL::route('paywithstripe', ['room' => $room , 'capacity' => $accompany_number]) !!}">
+                            action="{!! URL::route('paywithstripe', ['room' => $room , 'accompany_number' => $accompany_number]) !!}">
                             {{ csrf_field() }}
 
                             @if ($errors->any())
@@ -96,28 +96,17 @@
                                     @endif
                                 </div>
                             </div>
-<<<<<<< HEAD
                             <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                <label for="amount" class="col-md-4 control-label">Price</label>
-                                <div class="col-md-6">
-                                    <input id="amount" type="text" class="form-control" name="amount"
-                                        value="{{ $reservedRoom['price'] }}$" autofocus readonly>
-                                    @if ($errors->has('amount'))
-=======
-                        </div>
-                        <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                             <label for="amount" class="col-md-4 control-label">Price</label>
                             <div class="col-md-6">
                                 <input id="amount" type="text" class="form-control" name="amount" value="{{ (float)number_format(($reservedRoom['price']/100), 2, '.', '') }}$" autofocus readonly>
                                 @if ($errors->has('amount'))
->>>>>>> e72fb3b8289d441e1adfdb8c15be0b04b054ec7a
                                     <span class="help-block">
                                         <strong>{{ $errors->first('amount') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
@@ -128,6 +117,10 @@
                                     </a>
                                 </div>
                             </div>
+                        </div>
+
+
+
 
 
 

@@ -3,11 +3,10 @@
 @section('title')Manage Manager
 @endsection
 @section('content')
-<a href="{{route('client.create')}}" class="btn btn-success text-center"><i
-    class="ionicons ion-android-create"></i> Create client</a>
+
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Managers</h3>
+        <h3 class="card-title">Clients</h3>
     </div>
 
     <div class="card-body">

@@ -41,9 +41,9 @@ class remindClient extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Our hotel miss you login now.')
-                    ->action('Notification Action', url('/login'))
-                    ->line('Thank you for using our application!');
+        ->line('Our hotel miss you login now.')
+        ->action('login', url('/'))
+        ->line('Thank you for using our application!');
     }
 
     /**

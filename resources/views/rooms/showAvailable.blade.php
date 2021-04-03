@@ -27,6 +27,8 @@
                       <p class="btn btn-primary" style="margin: 10px 0 0 0 ;">Reserve!</p>
 
                       </a>
+                      </div>
+                      </div>
                       @endforeach
 
 
