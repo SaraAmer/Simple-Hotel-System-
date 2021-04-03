@@ -96,12 +96,21 @@
                                     @endif
                                 </div>
                             </div>
+<<<<<<< HEAD
                             <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                 <label for="amount" class="col-md-4 control-label">Price</label>
                                 <div class="col-md-6">
                                     <input id="amount" type="text" class="form-control" name="amount"
                                         value="{{ $reservedRoom['price'] }}$" autofocus readonly>
                                     @if ($errors->has('amount'))
+=======
+                        </div>
+                        <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+                            <label for="amount" class="col-md-4 control-label">Price</label>
+                            <div class="col-md-6">
+                                <input id="amount" type="text" class="form-control" name="amount" value="{{ (float)number_format(($reservedRoom['price']/100), 2, '.', '') }}$" autofocus readonly>
+                                @if ($errors->has('amount'))
+>>>>>>> e72fb3b8289d441e1adfdb8c15be0b04b054ec7a
                                     <span class="help-block">
                                         <strong>{{ $errors->first('amount') }}</strong>
                                     </span>

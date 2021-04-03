@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Floor;
+use App\Http\Requests\RoomRequest;
 
 class RoomsController extends Controller
 {
@@ -41,12 +42,20 @@ class RoomsController extends Controller
         );
     }
 
-    public function update($roomId, Request  $request)
+    public function update($roomId, RoomRequest  $request)
     {
+       
+        
         $requestData= $request->except(['_token', '_method' ]);
         $room= Room::where('room_number', $roomId)->first();
+        $floor=Floor::where('name',$request->floor_name)->first();
         Room::where('room_number', $roomId)
-                  ->update($requestData);
+                  ->update([
+                      'capacity'=> $request->capacity,
+                      'price_inCents'=> $request->price_inCents,
+                    'floor_id'=> $floor->number,
+
+                  ]);
         $room->save();
         return redirect()->route('rooms.index');
     }
@@ -66,7 +75,7 @@ class RoomsController extends Controller
         return redirect()->route('rooms.index');
     }
 
-    public function store(Request $request)
+    public function store(RoomRequest $request)
     {
         $requestData = $request->all();
         

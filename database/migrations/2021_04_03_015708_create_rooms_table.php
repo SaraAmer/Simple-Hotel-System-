@@ -17,8 +17,7 @@ class CreateRoomsTable extends Migration
             $table->increments('room_number')->start_from(1000);
             // $table->integer('floor_id');
              $table->unsignedInteger('floor_id');///foriegn key to the floorstable
-             $table->string('status')->default('available');
-
+            
             $table->foreign('floor_id')->nullable()
 
              ->references('number')->on('floors')
@@ -27,6 +26,8 @@ class CreateRoomsTable extends Migration
             //  $table->string('status');
             $table->integer('capacity');
             $table->float('price', 8, 3);
+            $table->string('status')->default('available');
+            $table->string('image')->default('roomImgs/default.jpeg');
 
             $table->timestamps();
         });
