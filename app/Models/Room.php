@@ -9,13 +9,15 @@ use App\Models\Floor;
 class Room extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'room_number';
 
     protected $fillable = [
         'floor_id',
         'capacity',
-        'price_inCents',
+        'price',
         'created_at',
-        'updated_at',  
+        'updated_at',
+       'status'
     ];
     public function floors()
     {

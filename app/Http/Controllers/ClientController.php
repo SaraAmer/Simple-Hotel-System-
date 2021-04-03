@@ -24,6 +24,11 @@ class ClientController extends Controller
     // now()->format('Y-m-d')
     // dd( new DateTime('-1 months'));
 
+
+    public function profile(){
+
+        return view('client.profile');
+    }
     public function index()
     {
         $client = Client::where('email', Auth::user()->email)->first();
@@ -36,6 +41,7 @@ class ClientController extends Controller
 
     public function home()
     {
+        $rooms=Room::where('status', 'available')->get();
         if (!Auth::user()->hasRole('client')) {
             Auth::user()->assignRole('client');
         }
@@ -45,8 +51,8 @@ class ClientController extends Controller
 
         return view('client.home', [
 
-            'client' => $client
-
+            'client' => $client,
+            'rooms'=> $rooms
         ]);
     }
 

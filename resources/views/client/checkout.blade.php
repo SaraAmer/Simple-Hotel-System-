@@ -38,7 +38,7 @@
                 @endif
                 <div class="panel-heading"> <strong>Complete Payment</strong> </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{!! URL::route('paywithstripe', ['room' => $room ]) !!}" >
+                    <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{!! URL::route('paywithstripe', ['room' => $room , 'accompany_number' => $accompany_number]) !!}" >
                         {{ csrf_field() }}
                         
                         @if ($errors->any())
@@ -112,7 +112,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Pay
                                 </button>
-                                <a href="{{ route('clientHome') }}" class="btn btn-success">
+                                <a href="{{ route('client.home') }}" class="btn btn-success">
                                     Return to home page
                                 </a>
                             </div>
