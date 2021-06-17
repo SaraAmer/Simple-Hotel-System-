@@ -3,11 +3,13 @@
 @section('title')Manage Manager
 @endsection
 @section('content')
-<a href="{{route('managers.create')}}" class="btn btn-success text-center"><i class="ionicons ion-android-create"></i>
-  Create Manager</a>
+@hasanyrole('admin|manager')
+<a href="{{route('client.create')}}" class="btn btn-success text-center"><i class="ionicons ion-android-create"></i>
+  Create client</a>
+@endhasanyrole
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">Managers</h3>
+    <h3 class="card-title">Clients</h3>
   </div>
 
   <div class="card-body">
@@ -17,9 +19,9 @@
       <thead>
 
         <tr>
-          <th>client's ID</th>
-          <th>clientss's Name</th>
-          <th>client's Email</th>
+          <th>Client Id</th>
+          <th>Client's Name</th>
+          <th>Client's Email</th>
           <th>Created at</th>
           <th>Updated at</th>
           <th>Actions</th>

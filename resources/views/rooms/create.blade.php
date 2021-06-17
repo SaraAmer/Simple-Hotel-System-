@@ -32,13 +32,11 @@
               @endforeach
             </select>
 
-
           </div>
           <div class="form-group">
             <label for="exampleInputcapacity">Capacity</label>
             <input class="form-control" id="exampleInputcapacity" type="capacity" name="capacity">
           </div>
-
 
           <div class=" form-group">
             <label for="exampleInputprice_inCents">Price In Cents</label>
@@ -61,6 +59,5 @@
       </form>
     </div>
   </div>
-
 
   @endsection

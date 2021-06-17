@@ -46,10 +46,6 @@
               <label>Profile Image</label>
               <br />
               <img src="{{asset( $manager['avatar_image'] )}}" width="100" heigth="100" />
-              <br />
-
-
-            </div>
 
           </div>
           <!-- /.card-body -->

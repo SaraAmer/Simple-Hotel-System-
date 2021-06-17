@@ -43,19 +43,19 @@ class ClientController extends Controller
         if (!Auth::user()->hasRole('client')) {
             Auth::user()->assignRole('client');
         }
-       
+ 
         $client = User::where('email', Auth::user()->email)->first();
 
-        
+
+ 
         $client->update(['lastlogin' => now()->format('Y-m-d')]);
-
+ 
         $client->save();
-       
-
-
+        $clientData=client::where('email', Auth::user()->email)->first();
+ 
         return view('client.home', [
             'client' => $client,
-
+             'clientData'=>$clientData,
             'rooms'=> $rooms
         ]);
     }
@@ -97,9 +97,10 @@ class ClientController extends Controller
 
     public function viewInvoices($roomNumber, Request $request)
     {
+        //dd($request);
         $client=Client::where('email', Auth::user()->email)->first();
         $room= Room::where('room_number', $roomNumber)->first();
-  
+        //dd($room);
 
 
 
@@ -206,26 +207,37 @@ class ClientController extends Controller
     //Show
     public function ClientReservation()
     {
-        return view('client.ClientReservation');
+        if (Auth::user()->role == "Receptionist") {
+            $ApprovedClient=Client :: where('aprovalID', Auth::user()->user_id)->first();
+            $reservations=array();
+            if ($ApprovedClient) {
+                $ApprovedClients=Client :: where('aprovalID', Auth::user()->user_id)->get();
+                $reservations=array();
+                foreach ($ApprovedClients as $client) {
+                    if ($client->has_reservations == "yes") {
+                        $ClientReservation=Reservation:: where('client_id', $client->id)->first();
+                        array_push($reservations, $ClientReservation);
+                    }
+                }
+            }
+        }
+        //if role not receptionist so appear All client
+        else {
+            $reservations=Reservation:: all();
+        }
+        //dd($reservations);
+        return view(
+            'client.ClientReservation',
+            ['ClientReservation' => $reservations]
+        );
     }
 
-    public function ClientReservationData()
-    {
-        $client= Reservation::with('client');
-        if (Auth::user()->hasRole('admin')||Auth::user()->hasRole('manager')) {
-            $client=Reservation::query();
-            return Datatables::of($client)->make(true);
-        } else {
-        }
-        // return Datatables::of($client)->where($client->client->aprovalID, Auth::user()->user_id)->make(true);
-    }
-    
 
     public function acceptClient($email)
     {
         $accepteduser=User ::where('email', $email)->first();
         $accepteduser->update(['role' => "client"]);
-        $accepteduser->notify(new WelcomeClient());
+      
        
         $acceptedClient=Registration ::where('email', $email)->first();
       
@@ -241,6 +253,7 @@ class ClientController extends Controller
         $client->aprovalID = Auth::user()->user_id;
         $client->save();
         Registration::where('email', $email)->first()->delete();
+        // $accepteduser->notify(new WelcomeClient());
 
         return redirect()->route('Receptionist.ManageClient');
     }

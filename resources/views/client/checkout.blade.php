@@ -2,7 +2,7 @@
 @section('title')Index Page
 @endsection
 @section('content')
-
+<head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     crossorigin="anonymous">
 
@@ -35,7 +35,7 @@
                     <div class="panel-heading"> <strong>Complete Payment</strong> </div>
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" id="payment-form" role="form"
-                            action="{!! URL::route('paywithstripe', ['room' => $room , 'capacity' => $accompany_number]) !!}">
+                            action="{!! URL::route('paywithstripe', ['room' => $room , 'accompany_number' => $accompany_number]) !!}">
                             {{ csrf_field() }}
 
                             @if ($errors->any())
@@ -96,31 +96,31 @@
                                     @endif
                                 </div>
                             </div>
-                    </div>
-                    <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                        <label for="amount" class="col-md-4 control-label">Price</label>
-                        <div class="col-md-6">
-                            <input id="amount" type="text" class="form-control" name="amount"
-                                value="{{ (float)number_format(($reservedRoom['price']/100), 2, '.', '') }}$" autofocus
-                                readonly>
-                            @if ($errors->has('amount'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('amount') }}</strong>
-                            </span>
-                            @endif
+                            <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+                            <label for="amount" class="col-md-4 control-label">Price</label>
+                            <div class="col-md-6">
+                                <input id="amount" type="text" class="form-control" name="amount" value="{{ (float)number_format(($reservedRoom['price']/100), 2, '.', '') }}$" autofocus readonly>
+                                @if ($errors->has('amount'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('amount') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Pay
+                                    </button>
+                                    <a href="{{ route('client.home') }}" class="btn btn-success">
+                                        Return to home page
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary">
-                                Pay
-                            </button>
-                            <a href="{{ route('client.home') }}" class="btn btn-success">
-                                Return to home page
-                            </a>
-                        </div>
-                    </div>
+
+
 
 
 

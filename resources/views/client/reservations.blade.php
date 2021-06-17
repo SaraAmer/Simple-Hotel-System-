@@ -2,9 +2,7 @@
 @section('title')Index Page
 @endsection
 @section('content')
-<div class="card card-primary">
-    <div class="card-header">
-    </div>
+
 
   
     <!-- Main content -->
@@ -24,12 +22,12 @@
                         
                         <p style="margin-bottom: 0; color: black;">Paid price: {{ (float)number_format(($room['price']/100), 2, '.', '') }}$</p>
                       <p style="margin-bottom: 0; color:black; ">Capacity : {{ $room['capacity'] }}</p>
-                      <div style="text-align: center;">
 
-                      
+                        </div>
+                       
                       @endforeach
 
-
+                      </div>
   
 
               </div>

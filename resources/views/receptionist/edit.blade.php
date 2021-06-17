@@ -54,7 +54,8 @@
               <label>Profile Image</label>
               <br />
               <img src="{{asset($receptionist['avatar_image'])}}" width="100" heigth="100" />
-
+              <br />
+              
             </div>
 
             <!-- /.card-body -->
